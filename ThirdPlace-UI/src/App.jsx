@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import Navbar from './components/navigation/Navbar'
-import NavLinks from './components/navigation/NavLinks'
+import MapSample from './MapSample'
 
 function App() {
 
@@ -17,6 +17,8 @@ function App() {
         </p>
         
       </div>
+
+      <MapSample/>
       
       <p className="gray-text">
       <center>🍒 Powered by Cherry Systems </center>
