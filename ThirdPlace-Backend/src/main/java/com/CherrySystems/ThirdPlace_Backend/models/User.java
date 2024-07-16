@@ -36,7 +36,15 @@ public class User {
         return username;
     }
 
-    @Override
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPwHash(String pwHash) {
+        this.pwHash = pwHash;
+    }
+
+        @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
