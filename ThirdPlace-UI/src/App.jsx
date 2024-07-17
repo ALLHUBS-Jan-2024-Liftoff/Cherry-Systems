@@ -17,8 +17,6 @@ function App() {
         </p>
         
       </div>
-
-      <MapSample/>
       
       <p className="gray-text">
       <center>🍒 Powered by Cherry Systems </center>

@@ -14,9 +14,9 @@ export default function NavLinks() {
                 Submit Location
             </li>
 
-            <li className="nav-item">
-                Login
-            </li>
+            {/* <li className="nav-item">
+                <Link to='/Login' className="nav-item">Login</Link>
+            </li> */}
             
             <button className="navbar-button">Sign Up</button>
 
