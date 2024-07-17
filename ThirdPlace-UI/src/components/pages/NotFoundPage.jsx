@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 export default function NotFoundPage() {
   return (
     <div className='review-card'>
-        404 Not Found
-
+        <p>404 Not Found</p>
+        
         <Link to="/">Back to Home Page</Link>
     </div>
   )

@@ -1,3 +1,5 @@
+import { NavLink, Link } from "react-router-dom";
+
 export default function NavLinks() {
 
     return (
@@ -14,11 +16,15 @@ export default function NavLinks() {
                 Submit Location
             </li>
 
+{/* Not sure if we should use NavLink or Link for these */}
             <li className="nav-item">
-                Login
+                <Link to='/Login'>Login</Link>
             </li>
             
+{/* <a> tag reloads page, Link does not; could use onClick for this */}
+            <a href='/Registration'>
             <button className="navbar-button">Sign Up</button>
+            </a>
 
         </ul>
 

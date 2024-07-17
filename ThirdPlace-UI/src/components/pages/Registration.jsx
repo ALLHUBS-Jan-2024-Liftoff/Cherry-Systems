@@ -7,7 +7,7 @@ export default function Registration() {
     <>
       <Navbar />
 
-      <h2>Register</h2>
+      <h1>Register</h1>
 
       <div className="container review-card">
         <AddUserForm />
