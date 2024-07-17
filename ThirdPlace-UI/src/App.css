@@ -59,6 +59,12 @@ li {
   background-color: #F2F5F5;
 }
 
+/* Trying to change color of NavLink in nav bar; text to white and remove underline */
+.nav-item {
+  color: white;
+  text-decoration: none
+}
+
 button {
   color: white;
   font-weight: 600;
@@ -75,5 +81,25 @@ button:hover {
 }
 
 button:active {
+  background-color: #683287;
+}
+
+/* For Login and Registration pages */
+.submit-button {
+  color: white;
+  font-weight: 600;
+  background-color: #8648A3;
+  margin: .25rem;
+  padding: 10px 24px;
+  border-radius: 100px;
+  border: none;
+  box-shadow: 0px 1px .25rem #6B737D;
+}
+
+.submit-button:hover {
+  box-shadow: 1px 1px .25rem #6B737D;
+}
+
+.submit-button:active {
   background-color: #683287;
 }
