@@ -31,7 +31,7 @@ export default function MapSample() {
 
   return (
     <>
-      <div id="map" style={{ height: "300px", width: "300px" }}></div>
+      <div id="map" style={{ height: "260px", width: "260px" }}></div>
 
       {/* Web Component code, not currently functional */}
       {/* <gmp-map

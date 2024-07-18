@@ -2,10 +2,13 @@ import React from 'react'
 import Navbar from "../navigation/Navbar";
 import MapDisplay from "../../MapDisplay"
 
-export default function Home() {
+export default function Map() {
   return (
     <>
+
     <Navbar/>
+
+    {/* This page is a sample for development purposes only, located at http://localhost:5173/map */}
  
       <h1>Sample Map</h1>
       
@@ -15,8 +18,6 @@ export default function Home() {
       Map display
       </p>
 
-      <div className="review-card">
-        This is sample text. </div>
     </>
   )
 }
