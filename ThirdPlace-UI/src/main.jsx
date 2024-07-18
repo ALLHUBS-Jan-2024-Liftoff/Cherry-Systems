@@ -7,6 +7,7 @@ import Home from "./components/pages/Home.jsx";
 import Registration from "./components/pages/Registration.jsx";
 import NotFoundPage from "./components/pages/NotFoundPage.jsx";
 import Login from "./components/pages/Login.jsx";
+import Map from "./components/pages/Map.jsx"
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login/>,
+  },
+  {
+    path: '/map',
+    element: <Map/>,
   }
 ]);
 

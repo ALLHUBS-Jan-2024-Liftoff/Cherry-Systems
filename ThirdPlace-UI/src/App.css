@@ -103,3 +103,7 @@ button:active {
 .submit-button:active {
   background-color: #683287;
 }
+
+#map {
+  height: 100%;
+}

@@ -16,10 +16,9 @@ export default function NavLinks() {
                 Submit Location
             </li>
 
-{/* Not sure if we should use NavLink or Link for these */}
             <li className="nav-item">
-                <Link to='/Login'>Login</Link>
-            </li>
+                <Link to='/Login' className="nav-item">Login</Link>
+            </li> 
             
 {/* <a> tag reloads page, Link does not; could use onClick for this */}
             <a href='/Registration'>
