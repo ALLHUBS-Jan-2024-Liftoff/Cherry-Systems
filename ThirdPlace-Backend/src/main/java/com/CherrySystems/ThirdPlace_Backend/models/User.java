@@ -1,8 +1,7 @@
 package com.CherrySystems.ThirdPlace_Backend.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
@@ -11,21 +10,28 @@ import java.util.Objects;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
+    @Column(unique=true)
     private String username;
 
     @NotNull
     private String pwHash;
 
+    @NotNull
+    @Email
+    @Column(unique=true)
+    private String email;
+
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.pwHash = password;
+        this.email = email;
     }
 
     public int getId() {
@@ -44,7 +50,15 @@ public class User {
         this.pwHash = pwHash;
     }
 
-        @Override
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
