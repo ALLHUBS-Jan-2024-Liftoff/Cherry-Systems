@@ -1,11 +1,11 @@
-CREATE TABLE Users (
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     pwHash VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE
 );
 
-CREATE TABLE Submissions (
+CREATE TABLE submission (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     location_name VARCHAR(255) NOT NULL,
@@ -18,18 +18,18 @@ CREATE TABLE Submissions (
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
-CREATE TABLE Reviews (
+CREATE TABLE review (
     id INT AUTO_INCREMENT PRIMARY KEY,
     submission_id INT NOT NULL,
     user_id INT NOT NULL,
     rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
-    review TEXT NOT NULL,
+    review_text TEXT NOT NULL,
     review_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (submission_id) REFERENCES Submissions(id),
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
-CREATE TABLE ReviewVotes (
+CREATE TABLE review_vote (
     id INT AUTO_INCREMENT PRIMARY KEY,
     review_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE ReviewVotes (
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
-CREATE TABLE SubmissionVotes (
+CREATE TABLE submission_vote (
     id INT AUTO_INCREMENT PRIMARY KEY,
     submission_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE SubmissionVotes (
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
-CREATE TABLE Favorites (
+CREATE TABLE favorite (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     submission_id INT NOT NULL,

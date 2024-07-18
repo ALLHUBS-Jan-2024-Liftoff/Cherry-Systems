@@ -1,17 +1,16 @@
 package com.CherrySystems.ThirdPlace_Backend.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
@@ -19,6 +18,10 @@ public class User {
 
     @NotNull
     private String pwHash;
+
+    @NotNull
+    @Column(name = "email")
+    private String email;
 
     public User() {
     }
