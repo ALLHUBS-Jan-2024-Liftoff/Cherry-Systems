@@ -41,7 +41,7 @@ public class Submission {
     @Column(name = "submission_review", columnDefinition = "TEXT")
     private String submissionReview;
 
-    @Column(name = "submission_date", columnDefinition = "DATETIME")
+    @Column(name = "submission_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime submissionDate = LocalDateTime.now();
 
 

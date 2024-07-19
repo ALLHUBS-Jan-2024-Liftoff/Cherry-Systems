@@ -14,9 +14,11 @@ public class User {
     private int id;
 
     @NotNull
+    @Column(name = "username")
     private String username;
 
     @NotNull
+    @Column(name = "pw_hash")
     private String pwHash;
 
     @NotNull
