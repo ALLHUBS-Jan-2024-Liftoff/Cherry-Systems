@@ -98,10 +98,6 @@ public class Review {
         this.reviewDate = reviewDate;
     }
 
-
-// Equals and HashCode methods
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

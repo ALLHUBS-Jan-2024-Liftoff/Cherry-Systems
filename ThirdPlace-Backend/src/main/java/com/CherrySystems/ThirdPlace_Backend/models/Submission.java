@@ -44,6 +44,23 @@ public class Submission {
     @Column(name = "submission_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime submissionDate = LocalDateTime.now();
 
+    // Constructors
+
+    public Submission() {
+    }
+
+    public Submission(@NotNull User user, @NotNull String locationName, @NotNull String locationAddress, @NotNull String placeId, @NotNull int rating, @NotNull String description, @NotNull String submissionReview) {
+        this.user = user;
+        this.locationName = locationName;
+        this.locationAddress = locationAddress;
+        this.placeId = placeId;
+        this.rating = rating;
+        this.description = description;
+        this.submissionReview = submissionReview;
+        this.submissionDate = LocalDateTime.now();
+    }
+
+    // Getters and Setters
 
     public int getId() {
         return id;
