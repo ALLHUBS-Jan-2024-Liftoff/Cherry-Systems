@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -14,29 +15,38 @@ public class User {
     private int id;
 
     @NotNull
-    @Column(unique=true)
+    @Column(name = "username", unique=true)
     private String username;
 
     @NotNull
+    @Column(name = "pw_hash")
     private String pwHash;
 
     @NotNull
     @Email
-    @Column(unique=true)
+    @Column(name = "email", unique=true)
     private String email;
 
     public User() {
     }
 
-    public User(String username, String password, String email) {
+    // Constructors
+
+    public User(@NotNull String username, @NotNull String pwHash, @NotNull String email) {
         this.username = username;
-        this.pwHash = password;
+        this.pwHash = pwHash;
         this.email = email;
     }
+
+    // Getters and Setters
 
     public int getId() {
         return id;
     }
+
+    public String getEmail() { return email; }
+    
+    public void setEmail(String email) { this.email = email; }
 
     public String getUsername() {
         return username;
@@ -48,14 +58,6 @@ public class User {
 
     public void setPwHash(String pwHash) {
         this.pwHash = pwHash;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     @Override
