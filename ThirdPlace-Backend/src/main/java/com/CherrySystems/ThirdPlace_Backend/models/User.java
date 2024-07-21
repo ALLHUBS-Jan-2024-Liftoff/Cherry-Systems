@@ -32,9 +32,9 @@ public class User {
 
     // Constructors
 
-    public User(@NotNull String username, @NotNull String pwHash, @NotNull String email) {
+    public User(@NotNull String username, @NotNull String password, @NotNull String email) {
         this.username = username;
-        this.pwHash = pwHash;
+        this.pwHash = password;
         this.email = email;
     }
 
