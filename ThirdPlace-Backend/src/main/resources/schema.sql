@@ -59,3 +59,13 @@ CREATE TABLE favorite (
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (submission_id) REFERENCES Submission(id)
 );
+
+ALTER TABLE review_vote
+ADD CONSTRAINT unique_user_review_vote UNIQUE (user_id, review_id);
+
+ALTER TABLE submission_vote
+ADD CONSTRAINT unique_user_submission_vote UNIQUE (user_id, submission_id);
+
+ALTER TABLE favorite
+ADD CONSTRAINT unique_user_submission_favorite UNIQUE (user_id, submission_id);
+
