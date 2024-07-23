@@ -8,6 +8,7 @@ import Registration from "./components/pages/Registration.jsx";
 import NotFoundPage from "./components/pages/NotFoundPage.jsx";
 import Login from "./components/pages/Login.jsx";
 import Map from "./components/pages/Map.jsx"
+import UserProfile from "./components/pages/UserProfile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,13 +25,5 @@ const router = createBrowserRouter([
     element: <Login/>,
   },
   {
-    path: '/map',
-    element: <Map/>,
-  }
-]);
-
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
-);
+    path: '/profile',
+    element: <UserPr

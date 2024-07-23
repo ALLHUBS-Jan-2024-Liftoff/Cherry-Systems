@@ -44,7 +44,7 @@ export default function AddUserForm() {
         <div className="form-group">
             <label className="form-label">
                 Password
-                <input 
+                <input
                 type="password"
                 field="${registrationFormDTO.password}"
                 className="form-control"
