@@ -34,7 +34,7 @@ export default function ProfileInfoCard({user, deleteUser}) {
           <button
             className="btn btn-danger"
             onClick={() => deleteUser(user.id)}
-          >
+            >
             Delete
           </button>
         </td>
