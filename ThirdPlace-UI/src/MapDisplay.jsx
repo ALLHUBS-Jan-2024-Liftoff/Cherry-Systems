@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import.meta.env.GOOGLE_MAPS_API_KEY;
 
 export default function MapSample() {

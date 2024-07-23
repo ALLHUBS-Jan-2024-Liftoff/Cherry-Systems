@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from "../navigation/Navbar";
-import MapDisplay from "../../MapDisplay"
+import PlaceIdMap from "../../PlaceIdMap";
+import FormattedAddress from "../../FormattedAddress"
 
 export default function Map() {
   return (
@@ -12,8 +13,15 @@ export default function Map() {
  
       <h1>Sample Map</h1>
       
-      <MapDisplay />
+      {/* Hardcoded map */}
+      {/* <MapDisplay /> */}
       
+        <PlaceIdMap />
+
+
+        {/* Formatted address for readability */}
+        {/* <FormattedAddress/> */}
+
       <p className="gray-text">
       Map display
       </p>
