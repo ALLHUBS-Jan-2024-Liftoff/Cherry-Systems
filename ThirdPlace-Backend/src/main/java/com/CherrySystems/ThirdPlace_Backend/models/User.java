@@ -1,6 +1,7 @@
 package com.CherrySystems.ThirdPlace_Backend.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
@@ -14,7 +15,7 @@ public class User {
     private int id;
 
     @NotNull
-    @Column(name = "username")
+    @Column(name = "username", unique=true)
     private String username;
 
     @NotNull
@@ -22,7 +23,8 @@ public class User {
     private String pwHash;
 
     @NotNull
-    @Column(name = "email")
+    @Email
+    @Column(name = "email", unique=true)
     private String email;
 
     public User() {
@@ -30,15 +32,10 @@ public class User {
 
     // Constructors
 
-    public User(@NotNull String username, @NotNull String pwHash, @NotNull String email) {
-        this.username = username;
-        this.pwHash = pwHash;
-        this.email = email;
-    }
-
-    public User(String username, String password) {
+    public User(@NotNull String username, @NotNull String password, @NotNull String email) {
         this.username = username;
         this.pwHash = password;
+        this.email = email;
     }
 
     // Getters and Setters
@@ -48,6 +45,8 @@ public class User {
     }
 
     public String getEmail() { return email; }
+    
+    public void setEmail(String email) { this.email = email; }
 
     public String getUsername() {
         return username;
@@ -61,9 +60,7 @@ public class User {
         this.pwHash = pwHash;
     }
 
-    public void setEmail(String email) { this.email = email; }
-
-        @Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
