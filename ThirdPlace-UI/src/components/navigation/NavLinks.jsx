@@ -13,7 +13,7 @@ export default function NavLinks() {
             </li>
 
             <li className="nav-item">
-                Submit Location
+                <Link to='/SubmitLocation' className="nav-item">Submit Location</Link>
             </li>
 
             <li className="nav-item">
