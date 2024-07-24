@@ -15,6 +15,7 @@ const AddUserForm = () => {
     const [verifyPassword, setVerifyPassword] = useState("");
 
     //Fetch and set all users when components first starts
+    //Will refactor for better security later
     useEffect(() => {
         fetchUsers()
         .then(setUserList)
@@ -24,6 +25,7 @@ const AddUserForm = () => {
     }, []);
 
     //Search all user's for matching username
+    //Will refactor for better security later
     const usernameExists = (username) => {
         userList.forEach(row => {
             if (row.username === username) {
@@ -34,6 +36,7 @@ const AddUserForm = () => {
     };
 
     //Search all user's for matching email
+    //Will refactor for better security later
     const emailExists = (email) => {
         userList.forEach(row => {
             if (row.email === email) {
@@ -47,12 +50,14 @@ const AddUserForm = () => {
         e.preventDefault();
 
         //If username already exists
+        //Will refactor for better security later
         if (usernameExists(username)) {
             e.preventDefault();
             return false;
         }
 
-         //If email already exists
+        //If email already exists
+        //Will refactor for better security later
          if (emailExists(email)) {
             e.preventDefault();
             return false;

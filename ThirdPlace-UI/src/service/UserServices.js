@@ -2,6 +2,8 @@ import axios from "axios";
 
 const BASEAPIURL = "http://localhost:8080/api/user";
 
+//For authorized admin
+//Will refactor for better security later
 export const fetchUsers = async () => {
   try {
     const response = await axios.get(`${BASEAPIURL}/all`);
