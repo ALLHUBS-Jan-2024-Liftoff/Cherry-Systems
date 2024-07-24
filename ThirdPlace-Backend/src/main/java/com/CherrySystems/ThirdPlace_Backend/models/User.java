@@ -3,6 +3,7 @@ package com.CherrySystems.ThirdPlace_Backend.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Objects;
 
@@ -27,19 +28,19 @@ public class User {
     @Column(name = "email", unique=true)
     private String email;
 
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
     public User() {
     }
 
     // Constructors
-
     public User(@NotNull String username, @NotNull String password, @NotNull String email) {
         this.username = username;
-        this.pwHash = password;
+        this.pwHash = encoder.encode(password);
         this.email = email;
     }
 
     // Getters and Setters
-
     public int getId() {
         return id;
     }
@@ -58,6 +59,10 @@ public class User {
 
     public void setPwHash(String pwHash) {
         this.pwHash = pwHash;
+    }
+
+    public boolean isMatchingPassword(String password) {
+        return encoder.matches(password, pwHash);
     }
 
     @Override
