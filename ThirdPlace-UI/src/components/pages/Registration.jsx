@@ -1,8 +1,9 @@
 import React from "react";
 import AddUserForm from "../user/AddUserForm";
 import Navbar from "../navigation/Navbar";
+import { addUser } from "../../service/UserServices";
 
-export default function Registration() {
+const Registration = () => {
   return (
     <>
       <Navbar />
@@ -12,10 +13,12 @@ export default function Registration() {
       <div className="container review-card">
         <AddUserForm />
       </div>
-      
+
       <p className="gray-text">
         <center>🍒 Powered by Cherry Systems </center>
       </p>
     </>
   );
 }
+
+export default Registration;
