@@ -1,36 +1,52 @@
 package com.CherrySystems.ThirdPlace_Backend.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
+    @Column(name = "username", unique=true)
     private String username;
 
     @NotNull
+    @Column(name = "pw_hash")
     private String pwHash;
+
+    @NotNull
+    @Email
+    @Column(name = "email", unique=true)
+    private String email;
 
     public User() {
     }
 
-    public User(String username, String password) {
+    // Constructors
+
+    public User(@NotNull String username, @NotNull String password, @NotNull String email) {
         this.username = username;
         this.pwHash = password;
+        this.email = email;
     }
+
+    // Getters and Setters
 
     public int getId() {
         return id;
     }
+
+    public String getEmail() { return email; }
+    
+    public void setEmail(String email) { this.email = email; }
 
     public String getUsername() {
         return username;
@@ -44,7 +60,7 @@ public class User {
         this.pwHash = pwHash;
     }
 
-        @Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

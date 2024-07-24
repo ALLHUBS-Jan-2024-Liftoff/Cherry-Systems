@@ -7,16 +7,39 @@ export default function LoginForm() {
 
     <form method="post">
         <div className="form-group">
-            <label th:for="username">Username
-                <input className="form-control" field="${loginFormDTO.username}"/>
+            <label className="form-label">
+                Username
+                <input 
+                className="form-control"
+                field="${loginFormDTO.username}"
+                required
+                />
             </label>
             <p className="error text-danger" errors="${loginFormDTO.username}"></p>
         </div>
         <div className="form-group">
-            <label>Password
-                <input className="form-control" field="${loginFormDTO.pwHash}" type="password"/>
+            <label className="form-label">
+                Email
+                <input 
+                type="email"
+                className="form-control"
+                field="${loginFormDTO.email}"
+                required
+                />
             </label>
-            <p className="error text-danger" errors="${loginFormDTO.pwHash}"></p>
+            <p className="error text-danger" errors="${loginFormDTO.email}"></p>
+        </div>
+        <div className="form-group">
+            <label className="form-label">
+                Password
+                <input 
+                type="password"
+                className="form-control"
+                field="${loginFormDTO.password}"
+                required
+                />
+            </label>
+            <p className="error text-danger" errors="${loginFormDTO.password}"></p>
         </div>
 
         <input type="submit" className="submit-button" value="Log In" />
