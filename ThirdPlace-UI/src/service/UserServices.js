@@ -28,7 +28,7 @@ export const addUser = async (username, email, password) => {
 
 export const deleteUser = async (userId) => {
   try {
-    await axios.post(`${BASEAPIURL}delete`, null, {
+    await axios.post(`${BASEAPIURL}/delete`, null, {
       params: { userId },
     });
   } catch (error) {
