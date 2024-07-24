@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { addUser } from '../../service/UserServices';
 import { fetchUsers } from '../../service/UserServices';
-import { HttpStatusCode } from 'axios';
-import axios from 'axios';
 
 const AddUserForm = () => {
     const navigate = useNavigate();
+
+    const [userList, setUserList] = useState("");
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -14,16 +14,48 @@ const AddUserForm = () => {
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
 
+    //Fetch and set all users when components first starts
+    useEffect(() => {
+        fetchUsers()
+        .then(setUserList)
+        .catch((error) => {
+            console.error("There was an error fetching to Users", error);
+        });
+    }, []);
+
+    //Search all user's for matching username
+    const usernameExists = (username) => {
+        userList.forEach(row => {
+            if (row.username === username) {
+                alert('Username already exists');
+                return true;
+            }
+        });
+    };
+
+    //Search all user's for matching email
+    const emailExists = (email) => {
+        userList.forEach(row => {
+            if (row.email === email) {
+                alert('Email already exists');
+                return true;
+            }
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (username !== "" && email !== "" && verifyEmail !== "" && password !== "" && verifyPassword !== "") {
-            addUser(username, email, password);
-            // setUsername("");
-            // setEmail("");
-            // setVerifyEmail("");
-            // setPassword("");
-            // setVerifyPassword("");
+        //If username already exists
+        if (usernameExists(username)) {
+            e.preventDefault();
+            return false;
+        }
+
+         //If email already exists
+         if (emailExists(email)) {
+            e.preventDefault();
+            return false;
         }
 
         //If emails don't match
@@ -38,6 +70,10 @@ const AddUserForm = () => {
             alert('Passwords do not match');
             e.preventDefault();
             return false;
+        }
+
+        if (username !== "" && email !== "" && verifyEmail !== "" && password !== "" && verifyPassword !== "") {
+            addUser(username, email, password);
         }
         
         navigate("/profile");
@@ -57,7 +93,6 @@ const AddUserForm = () => {
                         required
                         />
                     </label >
-                    <p className="error text-danger" errors="error"></p>
                 </div>
                 <div className="form-group">
                     <label className="form-label">
@@ -70,7 +105,6 @@ const AddUserForm = () => {
                         required
                         />
                     </label>
-                    <p className="error text-danger" errors=""></p>
                 </div>
                 <div className="form-group">
                     <label className="form-label">
@@ -95,7 +129,6 @@ const AddUserForm = () => {
                         required
                         />
                     </label>
-                    <p className="error text-danger" errors=""></p>
                 </div>
                 <div className="form-group">
                     <label className="form-label">
