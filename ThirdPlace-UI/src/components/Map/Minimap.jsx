@@ -1,9 +1,9 @@
 import.meta.env.GOOGLE_MAPS_API_KEY;
 
-export default function MapSample() {
+export default function Minimap(props) {
   
   let map;
-  let placeId = "ChIJh25wB-7_dYgR_PxH5m5ScMA";
+  let placeId = props.placeId.placeId;
 
   async function initMap() {
     const { Map } = await google.maps.importLibrary("maps");
