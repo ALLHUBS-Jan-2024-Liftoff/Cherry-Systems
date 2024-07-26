@@ -10,7 +10,8 @@ import Login from "./components/pages/Login.jsx";
 import Map from "./components/pages/Map.jsx"
 import UserProfile from "./components/pages/UserProfile.jsx";
 import SubmitLocation from "./components/pages/SubmitLocation.jsx";
-import ViewLocations from "./components/pages/ViewLocations.jsx"
+import Submission from "./components/pages/Submission.jsx";
+import SearchAndList from "./components/pages/SearchAndList.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,8 +40,12 @@ const router = createBrowserRouter([
     element: <SubmitLocation/>,
   },
   {
-    path: '/viewlocations',
-    element: <ViewLocations/>,
+    path: '/submission',
+    element: <Submission/>,
+  }, 
+  {
+    path: '/searchandlist',
+    element: <SearchAndList/>,
   }
 ]);
 
