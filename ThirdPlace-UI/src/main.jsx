@@ -8,6 +8,8 @@ import Registration from "./components/pages/Registration.jsx";
 import NotFoundPage from "./components/pages/NotFoundPage.jsx";
 import Login from "./components/pages/Login.jsx";
 import Map from "./components/pages/Map.jsx"
+import UserProfile from "./components/pages/UserProfile.jsx";
+import SubmitLocation from "./components/pages/SubmitLocation.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +26,16 @@ const router = createBrowserRouter([
     element: <Login/>,
   },
   {
+    path: '/profile',
+    element: <UserProfile/>,
+  },
+  {
     path: '/map',
     element: <Map/>,
+  },
+  {
+    path: '/submitlocation',
+    element: <SubmitLocation/>,
   }
 ]);
 

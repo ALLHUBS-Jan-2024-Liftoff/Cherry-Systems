@@ -22,19 +22,19 @@ public class UserController {
     }
 
 //    Create new User
-    @PostMapping("/registration")
-    public User newUser(@RequestBody User newUser){
-        return userRepository.save(newUser);
-    }
-
 //    @PostMapping("/registration")
-//    public User newUser(@RequestParam String username, @RequestParam String password, @RequestParam String email){
-//        User newUser = new User(username, password, email);
-//        newUser.setUsername(username);
-//        newUser.setPwHash(password);
-//        newUser.setEmail(email);
+//    public User newUser(@RequestBody User newUser){
 //        return userRepository.save(newUser);
 //    }
+
+    @PostMapping("/registration")
+    public User newUser(@RequestParam String username, @RequestParam String password, @RequestParam String email){
+        User newUser = new User(username, password, email);
+        newUser.setUsername(username);
+        newUser.setPwHash(password);
+        newUser.setEmail(email);
+        return userRepository.save(newUser);
+    }
 
 //    Delete User
     @PostMapping("/delete")

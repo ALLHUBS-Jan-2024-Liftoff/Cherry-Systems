@@ -1,8 +1,11 @@
 import React from 'react'
 import Navbar from "../navigation/Navbar";
-import MapDisplay from "../../MapDisplay"
+import Minimap from "../Map/Minimap";
 
 export default function Map() {
+
+  let placeId = {placeId: "ChIJh25wB-7_dYgR_PxH5m5ScMA"};
+  
   return (
     <>
 
@@ -12,8 +15,8 @@ export default function Map() {
  
       <h1>Sample Map</h1>
       
-      <MapDisplay />
-      
+        <Minimap placeId={placeId}/>
+
       <p className="gray-text">
       Map display
       </p>
