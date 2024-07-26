@@ -9,7 +9,7 @@ export default function NavLinks() {
         <ul className="navbar-nav me-auto mb-2 mb-lg-0 p-1">
 
             <li className="nav-item">
-                View Locations
+                <Link to='/ViewLocations' className="nav-item">View Locations</Link>
             </li>
 
             <li className="nav-item">

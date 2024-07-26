@@ -10,6 +10,7 @@ import Login from "./components/pages/Login.jsx";
 import Map from "./components/pages/Map.jsx"
 import UserProfile from "./components/pages/UserProfile.jsx";
 import SubmitLocation from "./components/pages/SubmitLocation.jsx";
+import ViewLocations from "./components/pages/ViewLocations.jsx"
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: '/submitlocation',
     element: <SubmitLocation/>,
+  },
+  {
+    path: '/viewlocations',
+    element: <ViewLocations/>,
   }
 ]);
 
