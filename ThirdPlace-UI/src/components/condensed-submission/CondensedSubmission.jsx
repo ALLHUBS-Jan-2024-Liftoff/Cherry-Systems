@@ -1,17 +1,20 @@
 import Address from "./Address"
 
 export default function CondensedSubmission(props) {
-    //TODO pass in props
+
+    //TODO clicking submission routes to its submission listing page
 
     let data = props;
 
     return (
-       
-        <div className="review-card">
-            <h6>{data.props.location_name}</h6>
+       <>
+        <td>
+            <h6>{data.props.locationName}</h6>
             <Address props={data.props}/>
-        </div>
-
+        </td>
+    {/* //TODO display average star rating */}
+        <td>⭐⭐⭐⭐⭐</td>
+        </>
     
     )
 }
