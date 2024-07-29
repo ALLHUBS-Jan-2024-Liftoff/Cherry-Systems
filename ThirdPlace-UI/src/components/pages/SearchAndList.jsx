@@ -6,6 +6,10 @@ import CondensedSubmission from "../condensed-submission/CondensedSubmission.jsx
 export default function SearchAndList() {
   const [submissions, setSubmissions] = useState([]);
 
+  // https://www.youtube.com/watch?v=xAqCEBFGdYk 5:45 finish below
+  const [input, setInput] = useState("");
+  console.log(input);
+
   useEffect(() => {
     loadSubmissions();
   }, []);
@@ -28,35 +32,34 @@ export default function SearchAndList() {
           <h5>Search by:</h5>
 
           <div className="form-check form-check-inline">
-
-          <input className="form-check-input" type="radio" name="searchAll" value="all"/>
           <label className="form-check-label">
+          <input className="form-check-input" type="radio" name="searchAll" value="all"/>
             <span> All</span> 
           </label>
           </div>
 
           <div className="form-check form-check-inline">
-          <input className="form-check-input" type="radio" name="searchByName" value="name" disabled/>
           <label className="form-check-label">
+          <input className="form-check-input" type="radio" name="searchByName" value="name" disabled/>
             <span> Name</span> 
           </label>
           </div>
 
           <div className="form-check form-check-inline">
-          <input className="form-check-input" type="radio" name="searchByAddress" value="address" disabled/>
           <label className="form-check-label">
+          <input className="form-check-input" type="radio" name="searchByAddress" value="address" disabled/>
             <span> Address</span> 
           </label>
           </div>
 
           <div className="form-check form-check-inline">
-          <input className="form-check-input" type="radio" name="searchByRating" value="rating" disabled/>
           <label className="form-check-label">
+          <input className="form-check-input" type="radio" name="searchByRating" value="rating" disabled/>
             <span> Rating</span> 
             </label>
             </div>
 
-          <input className="form-control" name="searchQuery" />
+          <input className="form-control" name="searchQuery" value={input} onChange={(e) => setInput(e.target.value)}/>
           
         </div>
 
