@@ -22,7 +22,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
     AuthenticationController authenticationController;
 
 //    Refactor whitelist to allowlist later
-    private static final List<String> whitelist = Arrays.asList("/login", "/registration", "/logout");
+    private static final List<String> whitelist = Arrays.asList("/", "/home", "/login", "/registration", "/logout");
 
     private static boolean isWhitelisted(String path) {
         for (String pathRoot : whitelist) {
@@ -53,7 +53,14 @@ public class AuthenticationFilter implements HandlerInterceptor {
         }
 
         // The user is NOT logged in
-        response.sendRedirect("/login");
-        return false;
+        if (request.getMethod().equals("OPTIONS")) {
+            // For preflight requests to check what methods are allowed, respond with the necessary CORS headers
+            response.setStatus(HttpServletResponse.SC_OK);
+            return true;
+        } else {
+            // For other requests, respond with a CORS error
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return false;
+        }
     }
 }
