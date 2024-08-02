@@ -2,7 +2,7 @@ import React from 'react';
 import ProfileInfoCard from '../user/ProfileInfoCard';
 import Navbar from '../navigation/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from "../../context/AuthProvider";
+import { useAuth } from "../../context/AuthContext";
 
 export default function UserProfile() {
   const { user, logout } = useAuth();

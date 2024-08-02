@@ -31,7 +31,7 @@ export const login = async (username, email, password) => {
 
         console.error("Error logging in user!", allDefaultMessages);
     throw error;
-    }
+    };
 
 };
 
@@ -40,16 +40,22 @@ export const getCurrentUser = async () => {
         const response = await axios.get (`${BASEAPIURL}/currentUser`, {}, { 
             withCredentials: true 
         });
-        
-        return response.data;
+
+        const user = response.data;
+
+        return user;
     } catch (error) {
-        console.error('No authorized user!', error);
+        console.error('No current user found!', error);
         throw error;
     };
 };
 
 export const isAuthenticated = () => {
     // Add code to authenticate user
+    const user = getCurrentUser();
+    if (user) {
+        return true;
+    };
 };
 
 export const logout = async () => {

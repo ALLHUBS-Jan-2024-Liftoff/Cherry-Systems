@@ -24,6 +24,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const user = await authLogin(username, email, password);
             setUser(user);
+            console.log(user);
         } catch (error) {
             console.error('Failed to login!', error);
             throw error;

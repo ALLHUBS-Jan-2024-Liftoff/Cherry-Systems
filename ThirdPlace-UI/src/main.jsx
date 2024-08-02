@@ -12,7 +12,7 @@ import UserProfile from "./components/pages/UserProfile.jsx";
 import SubmitLocation from "./components/pages/SubmitLocation.jsx";
 import Submission from "./components/pages/Submission.jsx";
 import SearchAndList from "./components/pages/SearchAndList.jsx";
-import { AuthProvider } from "./context/AuthProvider.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 
 const router = createBrowserRouter([

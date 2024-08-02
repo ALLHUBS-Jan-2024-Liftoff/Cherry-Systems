@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { login } from '../../service/AuthService';
-import { useAuth } from '../../context/AuthProvider';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+
 
 
 const LoginForm = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const [error, setError] = useState("");
-    const navigate = useNavigate();
-
     const [success, setSuccess] = useState(false);
+    const {login} = useAuth();
 
     useEffect(() => {
         setError('');
@@ -22,19 +20,14 @@ const LoginForm = () => {
         e.preventDefault();
 
         try {
-            login(username, email, password)
-            .catch(setError);
+            await login(username, email, password);
 
             setUsername('');
             setEmail('');
             setPassword('');
             setSuccess(true);
         } catch (error) {
-            if (error) {
-                throw error;
-            } else {
-                setError('Login failed');
-            }
+            setError('Login failed');
         }
 
     };

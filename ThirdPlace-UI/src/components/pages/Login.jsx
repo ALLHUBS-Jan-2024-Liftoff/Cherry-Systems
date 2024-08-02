@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginForm from '../user/LoginForm';
 import Navbar from "../navigation/Navbar";
+import { AuthProvider } from '../../context/AuthContext';
 
 export default function Login() {
   return (
@@ -10,7 +11,9 @@ export default function Login() {
       <h1>Login</h1>
 
       <div className="container review-card">
-        <LoginForm />
+        <AuthProvider>
+          <LoginForm />
+        </AuthProvider>
       </div>
       
       <p className="gray-text">
