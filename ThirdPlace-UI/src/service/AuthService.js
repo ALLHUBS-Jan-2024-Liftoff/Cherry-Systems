@@ -11,15 +11,13 @@ export const login = async (username, email, password) => {
 
     try {
         const response = await axios.post(`${BASEAPIURL}/login`, userData, {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true
+            withCredentials: true,
+            headers: { 'Content-Type': 'application/json' }
     });
-        const { token, user } = response.data;
-        
         // Log entire response object
         console.log("Login Response: ", response.data, response.status, user);
         
-        return user;
+        return response.data;
     } catch (error) {
         const errorData = error.response.data;
         let allDefaultMessages = [];
@@ -38,23 +36,14 @@ export const login = async (username, email, password) => {
 export const getCurrentUser = async () => {
     try {
         const response = await axios.get (`${BASEAPIURL}/currentUser`, {}, { 
-            withCredentials: true 
+            withCredentials: true,
+            headers: { 'Content-Type': 'application/json' }
         });
 
-        const user = response.data;
-
-        return user;
+        return response.data;
     } catch (error) {
         console.error('No current user found!', error);
-        throw error;
-    };
-};
-
-export const isAuthenticated = () => {
-    // Add code to authenticate user
-    const user = getCurrentUser();
-    if (user) {
-        return true;
+        return null;
     };
 };
 
@@ -63,6 +52,7 @@ export const logout = async () => {
         const response = await axios.post(`@{BASEAPIURL}/logout`, {}, { 
             withCredentials: true 
         });
+
         return response.data;
     } catch (error) {
         console.error('Failed to logout!', error);

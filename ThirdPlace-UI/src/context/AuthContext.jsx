@@ -1,7 +1,5 @@
 import { createContext, useEffect, useState, useContext } from "react";
-import { getCurrentUser, login as authLogin, logout as authLogout, isAuthenticated } from "../service/AuthService";
-import { useNavigate } from "react-router-dom";
-import Login from "../components/pages/Login";
+import { getCurrentUser, login as authLogin, logout as authLogout } from "../service/AuthService";
 
 const AuthContext = createContext();
 
@@ -11,12 +9,13 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const navigate = useNavigate();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
         const currentUser = getCurrentUser();
         if (currentUser) {
             setUser(currentUser);
+            setIsAuthenticated(true);
         }
     }, []);
 
@@ -24,6 +23,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const user = await authLogin(username, email, password);
             setUser(user);
+            setIsAuthenticated(true);
             console.log(user);
         } catch (error) {
             console.error('Failed to login!', error);
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     const handleLogout = () => {
         authLogout();
         setUser(null);
-        navigate(<Login/>);
+        setIsAuthenticated(false);
     };
 
     return(
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
             user,
             login: handleLogin,
             logout: handleLogout,
-            isAuthenticated: isAuthenticated()
+            isAuthenticated
             }}
         >
             { children }

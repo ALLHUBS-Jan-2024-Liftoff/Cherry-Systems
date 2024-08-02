@@ -10,7 +10,7 @@ const LoginForm = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
-    const {login} = useAuth();
+    const { login } = useAuth();
 
     useEffect(() => {
         setError('');
