@@ -1,7 +1,6 @@
 import React from "react";
 import AddUserForm from "../user/AddUserForm";
 import Navbar from "../navigation/Navbar";
-import { addUser } from "../../service/UserServices";
 
 const Registration = () => {
   return (

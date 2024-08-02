@@ -14,7 +14,7 @@ export const fetchUsers = async () => {
   }
 };
 
-export const addUser = async (username, email, verifyEmail, password, verifyPassword) => {
+export const registerUser = async (username, email, verifyEmail, password, verifyPassword) => {
   const userData = {
     username,
     email,
