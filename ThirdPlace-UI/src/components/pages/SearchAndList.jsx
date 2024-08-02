@@ -12,11 +12,10 @@ export default function SearchAndList() {
   // https://www.youtube.com/watch?v=KRJvlxhLXxk
 
   const [input, setInput] = useState("");
-  console.log("printing input:");
-  console.log(input);
 
   useEffect(() => {
     loadSubmissions();
+    console.log("useEffect ran!")
   }, []);
 
   const loadSubmissions = async () => {
@@ -26,6 +25,7 @@ export default function SearchAndList() {
         console.error("Error fetching data");
       });
     setSubmissions(result.data);
+    console.log("loadSubmissions ran!")
   };
   console.log("printing submissions value onload:");
   console.log(submissions);
@@ -33,20 +33,35 @@ export default function SearchAndList() {
   const [resultRecords, setResultRecords] = useState([]);
 
   const handleChange = (value) => {
+    console.log("handleChange triggered! setting input value...");
+
     setInput(value);
+
+    console.log("handleChange input value:");
+    console.log(input);
+
 
     setResultRecords(
       submissions.filter(function (value) {
         return (
           value.locationName.toLowerCase().includes(input.toLowerCase()) 
-          &&
+          ||
           value.locationAddress.toLowerCase().includes(input.toLowerCase())
         );
       })
     );
-    console.log("resultRecords");
+
+    console.log("resultRecords in handleChange after setResultRecords:");
     console.log(resultRecords);
+
+    console.log("end of handleChange function");
+
   };
+
+  console.log("input value at end of code:");
+  console.log(input);
+  console.log("resultRecords value at end of code:");
+  console.log(resultRecords);
 
   return (
     <div>
