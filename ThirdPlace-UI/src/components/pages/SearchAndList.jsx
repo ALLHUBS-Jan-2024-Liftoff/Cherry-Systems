@@ -4,7 +4,6 @@ import Navbar from "../navigation/Navbar";
 import CondensedSubmission from "../condensed-submission/CondensedSubmission.jsx";
 
 export default function SearchAndList() {
-
   const [submissions, setSubmissions] = useState([]);
 
   // https://www.youtube.com/watch?v=xAqCEBFGdYk
@@ -15,7 +14,7 @@ export default function SearchAndList() {
 
   useEffect(() => {
     loadSubmissions();
-    console.log("useEffect ran!")
+    console.log("useEffect ran!");
   }, []);
 
   const loadSubmissions = async () => {
@@ -25,7 +24,7 @@ export default function SearchAndList() {
         console.error("Error fetching data");
       });
     setSubmissions(result.data);
-    console.log("loadSubmissions ran!")
+    console.log("loadSubmissions ran!");
   };
   console.log("printing submissions value onload:");
   console.log(submissions);
@@ -40,23 +39,38 @@ export default function SearchAndList() {
     console.log("handleChange input value:");
     console.log(input);
 
+    if (value == "") {
+      setResultRecords(submissions);
+    } else {
+      setResultRecords(
+        submissions.filter(function (submission) {
+          return (
+            submission.locationName
+              .toLowerCase()
+              .includes(value.toLowerCase()) ||
+            submission.locationAddress
+              .toLowerCase()
+              .includes(value.toLowerCase())
+          );
+        })
+      );
+    }
 
-    setResultRecords(
-      submissions.filter(function (submission) {
-        return (
-          submission.locationName.toLowerCase().includes(value.toLowerCase()) 
-          ||
-          submission.locationAddress.toLowerCase().includes(value.toLowerCase())
-        );
-      })
-    );
 
     console.log("resultRecords in handleChange after setResultRecords:");
     console.log(resultRecords);
 
     console.log("end of handleChange function");
-
   };
+
+  const [filter, setFilter] = useState([]);
+
+  const handleFilter = () => {};
+
+  let filterStatus = filter;
+  console.log("printing filter:");
+
+  console.log({ filter });
 
   console.log("input value at end of code:");
   console.log(input);
@@ -78,10 +92,13 @@ export default function SearchAndList() {
               <input
                 className="form-check-input"
                 type="radio"
-                name="searchAll"
+                name="filter"
                 value="all"
+                id="all"
+                // checked={true}
+                onChange={(event) => setFilter(event.target.value)}
               />
-              <span> All</span>
+              <label htmlFor="all"> All</label>
             </label>
           </div>
 
@@ -90,11 +107,12 @@ export default function SearchAndList() {
               <input
                 className="form-check-input"
                 type="radio"
-                name="searchByName"
+                name="filter"
                 value="name"
-                disabled
+                id="name"
+                onChange={(event) => setFilter(event.target.value)}
               />
-              <span> Name</span>
+              <label htmlFor="name"> Name</label>
             </label>
           </div>
 
@@ -103,11 +121,12 @@ export default function SearchAndList() {
               <input
                 className="form-check-input"
                 type="radio"
-                name="searchByAddress"
+                name="filter"
                 value="address"
-                disabled
+                id="address"
+                onChange={(event) => setFilter(event.target.value)}
               />
-              <span> Address</span>
+              <label htmlFor="address"> Address</label>
             </label>
           </div>
 
