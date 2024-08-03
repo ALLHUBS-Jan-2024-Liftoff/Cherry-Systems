@@ -11,12 +11,21 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    useEffect(() => {
-        const currentUser = getCurrentUser();
-        if (currentUser) {
-            setUser(currentUser);
-            setIsAuthenticated(true);
+    const checkAuthStatus = async () => {
+        try {
+            const currentUser = await getCurrentUser();
+            if (currentUser) {
+                console.log(currentUser);
+                setUser(currentUser);
+                setIsAuthenticated(true);
+            }
+        } catch (error) {
+            setUser(null);
         }
+    };
+
+    useEffect(() => {
+        checkAuthStatus();
     }, []);
 
     const handleLogin = async (username, email, password) => {
