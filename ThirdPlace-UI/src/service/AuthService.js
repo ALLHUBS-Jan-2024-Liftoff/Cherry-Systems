@@ -14,10 +14,11 @@ export const login = async (username, email, password) => {
             withCredentials: true,
             headers: { 'Content-Type': 'application/json' }
     });
+        const user = JSON.stringify(response.data);
         // Log entire response object
         console.log("Login Response: ", response.data, response.status, user);
         
-        return response.data;
+        return user;
     } catch (error) {
         const errorData = error.response.data;
         let allDefaultMessages = [];
@@ -35,12 +36,13 @@ export const login = async (username, email, password) => {
 
 export const getCurrentUser = async () => {
     try {
-        const response = await axios.get (`${BASEAPIURL}/currentUser`, {}, { 
-            withCredentials: true,
-            headers: { 'Content-Type': 'application/json' }
+        const response = await axios.get (`${BASEAPIURL}/currentUser`, {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true
         });
+        const user = JSON.stringify(response.data);
 
-        return response.data;
+        return user;
     } catch (error) {
         console.error('No current user found!', error);
         return null;
@@ -49,7 +51,7 @@ export const getCurrentUser = async () => {
 
 export const logout = async () => {
     try {
-        const response = await axios.post(`@{BASEAPIURL}/logout`, {}, { 
+        const response = await axios.get(`@{BASEAPIURL}/logout`, {}, { 
             withCredentials: true 
         });
 

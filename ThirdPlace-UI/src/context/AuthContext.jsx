@@ -22,9 +22,9 @@ export const AuthProvider = ({ children }) => {
     const handleLogin = async (username, email, password) => {
         try {
             const user = await authLogin(username, email, password);
-            setUser(user);
+            // setUser(user); //makes a "user2" for some reason
             setIsAuthenticated(true);
-            console.log(user);
+            console.log(user.username, user.email);
         } catch (error) {
             console.error('Failed to login!', error);
             throw error;

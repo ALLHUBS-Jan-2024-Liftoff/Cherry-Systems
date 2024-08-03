@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 
@@ -9,8 +9,9 @@ const LoginForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState(false);
-    const { login } = useAuth();
+    // const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
+    const { login, user, setUser } = useAuth();
 
     useEffect(() => {
         setError('');
@@ -22,28 +23,26 @@ const LoginForm = () => {
         try {
             await login(username, email, password);
 
-            setUsername('');
-            setEmail('');
-            setPassword('');
-            setSuccess(true);
+            navigate('/profile');
+            // setSuccess(true);
         } catch (error) {
-            setError('Login failed');
+            setError('Login failed. Please try again!');
         }
 
     };
 
     return (
         <>
-            {success ? (
+            {/* {success ? (
                 <section>
-                    <h1>You are logged in!</h1>
+                    <h1>User "{username}" is logged in!</h1>
                     <br />
                     <p>
                         <Link to={'/profile'}>Go to My Profile</Link>
                     </p>
                 </section>
             ) : (
-            <section>
+            <section> */}
             {error ? <div className="alert alert-danger">{error}</div> : ""}
 
             <form onSubmit={handleSubmit}>
@@ -95,8 +94,8 @@ const LoginForm = () => {
             </form>
 
             <p>Don't have an account? <Link to="/Registration">Register</Link></p>
-            </section>
-            )}
+            {/* </section>
+            )} */}
         </>
     )
 }

@@ -5,10 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from "../../context/AuthContext";
 
 export default function UserProfile() {
-  const { user, logout } = useAuth();
-  // const isLoggedIn = false;
-  // const username = "Peggy";
-
+  const { isAuthenticated, user, logout } = useAuth();
 
   const navigate = useNavigate();
 
@@ -21,7 +18,7 @@ export default function UserProfile() {
   return (
     <div>
         <Navbar/>
-        {!user ? (
+        {!isAuthenticated ? (
             <section className='review-card'>
                 <h1>Log in to see Profile page!</h1>
                 <br />
@@ -31,7 +28,7 @@ export default function UserProfile() {
             </section>
         ) : (
         <section>
-        {!user ? (
+        {!isAuthenticated ? (
           <h1>Default User Profile Page</h1>
         ) : (
           <h1>{user.username}'s Profile Page</h1>
@@ -39,8 +36,7 @@ export default function UserProfile() {
         <ProfileInfoCard/>
 
         {/* Temporary logout button, will be removed after dynamic Sign Up / Logout and Login / My Profile buttons are implemented */}
-        <button 
-          type="submit"
+        <button
           className="submit-button"
           onClick={handleLogout}>
           Logout
