@@ -1,5 +1,3 @@
--- These commented out commands are for if you want to reset your db to a clean slate between restarts.
-
 DROP TABLE IF EXISTS debug_table;
 DROP TABLE IF EXISTS favorite;
 DROP TABLE IF EXISTS review_vote;
@@ -30,6 +28,7 @@ CREATE TABLE IF NOT EXISTS submission (
     description TEXT NOT NULL,
     submission_review TEXT NOT NULL,
     submission_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    average_rating DECIMAL(3,2) DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
@@ -70,24 +69,63 @@ CREATE TABLE IF NOT EXISTS favorite (
     FOREIGN KEY (submission_id) REFERENCES Submission(id)
 );
 
---ALTER TABLE review_vote
---DROP INDEX unique_user_review_vote;
-
 ALTER TABLE review_vote
 ADD CONSTRAINT unique_user_review_vote UNIQUE (user_id, review_id);
-
-
---ALTER TABLE submission_vote
---DROP INDEX unique_user_submission_vote;
 
 ALTER TABLE submission_vote
 ADD CONSTRAINT unique_user_submission_vote UNIQUE (user_id, submission_id);
 
-
---ALTER TABLE favorite
---DROP INDEX unique_user_submission_favorite;
-
 ALTER TABLE favorite
 ADD CONSTRAINT unique_user_submission_favorite UNIQUE (user_id, submission_id);
 
+DELIMITER //
 
+-- updates average rating when review is made
+CREATE TRIGGER update_avg_rating_after_insert
+AFTER INSERT ON review
+FOR EACH ROW
+BEGIN
+    DECLARE avg_rating DECIMAL(3, 2);
+
+    SELECT AVG(rating) INTO avg_rating
+    FROM review
+    WHERE submission_id = NEW.submission_id;
+
+    UPDATE submission
+    SET average_rating = avg_rating
+    WHERE id = NEW.submission_id;
+END //
+
+-- updates average rating when review is updated
+CREATE TRIGGER update_avg_rating_after_update
+AFTER UPDATE ON review
+FOR EACH ROW
+BEGIN
+    DECLARE avg_rating DECIMAL(3, 2);
+
+    SELECT AVG(rating) INTO avg_rating
+    FROM review
+    WHERE submission_id = NEW.submission_id;
+
+    UPDATE submission
+    SET average_rating = avg_rating
+    WHERE id = NEW.submission_id;
+END //
+
+-- updates average rating when review is deleted
+CREATE TRIGGER update_avg_rating_after_delete
+AFTER DELETE ON review
+FOR EACH ROW
+BEGIN
+    DECLARE avg_rating DECIMAL(3, 2);
+
+    SELECT AVG(rating) INTO avg_rating
+    FROM review
+    WHERE submission_id = OLD.submission_id;
+
+    UPDATE submission
+    SET average_rating = IFNULL(avg_rating, 0)
+    WHERE id = OLD.submission_id;
+END //
+
+DELIMITER ;
