@@ -15,9 +15,10 @@ export const AuthProvider = ({ children }) => {
         try {
             const currentUser = await getCurrentUser();
             if (currentUser) {
-                console.log(currentUser);
                 setUser(currentUser);
+                console.log(currentUser);
                 setIsAuthenticated(true);
+                console.log(isAuthenticated);
             }
         } catch (error) {
             setUser(null);

@@ -14,11 +14,10 @@ export const login = async (username, email, password) => {
             withCredentials: true,
             headers: { 'Content-Type': 'application/json' }
     });
-        const user = JSON.stringify(response.data);
         // Log entire response object
-        console.log("Login Response: ", response.data, response.status, user);
+        console.log("Login Response: ", response.data, response.status);
         
-        return user;
+        return response.data;
     } catch (error) {
         const errorData = error.response.data;
         let allDefaultMessages = [];
@@ -40,7 +39,7 @@ export const getCurrentUser = async () => {
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true
         });
-        const user = JSON.stringify(response.data);
+        const user = response.data;
 
         return user;
     } catch (error) {

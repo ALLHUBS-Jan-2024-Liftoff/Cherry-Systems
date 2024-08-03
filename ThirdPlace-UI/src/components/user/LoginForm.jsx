@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import UserProfile from '../pages/UserProfile';
 
 
 
@@ -15,7 +16,7 @@ const LoginForm = () => {
 
     useEffect(() => {
         setError('');
-    }, [username, email, password])
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,7 +24,7 @@ const LoginForm = () => {
         try {
             await login(username, email, password);
 
-            navigate('/profile');
+            navigate("/profile");
             // setSuccess(true);
         } catch (error) {
             setError('Login failed. Please try again!');
@@ -33,16 +34,6 @@ const LoginForm = () => {
 
     return (
         <>
-            {/* {success ? (
-                <section>
-                    <h1>User "{username}" is logged in!</h1>
-                    <br />
-                    <p>
-                        <Link to={'/profile'}>Go to My Profile</Link>
-                    </p>
-                </section>
-            ) : (
-            <section> */}
             {error ? <div className="alert alert-danger">{error}</div> : ""}
 
             <form onSubmit={handleSubmit}>
@@ -94,8 +85,6 @@ const LoginForm = () => {
             </form>
 
             <p>Don't have an account? <Link to="/Registration">Register</Link></p>
-            {/* </section>
-            )} */}
         </>
     )
 }

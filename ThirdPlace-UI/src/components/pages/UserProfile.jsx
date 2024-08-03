@@ -18,7 +18,7 @@ export default function UserProfile() {
   return (
     <div>
         <Navbar/>
-        {!isAuthenticated ? (
+        {!user ? (
             <section className='review-card'>
                 <h1>Log in to see Profile page!</h1>
                 <br />
@@ -28,7 +28,7 @@ export default function UserProfile() {
             </section>
         ) : (
         <section>
-        {!isAuthenticated ? (
+        {!user ? (
           <h1>Default User Profile Page</h1>
         ) : (
           <h1>{user.username}'s Profile Page</h1>
