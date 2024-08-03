@@ -77,30 +77,3 @@ ADD CONSTRAINT unique_user_submission_vote UNIQUE (user_id, submission_id);
 
 ALTER TABLE favorite
 ADD CONSTRAINT unique_user_submission_favorite UNIQUE (user_id, submission_id);
-
----- updates average rating when review is made
---CREATE TRIGGER update_avg_rating_after_insert
---AFTER INSERT ON review
---FOR EACH ROW
---SET @avg_rating = (SELECT AVG(rating) FROM review WHERE submission_id = NEW.submission_id);
---UPDATE submission
---SET average_rating = @avg_rating
---WHERE id = NEW.submission_id;
---
----- updates average rating when review is updated
---CREATE TRIGGER update_avg_rating_after_update
---AFTER UPDATE ON review
---FOR EACH ROW
---SET @avg_rating = (SELECT AVG(rating) FROM review WHERE submission_id = NEW.submission_id);
---UPDATE submission
---SET average_rating = @avg_rating
---WHERE id = NEW.submission_id;
---
----- updates average rating when review is deleted
---CREATE TRIGGER update_avg_rating_after_delete
---AFTER DELETE ON review
---FOR EACH ROW
---SET @avg_rating = (SELECT AVG(rating) FROM review WHERE submission_id = OLD.submission_id);
---UPDATE submission
---SET average_rating = IFNULL(@avg_rating, 0)
---WHERE id = OLD.submission_id;

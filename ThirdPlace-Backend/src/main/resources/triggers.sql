@@ -1,5 +1,6 @@
 DELIMITER //
 
+---- updates average rating when review is made
 CREATE TRIGGER update_avg_rating_after_insert
 AFTER INSERT ON review
 FOR EACH ROW
@@ -13,6 +14,7 @@ BEGIN
     WHERE id = NEW.submission_id;
 END //
 
+---- updates average rating when review is updated
 CREATE TRIGGER update_avg_rating_after_update
 AFTER UPDATE ON review
 FOR EACH ROW
@@ -26,6 +28,7 @@ BEGIN
     WHERE id = NEW.submission_id;
 END //
 
+---- updates average rating when review is deleted
 CREATE TRIGGER update_avg_rating_after_delete
 AFTER DELETE ON review
 FOR EACH ROW
