@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 
 export default function UserProfile() {
   const { isAuthenticated, user, logout } = useAuth();
-
+  console.log(isAuthenticated);
   const navigate = useNavigate();
 
   const handleLogout = async () => {

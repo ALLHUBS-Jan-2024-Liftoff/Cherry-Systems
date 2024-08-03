@@ -54,6 +54,8 @@ export const logout = async () => {
             withCredentials: true 
         });
 
+        console.log(response);
+        
         return response.data;
     } catch (error) {
         console.error('Failed to logout!', error);

@@ -27,15 +27,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element:  <AuthProvider>
-                <Login/>
-              </AuthProvider>
+    element: <Login/>
   },
   {
     path: '/profile',
-    element:  <AuthProvider>
-                <UserProfile/>
-              </AuthProvider>
+    element: <UserProfile/>
   },
   {
     path: '/map',
@@ -57,6 +53,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

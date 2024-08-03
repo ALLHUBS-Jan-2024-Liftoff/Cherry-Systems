@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import UserProfile from '../pages/UserProfile';
 
 
 
@@ -24,7 +23,7 @@ const LoginForm = () => {
         try {
             await login(username, email, password);
 
-            navigate("/profile");
+            window.location.href = "/profile";
             // setSuccess(true);
         } catch (error) {
             setError('Login failed. Please try again!');

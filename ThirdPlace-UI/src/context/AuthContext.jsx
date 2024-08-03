@@ -11,14 +11,14 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    const checkAuthStatus = async () => {
+    const checkAuthUser = async () => {
         try {
             const currentUser = await getCurrentUser();
             if (currentUser) {
                 setUser(currentUser);
                 console.log(currentUser);
                 setIsAuthenticated(true);
-                console.log(isAuthenticated);
+                console.log(`Authenticated: ${isAuthenticated}`);
             }
         } catch (error) {
             setUser(null);
@@ -26,14 +26,15 @@ export const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        checkAuthStatus();
+        checkAuthUser();
     }, []);
 
     const handleLogin = async (username, email, password) => {
         try {
             const user = await authLogin(username, email, password);
-            // setUser(user); //makes a "user2" for some reason
+            // setUser(user);
             setIsAuthenticated(true);
+            console.log(`Authenticated: ${isAuthenticated}`);
             console.log(user.username, user.email);
         } catch (error) {
             console.error('Failed to login!', error);
