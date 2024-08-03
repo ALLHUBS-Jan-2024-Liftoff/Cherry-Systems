@@ -14,14 +14,32 @@ export const fetchUsers = async () => {
   }
 };
 
-export const addUser = async (username, email, password) => {
+export const addUser = async (username, email, verifyEmail, password, verifyPassword) => {
+  const userData = {
+    username,
+    email,
+    verifyEmail,
+    password,
+    verifyPassword
+  };
+
   try {
-    const response = await axios.post(`${BASEAPIURL}/registration`, null, {
-      params: { username, password, email },
+    const response = await axios.post(`${BASEAPIURL}/registration`, userData, {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true
     });
+    console.log(response.data, response.status, response.data.token);
     return response.data;
   } catch (error) {
-    console.error("There was an error creating the User!", error);
+    const errorData = error.response.data;
+    let allDefaultMessages = [];
+
+    // Add all "defaultMessage" from error response to empty array to be logged in console
+    for (let i = 0; i < errorData.length; i++) {  
+      allDefaultMessages.push(errorData[i].defaultMessage);
+    }
+
+    console.error("Error registering new user!", allDefaultMessages);
     throw error;
   }
 };
