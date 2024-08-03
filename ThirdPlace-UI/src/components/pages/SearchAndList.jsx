@@ -42,11 +42,11 @@ export default function SearchAndList() {
 
 
     setResultRecords(
-      submissions.filter(function (value) {
+      submissions.filter(function (submission) {
         return (
-          value.locationName.toLowerCase().includes(input.toLowerCase()) 
+          submission.locationName.toLowerCase().includes(value.toLowerCase()) 
           ||
-          value.locationAddress.toLowerCase().includes(input.toLowerCase())
+          submission.locationAddress.toLowerCase().includes(value.toLowerCase())
         );
       })
     );
