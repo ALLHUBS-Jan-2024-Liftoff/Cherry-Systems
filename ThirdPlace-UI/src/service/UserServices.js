@@ -14,7 +14,7 @@ export const fetchUsers = async () => {
   }
 };
 
-export const addUser = async (username, email, verifyEmail, password, verifyPassword) => {
+export const registerUser = async (username, email, verifyEmail, password, verifyPassword) => {
   const userData = {
     username,
     email,
@@ -28,7 +28,7 @@ export const addUser = async (username, email, verifyEmail, password, verifyPass
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
     });
-    console.log(response.data, response.status, response.data.token);
+    console.log(response.data, response.status);
     return response.data;
   } catch (error) {
     const errorData = error.response.data;

@@ -142,16 +142,38 @@ public class AuthenticationController {
         } else {
             setUserInSession(request.getSession(), currentUsername);
 
-            return ResponseEntity.ok("User logged in successfully");
+            return ResponseEntity.ok("User logged in successfully!");
         }
     }
 
-//    Logout User
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
-        request.getSession().invalidate();
-        return "redirect:/login";
+//    Get current user from the session to use for page authorization, returns HTTP response with Ok status and the user from session
+//    ResponseEntity which encapsulates the entire HTTP response, encompassing the status code, headers, and body.
+    @GetMapping("/currentUser")
+    public ResponseEntity<?> getCurrentUser(HttpSession session) {
+        User user = getUserFromSession(session);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in!");
+        }
+
+        return ResponseEntity.ok(user);
     }
+
+
+//    Logout User
+//    @GetMapping("/logout")
+//    public String logout(HttpServletRequest request){
+//        request.getSession().invalidate();
+//        return "redirect:/login";
+//    }
+//    or
+//    Logout From authentication chapter unit 2, with JSON RequestBody
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout(@RequestBody HttpServletRequest request){
+        request.getSession().invalidate();
+        return ResponseEntity.ok("User is logged out!");
+    }
+
 
 //    Delete User
     @PostMapping("/delete")

@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { addUser } from '../../service/UserServices';
+import { registerUser } from '../../service/UserServices';
 import { fetchUsers } from '../../service/UserServices';
+import { useAuth } from '../../context/AuthContext';
 
 const AddUserForm = () => {
+    const { user, isAuthenticated } = useAuth();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [verifyEmail, setVerifyEmail] = useState("");
@@ -13,8 +15,6 @@ const AddUserForm = () => {
     const [userList, setUserList] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
-
-
 
     //Fetch and set all users when components first starts
     //Will refactor for better security later
@@ -61,7 +61,7 @@ const AddUserForm = () => {
     
             //If email already exists
             //Will refactor for better security later
-             if (emailExists(email)) {
+            if (emailExists(email)) {
                 e.preventDefault();
                 return false;
             }
@@ -71,6 +71,15 @@ const AddUserForm = () => {
                 alert('Emails do not match');
                 e.preventDefault();
                 return false;
+            }
+
+            //Password must be between 5 and 30 characters
+            if (password) {
+                if (password.length < 5 || password.length > 30) {
+                    alert('Passwords must be between 5 and 30 characters!');
+                    e.preventDefault();
+                    return false;
+                }
             }
             
             //If passwords don't match
@@ -87,9 +96,9 @@ const AddUserForm = () => {
 
         if (username !== "" && email !== "" && verifyEmail !== "" && password !== "" && verifyPassword !== "" && validValues(username, email, verifyEmail, password, verifyPassword)) {
             setError("");
-            addUser(username, email, verifyEmail, password, verifyPassword);
+            registerUser(username, email, verifyEmail, password, verifyPassword);
             alert("User was successfully created! Please log in.")
-            navigate("/login");
+            navigate('/login', { user, isAuthenticated });
         } else {
             setError("User was not registered. Please try again.");
         }
