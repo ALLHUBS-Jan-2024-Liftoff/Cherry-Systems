@@ -28,7 +28,7 @@ export const registerUser = async (username, email, verifyEmail, password, verif
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
     });
-    console.log(response.data, response.status, response.data.token);
+    console.log(response.data, response.status);
     return response.data;
   } catch (error) {
     const errorData = error.response.data;

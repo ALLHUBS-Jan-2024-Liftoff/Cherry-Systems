@@ -55,7 +55,7 @@ export const logout = async () => {
             headers: { 'Content-Type': 'application/json' }
         });
 
-        console.log(response.data);
+        console.log(response);
         
         return response.data;
     } catch (error) {
