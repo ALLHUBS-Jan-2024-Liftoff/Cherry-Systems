@@ -17,7 +17,7 @@ public class Category {
     private int id;
 
     @NotNull
-    @Column(name = "name", unique=true)
+    @Column(name = "category_name", unique=true)
     private String name;
 
 //    This is just for my reference
@@ -25,8 +25,7 @@ public class Category {
 //            Arrays.asList("Outdoors", "Indoors", "Community Center", "Cafe", "Library", "Park", "Free", "Paid")
 //    );
 
-    @ManyToMany
-//            (mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories")
     private final List<Submission> submissions = new ArrayList<>();
 
 //    Constructors

@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -49,13 +51,16 @@ public class Submission {
     @Column(name = "average_rating", precision = 3, scale = 2)
     private BigDecimal averageRating = BigDecimal.ZERO;
 
+    @ManyToMany
+    private List<Category> categories = new ArrayList<>();
+
 
     // Constructors
 
     public Submission() {
     }
 
-    public Submission(@NotNull User user, @NotNull String locationName, @NotNull String locationAddress, @NotNull String placeId, @NotNull int rating, @NotNull String description, @NotNull String submissionReview) {
+    public Submission(@NotNull User user, @NotNull String locationName, @NotNull String locationAddress, @NotNull String placeId, @NotNull int rating, @NotNull String description, @NotNull String submissionReview, List<Category> categories) {
         this.user = user;
         this.locationName = locationName;
         this.locationAddress = locationAddress;
@@ -64,6 +69,7 @@ public class Submission {
         this.description = description;
         this.submissionReview = submissionReview;
         this.submissionDate = LocalDateTime.now();
+        this.categories = categories;
     }
 
     // Getters and Setters
@@ -146,6 +152,14 @@ public class Submission {
 
     public void setAverageRating(BigDecimal averageRating) {
         this.averageRating = averageRating;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     @Override
