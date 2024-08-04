@@ -1,12 +1,11 @@
-import { useState } from "react";
-
+import React, { useState } from "react";
+// import { addRating } from "../../service/SubmissionServices";
 
 
 const DEFAULT_COUNT = 5; 
 const DEFAULT_ICON = "⭐"; 
 const DEFAULT_UNSELECTED_COLOR = "grey"; 
-const DEFAULT_COLOR = "yellow";
-
+const DEFAULT_COLOR = "yellow";  
 
 export default function RateAndReview({count, defaultRating, icon, color, iconSize}) {
   const [rating, setRating] = useState(defaultRating);
@@ -14,13 +13,17 @@ export default function RateAndReview({count, defaultRating, icon, color, iconSi
 
   let stars = Array(count || DEFAULT_COUNT).fill(icon || DEFAULT_ICON);
   
+  // Sets rating when star is selected
   const handleClick = (rating) => {
     setRating(rating);
+
     // Connect star rating to database storage here
+  
   };
 
-  return (
+  return (   
     <div>
+      <div>Rating</div>
       <div className="starsContainer">
         {stars.map((item, index) => {
           const isActiveColor = (rating || temporaryRating) && (index < rating || index < temporaryRating); 
