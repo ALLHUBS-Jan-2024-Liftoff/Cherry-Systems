@@ -22,23 +22,19 @@ export default function ProfileInfoCard({user, deleteUser}) {
           </tr>
         </tbody>
       </table>
-      <tr>
-        <td>
+      <span>
           <button 
             className="btn btn-primary" 
             onClick={() => editUser(user.id)}>
             Edit
           </button>
-        </td>
-        <td>
           <button
             className="btn btn-danger"
             onClick={() => deleteUser(user.id)}
             >
             Delete
           </button>
-        </td>
-      </tr>
+      </span>
     </div>
   );
 }
