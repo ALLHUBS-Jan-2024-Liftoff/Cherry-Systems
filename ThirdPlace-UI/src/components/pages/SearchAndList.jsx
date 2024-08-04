@@ -4,6 +4,7 @@ import Navbar from "../navigation/Navbar";
 import CondensedSubmission from "../condensed-submission/CondensedSubmission.jsx";
 
 export default function SearchAndList() {
+  
   const [submissions, setSubmissions] = useState([]);
   const [resultRecords, setResultRecords] = useState([]);
   const [filter, setFilter] = useState("all");
@@ -28,9 +29,10 @@ export default function SearchAndList() {
 
   // Filter submissions with each input change
 
-  const handleChange = (value) => {
+  const handleChange = (value, filter) => {
     
     setInput(value);
+    setFilter(filter);
 
     if (value == "") {
       setResultRecords(submissions);
@@ -66,6 +68,9 @@ export default function SearchAndList() {
     }
   };
 
+  console.log(filter);
+  console.log(input);
+
   return (
     <div>
       <Navbar />
@@ -85,7 +90,7 @@ export default function SearchAndList() {
                 value="all"
                 id="all"
                 checked={filter === "all"}
-                onChange={(event) => setFilter(event.target.value)}
+                onChange={(event) => handleChange(input, event.target.value)}
               />
               <label htmlFor="all"> All</label>
             </label>
@@ -100,7 +105,7 @@ export default function SearchAndList() {
                 value="name"
                 id="name"
                 checked={filter === "name"}
-                onChange={(event) => setFilter(event.target.value)}
+                onChange={(event) => handleChange(input, event.target.value)}
               />
               <label htmlFor="name"> Name</label>
             </label>
@@ -115,7 +120,7 @@ export default function SearchAndList() {
                 value="address"
                 id="address"
                 checked={filter === "address"}
-                onChange={(event) => setFilter(event.target.value)}
+                onChange={(event) => handleChange(input, event.target.value)}
               />
               <label htmlFor="address"> Address</label>
             </label>
@@ -126,7 +131,7 @@ export default function SearchAndList() {
             type="text"
             name="searchQuery"
             value={input}
-            onChange={(event) => handleChange(event.target.value)}
+            onChange={(event) => handleChange(event.target.value, filter)}
             placeholder="Type to search..."
           />
         </div>
