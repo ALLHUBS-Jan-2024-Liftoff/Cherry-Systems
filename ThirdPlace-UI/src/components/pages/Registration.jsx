@@ -1,6 +1,6 @@
-import React from "react";
-import AddUserForm from "../user/AddUserForm";
+import React, { useEffect } from "react";
 import Navbar from "../navigation/Navbar";
+import AddUserForm from "../user/AddUserForm";
 
 const Registration = () => {
   return (

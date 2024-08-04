@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerUser } from '../../service/UserServices';
 import { fetchUsers } from '../../service/UserServices';
+import { useAuth } from '../../context/AuthContext';
 
 const AddUserForm = () => {
+    const { user, isAuthenticated } = useAuth();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [verifyEmail, setVerifyEmail] = useState("");
@@ -96,7 +98,7 @@ const AddUserForm = () => {
             setError("");
             registerUser(username, email, verifyEmail, password, verifyPassword);
             alert("User was successfully created! Please log in.")
-            navigate("/login");
+            navigate('/login', { user, isAuthenticated });
         } else {
             setError("User was not registered. Please try again.");
         }

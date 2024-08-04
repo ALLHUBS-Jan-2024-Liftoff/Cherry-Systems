@@ -169,9 +169,9 @@ public class AuthenticationController {
 //    or
 //    Logout From authentication chapter unit 2, with JSON RequestBody
     @GetMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request){
+    public ResponseEntity<?> logout(@RequestBody HttpServletRequest request){
         request.getSession().invalidate();
-        return ResponseEntity.ok("User Logged out successfully!");
+        return ResponseEntity.ok("User is logged out!");
     }
 
 

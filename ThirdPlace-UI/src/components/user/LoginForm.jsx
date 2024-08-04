@@ -1,17 +1,17 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 
 
 const LoginForm = () => {
+    const { login, user, isAuthenticated } = useAuth();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    // const [success, setSuccess] = useState(false);
+    const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
-    const { login, user, setUser } = useAuth();
 
     useEffect(() => {
         setError('');
@@ -22,9 +22,8 @@ const LoginForm = () => {
 
         try {
             await login(username, email, password);
-
-            window.location.href = "/profile";
-            // setSuccess(true);
+            setSuccess(true);
+            // navigate('/profile', { user, isAuthenticated });
         } catch (error) {
             setError('Login failed. Please try again!');
         }
@@ -33,6 +32,16 @@ const LoginForm = () => {
 
     return (
         <>
+            {success ? (
+                <section>
+                    <h1>User "{username}" is logged in!</h1>
+                    <br />
+                    <p>
+                        <Link to='/profile'>Go to My Profile</Link>
+                    </p>
+                </section>
+            ) : (
+            <section>
             {error ? <div className="alert alert-danger">{error}</div> : ""}
 
             <form onSubmit={handleSubmit}>
@@ -84,6 +93,9 @@ const LoginForm = () => {
             </form>
 
             <p>Don't have an account? <Link to="/Registration">Register</Link></p>
+            </section>
+            )}
+
         </>
     )
 }
