@@ -2,6 +2,8 @@ package com.CherrySystems.ThirdPlace_Backend.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -43,6 +45,10 @@ public class Submission {
 
     @Column(name = "submission_date", columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime submissionDate = LocalDateTime.now();
+
+    @Column(name = "average_rating", precision = 3, scale = 2)
+    private BigDecimal averageRating = BigDecimal.ZERO;
+
 
     // Constructors
 
@@ -132,6 +138,14 @@ public class Submission {
 
     public void setSubmissionDate(LocalDateTime submissionDate) {
         this.submissionDate = submissionDate;
+    }
+
+    public BigDecimal getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(BigDecimal averageRating) {
+        this.averageRating = averageRating;
     }
 
     @Override

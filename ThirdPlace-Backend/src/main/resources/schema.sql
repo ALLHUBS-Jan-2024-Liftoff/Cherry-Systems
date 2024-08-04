@@ -1,5 +1,3 @@
--- These commented out commands are for if you want to reset your db to a clean slate between restarts.
-
 DROP TABLE IF EXISTS debug_table;
 DROP TABLE IF EXISTS favorite;
 DROP TABLE IF EXISTS review_vote;
@@ -30,6 +28,7 @@ CREATE TABLE IF NOT EXISTS submission (
     description TEXT NOT NULL,
     submission_review TEXT NOT NULL,
     submission_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    average_rating DECIMAL(3,2) DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
@@ -70,24 +69,11 @@ CREATE TABLE IF NOT EXISTS favorite (
     FOREIGN KEY (submission_id) REFERENCES Submission(id)
 );
 
---ALTER TABLE review_vote
---DROP INDEX unique_user_review_vote;
-
 ALTER TABLE review_vote
 ADD CONSTRAINT unique_user_review_vote UNIQUE (user_id, review_id);
-
-
---ALTER TABLE submission_vote
---DROP INDEX unique_user_submission_vote;
 
 ALTER TABLE submission_vote
 ADD CONSTRAINT unique_user_submission_vote UNIQUE (user_id, submission_id);
 
-
---ALTER TABLE favorite
---DROP INDEX unique_user_submission_favorite;
-
 ALTER TABLE favorite
 ADD CONSTRAINT unique_user_submission_favorite UNIQUE (user_id, submission_id);
-
-
