@@ -12,6 +12,8 @@ import UserProfile from "./components/pages/UserProfile.jsx";
 import SubmitLocation from "./components/pages/SubmitLocation.jsx";
 import Submission from "./components/pages/Submission.jsx";
 import SearchAndList from "./components/pages/SearchAndList.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -25,11 +27,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <Login/>,
+    element: <Login/>
   },
   {
     path: '/profile',
-    element: <UserProfile/>,
+    element: <UserProfile/>
   },
   {
     path: '/map',
@@ -51,6 +53,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
