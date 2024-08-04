@@ -108,6 +108,10 @@ button:active {
   height: 100%;
 }
 
+.search-form {
+  margin-bottom: 40px;
+}
+
 .starsContainer {
   display: flex;
 }

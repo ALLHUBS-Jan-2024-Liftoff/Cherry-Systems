@@ -5,43 +5,36 @@ import CondensedSubmission from "../condensed-submission/CondensedSubmission.jsx
 
 export default function SearchAndList() {
   const [submissions, setSubmissions] = useState([]);
-
-  // https://www.youtube.com/watch?v=xAqCEBFGdYk
-  // https://www.youtube.com/watch?v=sWVgMcz8Q44
-  // https://www.youtube.com/watch?v=KRJvlxhLXxk
-
+  const [resultRecords, setResultRecords] = useState([]);
+  const [filter, setFilter] = useState("all");
   const [input, setInput] = useState("");
+
+  // Load submission data from back end
 
   useEffect(() => {
     loadSubmissions();
-    console.log("useEffect ran!");
   }, []);
 
   const loadSubmissions = async () => {
+
     const result = await axios
       .get("http://localhost:8080/api/submission/searchandlist")
       .catch((error) => {
         console.error("Error fetching data");
       });
     setSubmissions(result.data);
-    console.log("loadSubmissions ran!");
+    setResultRecords(result.data);
   };
-  console.log("printing submissions value onload:");
-  console.log(submissions);
 
-  const [resultRecords, setResultRecords] = useState([]);
+  // Filter submissions with each input change
 
   const handleChange = (value) => {
-    console.log("handleChange triggered! setting input value...");
-
+    
     setInput(value);
-
-    console.log("handleChange input value:");
-    console.log(input);
 
     if (value == "") {
       setResultRecords(submissions);
-    } else {
+    } else if (filter === "all") {
       setResultRecords(
         submissions.filter(function (submission) {
           return (
@@ -54,28 +47,24 @@ export default function SearchAndList() {
           );
         })
       );
+    } else if (filter === "name") {
+      setResultRecords(
+        submissions.filter(function (submission) {
+          return submission.locationName
+            .toLowerCase()
+            .includes(value.toLowerCase());
+        })
+      );
+    } else if (filter === "address") {
+      setResultRecords(
+        submissions.filter(function (submission) {
+          return submission.locationAddress
+            .toLowerCase()
+            .includes(value.toLowerCase());
+        })
+      );
     }
-
-
-    console.log("resultRecords in handleChange after setResultRecords:");
-    console.log(resultRecords);
-
-    console.log("end of handleChange function");
   };
-
-  const [filter, setFilter] = useState([]);
-
-  const handleFilter = () => {};
-
-  let filterStatus = filter;
-  console.log("printing filter:");
-
-  console.log({ filter });
-
-  console.log("input value at end of code:");
-  console.log(input);
-  console.log("resultRecords value at end of code:");
-  console.log(resultRecords);
 
   return (
     <div>
@@ -83,7 +72,7 @@ export default function SearchAndList() {
 
       <h1>View Locations</h1>
 
-      <form method="post">
+      <div className="search-form">
         <div className="form-group">
           <h5>Search by:</h5>
 
@@ -95,7 +84,7 @@ export default function SearchAndList() {
                 name="filter"
                 value="all"
                 id="all"
-                // checked={true}
+                checked={filter === "all"}
                 onChange={(event) => setFilter(event.target.value)}
               />
               <label htmlFor="all"> All</label>
@@ -110,6 +99,7 @@ export default function SearchAndList() {
                 name="filter"
                 value="name"
                 id="name"
+                checked={filter === "name"}
                 onChange={(event) => setFilter(event.target.value)}
               />
               <label htmlFor="name"> Name</label>
@@ -124,6 +114,7 @@ export default function SearchAndList() {
                 name="filter"
                 value="address"
                 id="address"
+                checked={filter === "address"}
                 onChange={(event) => setFilter(event.target.value)}
               />
               <label htmlFor="address"> Address</label>
@@ -136,11 +127,10 @@ export default function SearchAndList() {
             name="searchQuery"
             value={input}
             onChange={(event) => handleChange(event.target.value)}
+            placeholder="Type to search..."
           />
         </div>
-
-        <input type="submit" className="submit-button" value="Search" />
-      </form>
+      </div>
 
       <table className="table table-striped border shadow">
         <tbody>
