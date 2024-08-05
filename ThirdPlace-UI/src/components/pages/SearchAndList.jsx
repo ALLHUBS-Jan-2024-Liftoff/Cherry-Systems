@@ -68,9 +68,6 @@ export default function SearchAndList() {
     }
   };
 
-  console.log(filter);
-  console.log(input);
-
   return (
     <div>
       <Navbar />
