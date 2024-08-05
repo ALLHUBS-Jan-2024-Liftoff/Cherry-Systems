@@ -17,18 +17,18 @@ public class SubmissionController {
     private SubmissionRepository submissionRepository;
 
     // Create A New Submission
-    @PostMapping("/newsubmission")
-    public Submission newSubmission(@RequestParam User user, @RequestParam String locationName, @RequestParam String locationAddress, @RequestParam String placeId, @RequestParam int rating, @RequestParam String description, @RequestParam String submissionReview) {
-        Submission newSubmission = new Submission(user, locationName, locationAddress, placeId, rating, description, submissionReview);
-        newSubmission.setUser(user);
-        newSubmission.setLocationName(locationName);
-        newSubmission.setLocationAddress(locationAddress);
-        newSubmission.setPlaceId(placeId);
-        newSubmission.setRating(rating);
-        newSubmission.setDescription(description);
-        newSubmission.setSubmissionReview(submissionReview);
-        return submissionRepository.save(newSubmission);
-    }
+//    @PostMapping("/newsubmission")
+//    public Submission newSubmission(@RequestParam User user, @RequestParam String locationName, @RequestParam String locationAddress, @RequestParam String placeId, @RequestParam int rating, @RequestParam String description, @RequestParam String submissionReview) {
+//        Submission newSubmission = new Submission(user, locationName, locationAddress, placeId, rating, description, submissionReview);
+//        newSubmission.setUser(user);
+//        newSubmission.setLocationName(locationName);
+//        newSubmission.setLocationAddress(locationAddress);
+//        newSubmission.setPlaceId(placeId);
+//        newSubmission.setRating(rating);
+//        newSubmission.setDescription(description);
+//        newSubmission.setSubmissionReview(submissionReview);
+//        return submissionRepository.save(newSubmission);
+//    }
 
     //    View all Submissions
     @GetMapping("/searchandlist")
