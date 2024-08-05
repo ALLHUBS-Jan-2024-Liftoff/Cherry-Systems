@@ -51,6 +51,7 @@ public class AuthenticationController {
 //    View all Users
     @GetMapping("/all")
     public List<User> getAllUsers(){
+
         return (List<User>) userRepository.findAll();
     }
 
@@ -155,7 +156,7 @@ public class AuthenticationController {
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in!");
         }
-
+        System.out.println("User not found");
         return ResponseEntity.ok(user);
     }
 
