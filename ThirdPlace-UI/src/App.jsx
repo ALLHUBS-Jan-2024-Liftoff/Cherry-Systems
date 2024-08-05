@@ -4,6 +4,7 @@ import Navbar from './components/navigation/Navbar'
 import Registration from './components/pages/Registration'
 import Login from './components/pages/Login'
 import Home from './components/pages/Home'
+import RateAndReview from './components/submission/RateAndReview'
 
 function App() {
 
