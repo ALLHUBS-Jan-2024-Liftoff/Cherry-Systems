@@ -11,6 +11,7 @@ export default function Login() {
   useEffect(() => {
     if (user !== null) {
       navigate('/profile', { user, isAuthenticated });
+      console.log("log in Login page in useEffect");
     }
   }, [])
 

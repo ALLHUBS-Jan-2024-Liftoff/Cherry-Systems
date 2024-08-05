@@ -55,10 +55,11 @@ export const logout = async () => {
             headers: { 'Content-Type': 'application/json' }
         });
 
-        console.log(response);
-        
+        console.log("Logout response: " + response.data, response.statusText);
+        console.log("log in auth service try");
         return response.data;
     } catch (error) {
+        console.log("Logout log: in auth service catch");
         console.error('Failed to logout!', error);
         throw error;
     };

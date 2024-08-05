@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ProfileInfoCard from '../user/ProfileInfoCard';
 import Navbar from '../navigation/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,11 +9,11 @@ export default function UserProfile() {
 
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    await logout();
-    // After logout, redirect to the login page 
-    navigate('/login', { user, isAuthenticated }); 
-  }; 
+  useEffect(() => {
+    if (user === null) {
+      navigate('/login', { user, isAuthenticated });
+    }
+  }, [])
 
   return (
     <div>
@@ -31,13 +31,6 @@ export default function UserProfile() {
           <h1>{user.username}'s Profile Page</h1>
 
           <ProfileInfoCard/>
-
-          {/* Temporary logout button, will be removed after dynamic Sign Up / Logout and Login / My Profile buttons are implemented */}
-          <button
-            className="submit-button"
-            onClick={handleLogout}>
-            Logout
-          </button>
 
           <div className='review-card'>
               <h3>Submitted Locations</h3>

@@ -22,26 +22,19 @@ const LoginForm = () => {
 
         try {
             await login(username, email, password);
-            setSuccess(true);
-            // navigate('/profile', { user, isAuthenticated });
+            window. location. reload(); // check if need this
+            setError('');
+            alert(`${username} has logged in!`);
+            // setSuccess(true);
+            window.location.href = "/";
         } catch (error) {
-            setError('Login failed. Please try again!');
+            setError('Failed to login. Please try again!');
         }
 
     };
 
     return (
         <>
-            {success ? (
-                <section>
-                    <h1>User "{username}" is logged in!</h1>
-                    <br />
-                    <p>
-                        <Link to='/profile'>Go to My Profile</Link>
-                    </p>
-                </section>
-            ) : (
-            <section>
             {error ? <div className="alert alert-danger">{error}</div> : ""}
 
             <form onSubmit={handleSubmit}>
@@ -93,9 +86,6 @@ const LoginForm = () => {
             </form>
 
             <p>Don't have an account? <Link to="/Registration">Register</Link></p>
-            </section>
-            )}
-
         </>
     )
 }
