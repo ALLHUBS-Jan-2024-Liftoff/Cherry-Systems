@@ -14,11 +14,11 @@ export const AuthProvider = ({ children }) => {
     const checkAuthUser = async () => {
         try {
             const currentUser = await getCurrentUser();
-            setIsAuthenticated(true);
             if (currentUser) {
                 setUser(currentUser);
-                console.log(currentUser);
-                console.log(`Authenticated: ${isAuthenticated}`);
+                setIsAuthenticated(true);
+                console.log('Current User: ' + currentUser.username);
+                // console.log('Authenticated: ' + isAuthenticated); // state is not true when browser component shows true; test later
             }
         } catch (error) {
             setUser(null);
@@ -32,9 +32,8 @@ export const AuthProvider = ({ children }) => {
     const handleLogin = async (username, email, password) => {
         try {
             const loginStatus = await authLogin(username, email, password);
-            setIsAuthenticated(true); // reaches here but doesn't
-            console.log(`Authenticated: ${isAuthenticated}`);
-            // window. location. reload();
+            setIsAuthenticated(true);
+            // console.log(`Authenticated: ${isAuthenticated}`); // false when context shows true, test later
         } catch (error) {
             console.error('Failed to login!', error);
             throw error;
@@ -45,9 +44,8 @@ export const AuthProvider = ({ children }) => {
         try {
             await authLogout();
             setUser(null);
-            console.log("log in auth context handleLogout");
             setIsAuthenticated(false);
-            // window. location. reload();
+            // console.log(`Authenticated: ${isAuthenticated}`); // state is not true when browser component shows true; test later
         } catch (error) {
             console.error('Failed to logout!', error);
             throw error;

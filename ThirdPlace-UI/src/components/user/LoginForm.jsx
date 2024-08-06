@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 
 
 const LoginForm = () => {
-    const { login, user, isAuthenticated } = useAuth();
+    const { login } = useAuth();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
         setError('');
@@ -22,10 +21,9 @@ const LoginForm = () => {
 
         try {
             await login(username, email, password);
-            window. location. reload(); // check if need this
+            window.location.reload(); // check if need this
             setError('');
             alert(`${username} has logged in!`);
-            // setSuccess(true);
             window.location.href = "/";
         } catch (error) {
             setError('Failed to login. Please try again!');
@@ -70,7 +68,9 @@ const LoginForm = () => {
                     <label className="form-label">
                         Password
                         <input 
-                        type="password"
+                        type={
+                            showPassword ? "text" : "password"
+                        }
                         className="form-control"
                         name='password'
                         value={password}
@@ -78,7 +78,21 @@ const LoginForm = () => {
                         required
                         />
                     </label>
+                    <br />
+                    <label>
+                        <medium>Show Password</medium>
+                        <input
+                            name="check"
+                            type="checkbox"
+                            value={showPassword}
+                            onChange={() =>
+                                setShowPassword((prev) => !prev)
+                            }
+                            />
+                    </label>
                 </div>
+
+                <br />
 
                 <button type="submit"  className="submit-button">
                     Log in

@@ -6,11 +6,7 @@ export default function NavLinks() {
 
     const handleSubmit = async () => {
         await logout();
-        console.log("log in user profile handlelogout");
         alert("You have logged out!");
-        // After logout, redirect to the login page 
-        // navigate('/login', { user, isAuthenticated });
-        // window. location. reload();
     }; 
 
     return (

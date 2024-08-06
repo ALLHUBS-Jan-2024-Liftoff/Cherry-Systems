@@ -11,20 +11,19 @@ export default function Login() {
   useEffect(() => {
     if (user !== null) {
       navigate('/profile', { user, isAuthenticated });
-      console.log("log in Login page in useEffect");
     }
   }, [])
 
   return (
     <>
       <Navbar />
-
+      
       <h1>Login</h1>
 
       <div className="container review-card">
-          <LoginForm />
+        <LoginForm />
       </div>
-      
+
       <p className="gray-text">
         <center>🍒 Powered by Cherry Systems </center>
       </p>

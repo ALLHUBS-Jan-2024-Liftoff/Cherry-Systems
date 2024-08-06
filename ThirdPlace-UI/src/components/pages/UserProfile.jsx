@@ -5,15 +5,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from "../../context/AuthContext";
 
 export default function UserProfile() {
-  const { isAuthenticated, user, logout } = useAuth();
-
+  const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user === null) {
-      navigate('/login', { user, isAuthenticated });
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (user === null) {
+  //     navigate('/login', { user, isAuthenticated });
+  //     console.log("Must be logged in to view profile.");
+  //   }
+  // }, [])
 
   return (
     <div>
@@ -46,6 +46,10 @@ export default function UserProfile() {
           </div>
         </section>
         )}
+
+        <p className="gray-text">
+          <center>🍒 Powered by Cherry Systems</center>
+        </p>
     </div>
   )
 }
