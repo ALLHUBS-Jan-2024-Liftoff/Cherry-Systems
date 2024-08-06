@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState, useContext } from "react";
 import { getCurrentUser, login as authLogin, logout as authLogout } from "../service/AuthService";
-import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -9,18 +8,16 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(sessionStorage.getItem("user") || null);
-    const [isAuthenticated, setIsAuthenticated] = useState(sessionStorage.getItem("isAuthenticated") || false);
-    sessionStorage.setItem("user", JSON.stringify(user));
-    sessionStorage.setItem("isAuthenticated", isAuthenticated);
+    const [user, setUser] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const checkAuthUser = async () => {
         try {
             const currentUser = await getCurrentUser();
+            setIsAuthenticated(true);
             if (currentUser) {
                 setUser(currentUser);
                 console.log(currentUser);
-                setIsAuthenticated(true);
                 console.log(`Authenticated: ${isAuthenticated}`);
             }
         } catch (error) {
@@ -50,9 +47,6 @@ export const AuthProvider = ({ children }) => {
             setUser(null);
             console.log("log in auth context handleLogout");
             setIsAuthenticated(false);
-            sessionStorage.removeItem("user");
-            sessionStorage.removeItem("isAuthenticated");
-            // sessionStorage.clear();
             // window. location. reload();
         } catch (error) {
             console.error('Failed to logout!', error);

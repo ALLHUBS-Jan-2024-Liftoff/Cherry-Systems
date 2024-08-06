@@ -50,9 +50,8 @@ export const getCurrentUser = async () => {
 
 export const logout = async () => {
     try {
-        const response = await axios.get(`@{BASEAPIURL}/logout`, {}, { 
-            withCredentials: true,
-            headers: { 'Content-Type': 'application/json' }
+        const response = await axios.get(`${BASEAPIURL}/logout`, {}, { 
+            withCredentials: true
         });
 
         console.log("Logout response: " + response.data, response.statusText);
