@@ -62,7 +62,6 @@ public class SubmissionController {
     }
 
 
-
     //View all Submissions
     @GetMapping("/searchandlist")
     public List<Submission> getAllSubmissions(){
@@ -86,7 +85,6 @@ public class SubmissionController {
 
 
     //Allows users to edit submission entity in DB
-
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateSubmission(@PathVariable Integer id, @RequestBody SubmissionFormDTO submissionFormDTO) {
 
@@ -111,7 +109,6 @@ public class SubmissionController {
         submissionRepository.save(findInRepo);
         return ResponseEntity.ok("Submission updated.");
     }
-
 
 
     //Deletes submissions in Submission Repository by finding the submission by its ID#
