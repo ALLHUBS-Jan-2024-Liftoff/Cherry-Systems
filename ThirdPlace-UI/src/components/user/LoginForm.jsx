@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 
 
 const LoginForm = () => {
-    const { login, user, isAuthenticated } = useAuth();
+    const { login } = useAuth();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
         setError('');
@@ -22,26 +21,18 @@ const LoginForm = () => {
 
         try {
             await login(username, email, password);
-            setSuccess(true);
-            // navigate('/profile', { user, isAuthenticated });
+            window.location.reload(); // check if need this
+            setError('');
+            alert(`${username} has logged in!`);
+            window.location.href = "/";
         } catch (error) {
-            setError('Login failed. Please try again!');
+            setError('Failed to login. Please try again!');
         }
 
     };
 
     return (
         <>
-            {success ? (
-                <section>
-                    <h1>User "{username}" is logged in!</h1>
-                    <br />
-                    <p>
-                        <Link to='/profile'>Go to My Profile</Link>
-                    </p>
-                </section>
-            ) : (
-            <section>
             {error ? <div className="alert alert-danger">{error}</div> : ""}
 
             <form onSubmit={handleSubmit}>
@@ -77,7 +68,9 @@ const LoginForm = () => {
                     <label className="form-label">
                         Password
                         <input 
-                        type="password"
+                        type={
+                            showPassword ? "text" : "password"
+                        }
                         className="form-control"
                         name='password'
                         value={password}
@@ -85,7 +78,21 @@ const LoginForm = () => {
                         required
                         />
                     </label>
+                    <br />
+                    <label>
+                        <medium>Show Password</medium>
+                        <input
+                            name="check"
+                            type="checkbox"
+                            value={showPassword}
+                            onChange={() =>
+                                setShowPassword((prev) => !prev)
+                            }
+                            />
+                    </label>
                 </div>
+
+                <br />
 
                 <button type="submit"  className="submit-button">
                     Log in
@@ -93,9 +100,6 @@ const LoginForm = () => {
             </form>
 
             <p>Don't have an account? <Link to="/Registration">Register</Link></p>
-            </section>
-            )}
-
         </>
     )
 }

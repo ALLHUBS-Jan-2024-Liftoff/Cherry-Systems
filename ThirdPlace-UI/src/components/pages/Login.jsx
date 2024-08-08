@@ -17,13 +17,13 @@ export default function Login() {
   return (
     <>
       <Navbar />
-
+      
       <h1>Login</h1>
 
       <div className="container review-card">
-          <LoginForm />
+        <LoginForm />
       </div>
-      
+
       <p className="gray-text">
         <center>🍒 Powered by Cherry Systems </center>
       </p>

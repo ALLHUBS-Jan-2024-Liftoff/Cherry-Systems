@@ -16,11 +16,9 @@ export const AuthProvider = ({ children }) => {
             const currentUser = await getCurrentUser();
             if (currentUser) {
                 setUser(currentUser);
-                console.log(currentUser);
-                // localStorage.setItem('user', user);
                 setIsAuthenticated(true);
-                console.log(`Authenticated: ${isAuthenticated}`);
-                // localStorage.setItem('isAuthenticated', isAuthenticated);
+                console.log('Current User: ' + currentUser.username);
+                // console.log('Authenticated: ' + isAuthenticated); // state is not true when browser component shows true; test later
             }
         } catch (error) {
             setUser(null);
@@ -34,7 +32,8 @@ export const AuthProvider = ({ children }) => {
     const handleLogin = async (username, email, password) => {
         try {
             const loginStatus = await authLogin(username, email, password);
-            // console.log(loginStatus);
+            setIsAuthenticated(true);
+            // console.log(`Authenticated: ${isAuthenticated}`); // false when context shows true, test later
         } catch (error) {
             console.error('Failed to login!', error);
             throw error;
@@ -42,11 +41,15 @@ export const AuthProvider = ({ children }) => {
     };
 
     const handleLogout = async () => {
-        await authLogout();
-        setUser(null);
-        // localStorage.removeItem('user');
-        setIsAuthenticated(false);
-        // localStorage.removeItem('isAuthenticated');
+        try {
+            await authLogout();
+            setUser(null);
+            setIsAuthenticated(false);
+            // console.log(`Authenticated: ${isAuthenticated}`); // state is not true when browser component shows true; test later
+        } catch (error) {
+            console.error('Failed to logout!', error);
+            throw error;
+        }
     };
 
     return(

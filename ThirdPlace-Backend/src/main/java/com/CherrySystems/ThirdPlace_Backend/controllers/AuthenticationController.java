@@ -110,7 +110,7 @@ public class AuthenticationController {
         }
     }
 
-//    Registration From authentication chapter unit 2, with JSON RequestBody
+//    Registration
     @PostMapping("/login")
     public ResponseEntity<?> processLoginForm(@RequestBody @Valid LoginFormDTO loginFormDTO,
                                    Errors errors, HttpServletRequest request) {
@@ -120,18 +120,23 @@ public class AuthenticationController {
         }
 
         String username = loginFormDTO.getUsername();
+
         String password = loginFormDTO.getPassword();
         String email = loginFormDTO.getEmail();
 
         User currentUsername = userRepository.findByUsername(username);
         User currentEmail = userRepository.findByEmail(email);
 
-        if (currentUsername == null) {
-            errors.rejectValue("username", "user.invalid", "The given username does not exist");
+        if (username.contains("@") && username.contains(".com")) {
+            errors.rejectValue("username", "username.invalid", "The username is not your email.");
+            return ResponseEntity.badRequest().body(errors.getAllErrors());
+        } else if (currentUsername == null) {
+            errors.rejectValue("username", "username.invalid", "The given username does not exist.");
+            return ResponseEntity.badRequest().body(errors.getAllErrors());
         }
 
         if (currentEmail == null) {
-            errors.rejectValue("email", "email.invalid", "The given email does not exist");
+            errors.rejectValue("email", "email.invalid", "The given email does not exist.");
         }
 
         if (!currentUsername.isMatchingPassword(password)) {
@@ -160,17 +165,9 @@ public class AuthenticationController {
         return ResponseEntity.ok(user);
     }
 
-
-//    Logout User
-//    @GetMapping("/logout")
-//    public String logout(HttpServletRequest request){
-//        request.getSession().invalidate();
-//        return "redirect:/login";
-//    }
-//    or
-//    Logout From authentication chapter unit 2, with JSON RequestBody
+//    Logout
     @GetMapping("/logout")
-    public ResponseEntity<?> logout(@RequestBody HttpServletRequest request){
+    public ResponseEntity<?> logout(HttpServletRequest request){
         request.getSession().invalidate();
         return ResponseEntity.ok("User is logged out!");
     }
