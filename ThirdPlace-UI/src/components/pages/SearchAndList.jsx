@@ -7,6 +7,7 @@ export default function SearchAndList() {
   
   const [submissions, setSubmissions] = useState([]);
   const [resultRecords, setResultRecords] = useState([]);
+  const [autocompleteSuggestions, setautocompleteSuggestions] = useState([]);
   const [filter, setFilter] = useState("all");
   const [input, setInput] = useState("");
 
@@ -27,12 +28,28 @@ export default function SearchAndList() {
     setResultRecords(result.data);
   };
 
-  // Filter submissions with each input change
+  // handleChange function triggers with each change in selection or input
 
   const handleChange = (value, filter) => {
     
     setInput(value);
     setFilter(filter);
+
+  // Filter suggestions with each input change
+
+    if (value !== "") {
+      setautocompleteSuggestions(
+        submissions.filter(function (submission) {
+          return (
+            submission.locationName
+            .toLowerCase()
+            .includes(value.toLowerCase())
+          )
+        }).slice(0,3)
+      )
+    } else setautocompleteSuggestions([]);
+
+  // Filter listed submissions with each input change
 
     if (value == "") {
       setResultRecords(submissions);
@@ -67,6 +84,14 @@ export default function SearchAndList() {
       );
     }
   };
+
+  // handles a click selection of an autocomplete suggestion
+
+  const handleSuggestionClick = (suggestion) => {
+    setInput(suggestion);
+    handleChange(suggestion, filter);
+    setautocompleteSuggestions([]);
+  }
 
   return (
     <div>
@@ -126,11 +151,29 @@ export default function SearchAndList() {
           <input
             className="form-control"
             type="text"
+            autocomplete="off"
             name="searchQuery"
             value={input}
             onChange={(event) => handleChange(event.target.value, filter)}
             placeholder="Type to search..."
           />
+
+          <div className="dropdown">
+            {autocompleteSuggestions.map((suggestion) => (
+              <div 
+              className="dropdown-row" 
+              key={suggestion.id}
+              onClick={(event) => { 
+                  handleSuggestionClick(suggestion.locationName)
+                  event.stopPropagation();
+                  }
+                }
+              >
+              {suggestion.locationName}
+              </div>
+            ))}
+          </div>
+          
         </div>
       </div>
 
