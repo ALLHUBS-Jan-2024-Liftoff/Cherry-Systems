@@ -21,14 +21,16 @@ export const login = async (username, email, password) => {
     } catch (error) {
         const errorData = error.response.data;
         let allDefaultMessages = [];
-
+        
         // Add all "defaultMessage" from error response to empty array to be logged in console
         for (let i = 0; i < errorData.length; i++) {  
-        allDefaultMessages.push(errorData[i].defaultMessage);
-    }
+            allDefaultMessages.push(errorData[i].defaultMessage);
+
+            alert(errorData[i].defaultMessage);
+        }
 
         console.error("Error logging in user!", allDefaultMessages);
-    throw error;
+        throw error;
     };
 
 };
@@ -50,16 +52,17 @@ export const getCurrentUser = async () => {
 
 export const logout = async () => {
     try {
-        const response = await axios.get(`@{BASEAPIURL}/logout`, {}, { 
-            withCredentials: true,
-            headers: { 'Content-Type': 'application/json' }
+        const response = await axios.get(`${BASEAPIURL}/logout`, {
+            withCredentials: true
         });
 
-        console.log(response);
+        console.log("Logout response: " + response.data, response.status);
+        // console.log("Logout log: authService try");
         
         return response.data;
     } catch (error) {
-        console.error('Failed to logout!', error);
+        // console.log("Logout log: in authService catch");
+        console.error('Failed to logout!', allDefaultMessages);
         throw error;
     };
 };

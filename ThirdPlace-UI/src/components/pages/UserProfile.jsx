@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ProfileInfoCard from '../user/ProfileInfoCard';
 import Navbar from '../navigation/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from "../../context/AuthContext";
 
 export default function UserProfile() {
-  const { isAuthenticated, user, logout } = useAuth();
-
+  const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    await logout();
-    // After logout, redirect to the login page 
-    navigate('/login', { user, isAuthenticated }); 
-  }; 
+  // useEffect(() => {
+  //   if (user === null) {
+  //     navigate('/login', { user, isAuthenticated });
+  //     console.log("Must be logged in to view profile.");
+  //   }
+  // }, [])
 
   return (
     <div>
@@ -32,13 +32,6 @@ export default function UserProfile() {
 
           <ProfileInfoCard/>
 
-          {/* Temporary logout button, will be removed after dynamic Sign Up / Logout and Login / My Profile buttons are implemented */}
-          <button
-            className="submit-button"
-            onClick={handleLogout}>
-            Logout
-          </button>
-
           <div className='review-card'>
               <h3>Submitted Locations</h3>
               <p>Locations here</p>
@@ -53,6 +46,10 @@ export default function UserProfile() {
           </div>
         </section>
         )}
+
+        <p className="gray-text">
+          <center>🍒 Powered by Cherry Systems</center>
+        </p>
     </div>
   )
 }

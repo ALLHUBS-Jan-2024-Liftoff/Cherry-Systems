@@ -1,7 +1,10 @@
 import React from "react";
-import { deleteUser } from "../../service/UserServices";
+// import { deleteUser } from "../../service/UserServices";
+import { useAuth } from "../../context/AuthContext";
 
-export default function ProfileInfoCard({user, deleteUser}) {
+export default function ProfileInfoCard() {
+  const { user } = useAuth();
+
   return (
     <div className="review-card">
       <h2>User Info</h2>
@@ -10,11 +13,11 @@ export default function ProfileInfoCard({user, deleteUser}) {
         <tbody>
           <tr>
             <th scope="row">Username</th>
-            <td>Peggy505</td>
+            <td>{user.username}</td>
           </tr>
           <tr>
             <th scope="row">Email</th>
-            <td>Peggy505@gmail.com</td>
+            <td>{user.email}</td>
           </tr>
           <tr>
             <th scope="row">Password</th>
