@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 // @RequestMapping("api"), add submission/{id} to PostMapping, use {id} to locate submission
@@ -56,16 +57,22 @@ public class ReviewController {
         return ResponseEntity.ok("New review submitted");
     }
 
-    //See all reviews by UserID
-    //User Profile -> view all reviews for user ->
-//    @GetMapping("/{userID}/reviews")
-//    public ResponseEntity<Review> userReviews(@PathVariable Integer userId, Review review) {
-//        Optional<User> user = userRepository.findById(userId);
-//        if (userRepository.existsById(userId)) {
-//
-//
-//
-//        }
-//    }
+    //See all reviews by userName
+    @GetMapping("/{userName}/reviews")
+    public ResponseEntity<?> userReviews(@PathVariable String userName, HttpSession session) {
+
+        //Finds user in Repository by userName
+        User user = userRepository.findByUsername(userName);
+
+        //If user is found, will get userId, find review by userId in review repository, and return them in a list
+        if (user != null) {
+            Integer userId = user.getId();
+            List<Review> userReviews = reviewRepository.findByUserId(userId);
+            return ResponseEntity.ok(userReviews);
+        } else {
+            return ResponseEntity.badRequest().body("User not found.");
+        }
+
+    }
 
 }
