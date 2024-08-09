@@ -54,12 +54,16 @@ public class ReviewController {
     }
 
     //See all reviews by UserID
-//    @GetMapping("/{userID}/reviews")
-//    public ResponseEntity<Review> userReviews(@PathVariable Integer userId, Review review) {
-//        User user =
-//
-//        }
-//    }
+    //User Profile -> view all reviews for user ->
+    @GetMapping("/{userID}/reviews")
+    public ResponseEntity<Review> userReviews(@PathVariable Integer userId, Review review) {
+        Optional<User> user = userRepository.findById(userId);
+        if (userRepository.existsById(userId)) {
+            
+
+
+        }
+    }
 
 
     
