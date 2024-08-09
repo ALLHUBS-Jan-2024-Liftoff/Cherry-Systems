@@ -37,7 +37,10 @@ export default function SearchAndList() {
 
   // Filter suggestions with each input change
 
-    if (value !== "") {
+    if (value === "") {
+      setautocompleteSuggestions([]);
+    }
+    else if (filter === "name") {
       setautocompleteSuggestions(
         submissions.filter(function (submission) {
           return (
@@ -47,7 +50,17 @@ export default function SearchAndList() {
           )
         }).slice(0,3)
       )
-    } else setautocompleteSuggestions([]);
+    } else if (filter === "address") {
+      setautocompleteSuggestions(
+        submissions.filter(function (submission) {
+          return (
+            submission.locationAddress
+            .toLowerCase()
+            .includes(value.toLowerCase())
+          )
+        }).slice(0,3)
+      )
+    } 
 
   // Filter listed submissions with each input change
 
@@ -164,12 +177,12 @@ export default function SearchAndList() {
               className="dropdown-row" 
               key={suggestion.id}
               onClick={(event) => { 
-                  handleSuggestionClick(suggestion.locationName)
+                  handleSuggestionClick((filter==="name") ? (suggestion.locationName) : (suggestion.locationAddress))
                   event.stopPropagation();
                   }
                 }
               >
-              {suggestion.locationName}
+              { (filter==="name") ? (suggestion.locationName) : (suggestion.locationAddress) }
               </div>
             ))}
           </div>
@@ -189,3 +202,9 @@ export default function SearchAndList() {
     </div>
   );
 }
+
+//PR details
+// - Implemented Autocomplete to search bar on /searchandlist
+// - List will display appropriate suggestions for the query as you type, a maximum of 3 suggestions at a time
+// - Clicking an Autocomplete suggestion auto-fills your search input, updates the list to that query, and stops showing autocomplete suggestions
+// - TODO: Autocomplete responds to filters
