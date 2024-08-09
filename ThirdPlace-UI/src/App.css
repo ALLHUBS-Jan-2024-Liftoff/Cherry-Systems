@@ -96,6 +96,11 @@ button:active {
   box-shadow: 0px 1px .25rem #6B737D;
 }
 
+medium {
+  color: rgb(98, 98, 98);
+  margin: 0px 7px 0px 0px;
+}
+
 .submit-button:hover {
   box-shadow: 1px 1px .25rem #6B737D;
 }
