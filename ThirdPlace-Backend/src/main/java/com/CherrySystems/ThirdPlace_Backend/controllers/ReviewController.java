@@ -8,6 +8,7 @@ import com.CherrySystems.ThirdPlace_Backend.models.dto.RateAndReviewDTO;
 import com.CherrySystems.ThirdPlace_Backend.repositories.ReviewRepository;
 import com.CherrySystems.ThirdPlace_Backend.repositories.SubmissionRepository;
 import com.CherrySystems.ThirdPlace_Backend.repositories.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +31,16 @@ public class ReviewController {
     @Autowired
     private SubmissionRepository submissionRepository;
 
+    @Autowired
+    private AuthenticationController authenticationController;
+
     @PostMapping("submission/{id}")
-    public ResponseEntity<?> newReview(@RequestBody RateAndReviewDTO rateAndReviewDTO, @PathVariable Integer id) {
+    public ResponseEntity<?> newReview(@RequestBody RateAndReviewDTO rateAndReviewDTO, @PathVariable Integer id, HttpSession session) {
 
         Review newReview = new Review();
 
-        //TODO: get user from session/authentication, currently holding dummy data to appease constructor
-        User user1 = userRepository.findByUsername("user1");
-        newReview.setUser(user1);
+        User user = authenticationController.getUserFromSession(session);
+        newReview.setUser(user);
 
         //Get current submission data from repository -> sets submission connected to review
         Optional<Submission> submissionById = submissionRepository.findById(id);
@@ -55,17 +58,14 @@ public class ReviewController {
 
     //See all reviews by UserID
     //User Profile -> view all reviews for user ->
-    @GetMapping("/{userID}/reviews")
-    public ResponseEntity<Review> userReviews(@PathVariable Integer userId, Review review) {
-        Optional<User> user = userRepository.findById(userId);
-        if (userRepository.existsById(userId)) {
-            
-
-
-        }
-    }
-
-
-    
+//    @GetMapping("/{userID}/reviews")
+//    public ResponseEntity<Review> userReviews(@PathVariable Integer userId, Review review) {
+//        Optional<User> user = userRepository.findById(userId);
+//        if (userRepository.existsById(userId)) {
+//
+//
+//
+//        }
+//    }
 
 }
