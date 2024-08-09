@@ -40,6 +40,20 @@ export default function SearchAndList() {
     if (value === "") {
       setautocompleteSuggestions([]);
     }
+    else if (filter === "all") {
+      setautocompleteSuggestions(
+        submissions.filter(function (submission) {
+          return (
+            submission.locationName
+            .toLowerCase()
+            .includes(value.toLowerCase()) ||
+            submission.locationAddress
+            .toLowerCase()
+            .includes(value.toLowerCase())
+          )
+        }).slice(0,3)
+      )    
+    }
     else if (filter === "name") {
       setautocompleteSuggestions(
         submissions.filter(function (submission) {
@@ -60,7 +74,7 @@ export default function SearchAndList() {
           )
         }).slice(0,3)
       )
-    } 
+    }
 
   // Filter listed submissions with each input change
 
@@ -177,12 +191,14 @@ export default function SearchAndList() {
               className="dropdown-row" 
               key={suggestion.id}
               onClick={(event) => { 
-                  handleSuggestionClick((filter==="name") ? (suggestion.locationName) : (suggestion.locationAddress))
+                  handleSuggestionClick((filter==="all") ? (suggestion.locationName || suggestion.locationAddress) :
+                  ((filter==="name") ? (suggestion.locationName) : (suggestion.locationAddress)))
                   event.stopPropagation();
                   }
                 }
               >
-              { (filter==="name") ? (suggestion.locationName) : (suggestion.locationAddress) }
+              { (filter==="all") ? (suggestion.locationName || suggestion.locationAddress) :
+              ((filter==="name") ? (suggestion.locationName) : (suggestion.locationAddress)) }
               </div>
             ))}
           </div>
@@ -207,4 +223,4 @@ export default function SearchAndList() {
 // - Implemented Autocomplete to search bar on /searchandlist
 // - List will display appropriate suggestions for the query as you type, a maximum of 3 suggestions at a time
 // - Clicking an Autocomplete suggestion auto-fills your search input, updates the list to that query, and stops showing autocomplete suggestions
-// - TODO: Autocomplete responds to filters
+// - TODO: Autocomplete responds to "all" filter
