@@ -35,6 +35,7 @@ public class ReviewController {
     @Autowired
     private AuthenticationController authenticationController;
 
+    //Create a new review for a submission
     @PostMapping("submission/{id}")
     public ResponseEntity<?> newReview(@RequestBody RateAndReviewDTO rateAndReviewDTO, @PathVariable Integer id, HttpSession session) {
 
@@ -74,5 +75,11 @@ public class ReviewController {
         }
 
     }
+
+    //TODO: View reviews per submission
+
+    //TODO: Update reviews by userID
+
+    //TODO: Delete reviews by userID
 
 }
