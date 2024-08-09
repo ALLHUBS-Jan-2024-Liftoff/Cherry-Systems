@@ -9,6 +9,7 @@ import com.CherrySystems.ThirdPlace_Backend.repositories.ReviewRepository;
 import com.CherrySystems.ThirdPlace_Backend.repositories.SubmissionRepository;
 import com.CherrySystems.ThirdPlace_Backend.repositories.UserRepository;
 import jakarta.servlet.http.HttpSession;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,9 +59,24 @@ public class ReviewController {
         return ResponseEntity.ok("New review submitted");
     }
 
+
+    @GetMapping("submission/{id}/reviews")
+    public ResponseEntity<?> submissionReviews(@PathVariable Integer id) {
+
+        //Get current submission data -> get reviews by submissionId
+        Optional<Submission> submissionById = submissionRepository.findById(id);
+            if (submissionById.isPresent()) {
+                List<Review> reviewList = reviewRepository.findBySubmission(submissionById);
+                return ResponseEntity.ok(reviewList);
+            } else {
+                return ResponseEntity.badRequest().body("Submission not found.");
+            }
+    }
+
+
     //See all reviews by userName
     @GetMapping("/{userName}/reviews")
-    public ResponseEntity<?> userReviews(@PathVariable String userName, HttpSession session) {
+    public ResponseEntity<?> userReviews(@PathVariable String userName) {
 
         //Finds user in Repository by userName
         User user = userRepository.findByUsername(userName);
@@ -73,12 +89,10 @@ public class ReviewController {
         } else {
             return ResponseEntity.badRequest().body("User not found.");
         }
-
     }
 
-    //TODO: View reviews per submission
-
     //TODO: Update reviews by userID
+    
 
     //TODO: Delete reviews by userID
 
