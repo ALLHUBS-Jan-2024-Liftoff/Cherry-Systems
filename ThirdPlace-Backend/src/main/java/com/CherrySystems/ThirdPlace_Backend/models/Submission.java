@@ -162,6 +162,8 @@ public class Submission {
         this.categories = categories;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -173,5 +175,22 @@ public class Submission {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Submission{" +
+                "id=" + id +
+                ", user=" + user +
+                ", locationName='" + locationName + '\'' +
+                ", locationAddress='" + locationAddress + '\'' +
+                ", placeId='" + placeId + '\'' +
+                ", rating=" + rating +
+                ", description='" + description + '\'' +
+                ", submissionReview='" + submissionReview + '\'' +
+                ", submissionDate=" + submissionDate +
+                ", averageRating=" + averageRating +
+                ", categories=" + categories +
+                '}';
     }
 }

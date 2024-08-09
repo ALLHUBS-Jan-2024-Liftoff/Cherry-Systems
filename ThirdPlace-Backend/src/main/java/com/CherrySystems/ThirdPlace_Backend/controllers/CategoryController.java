@@ -23,7 +23,7 @@ public class CategoryController {
 
 //    Add a Category
     @PostMapping("/new")
-    public Category addCategory(@RequestParam String categoryName) {
+    public Category addCategory(@RequestBody String categoryName) {
         Category newCategory = new Category();
         newCategory.setName(categoryName);
         return categoryRepository.save(newCategory);
