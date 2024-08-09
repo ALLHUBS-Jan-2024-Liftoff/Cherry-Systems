@@ -7,6 +7,7 @@ import com.CherrySystems.ThirdPlace_Backend.repositories.SubmissionRepository;
 import com.CherrySystems.ThirdPlace_Backend.repositories.UserRepository;
 import jakarta.persistence.Id;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +28,14 @@ public class SubmissionController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AuthenticationController authenticationController;
+
 
 //Processes Submission Form - Takes form submission data in JSON form to create an object.
 //Postman request I was using for testing --> { "locationName":"Kaldi Coffee", "locationAddress":"Somewhere in STL", "rating":"4", "description":"Coffee Shop", "submissionReview":"This place has great coffee" }
     @PostMapping("/form")
-    public ResponseEntity<?> newSubmission(@RequestBody SubmissionFormDTO submissionFormDTO) {
+    public ResponseEntity<?> newSubmission(@RequestBody SubmissionFormDTO submissionFormDTO, HttpSession session) {
 
         Submission newSubmission = new Submission();
 
@@ -42,8 +46,10 @@ public class SubmissionController {
         newSubmission.setSubmissionReview(submissionFormDTO.getSubmissionReview());
 
         //TODO: get user from session/authentication, currently holding dummy data to appease constructor
-        User user1 = userRepository.findByUsername("user1");
-        newSubmission.setUser(user1);
+        User user = authenticationController.getUserFromSession(session);
+
+//        User user1 = userRepository.findByUsername("user1");
+        newSubmission.setUser(user);
 
         //TODO: get placeID from Maps API address, currently holding dummy data to appease constructor
         newSubmission.setPlaceId("123abc");
