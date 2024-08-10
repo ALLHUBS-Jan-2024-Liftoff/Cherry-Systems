@@ -4,7 +4,6 @@ import Navbar from "../navigation/Navbar";
 import CondensedSubmission from "../condensed-submission/CondensedSubmission.jsx";
 
 export default function SearchAndList() {
-  
   const [submissions, setSubmissions] = useState([]);
   const [resultRecords, setResultRecords] = useState([]);
   const [autocompleteSuggestions, setautocompleteSuggestions] = useState([]);
@@ -18,7 +17,6 @@ export default function SearchAndList() {
   }, []);
 
   const loadSubmissions = async () => {
-
     const result = await axios
       .get("http://localhost:8080/api/submission/searchandlist")
       .catch((error) => {
@@ -31,52 +29,52 @@ export default function SearchAndList() {
   // handleChange function triggers with each change in selection or input
 
   const handleChange = (value, filter) => {
-    
+
     setInput(value);
     setFilter(filter);
 
-  // Filter suggestions with each input change
+    // Filter autocomplete suggestions with each input change
 
     if (value === "") {
       setautocompleteSuggestions([]);
-    }
-    else if (filter === "all") {
+    } else if (filter === "all") {
       setautocompleteSuggestions(
-        submissions.filter(function (submission) {
-          return (
-            submission.locationName
-            .toLowerCase()
-            .includes(value.toLowerCase()) ||
-            submission.locationAddress
-            .toLowerCase()
-            .includes(value.toLowerCase())
-          )
-        }).slice(0,3)
-      )    
-    }
-    else if (filter === "name") {
+        submissions
+          .filter(function (submission) {
+            return (
+              submission.locationName
+                .toLowerCase()
+                .includes(value.toLowerCase()) ||
+              submission.locationAddress
+                .toLowerCase()
+                .includes(value.toLowerCase())
+            );
+          })
+          .slice(0, 4)
+      );
+    } else if (filter === "name") {
       setautocompleteSuggestions(
-        submissions.filter(function (submission) {
-          return (
-            submission.locationName
-            .toLowerCase()
-            .includes(value.toLowerCase())
-          )
-        }).slice(0,3)
-      )
+        submissions
+          .filter(function (submission) {
+            return submission.locationName
+              .toLowerCase()
+              .includes(value.toLowerCase());
+          })
+          .slice(0, 4)
+      );
     } else if (filter === "address") {
       setautocompleteSuggestions(
-        submissions.filter(function (submission) {
-          return (
-            submission.locationAddress
-            .toLowerCase()
-            .includes(value.toLowerCase())
-          )
-        }).slice(0,3)
-      )
+        submissions
+          .filter(function (submission) {
+            return submission.locationAddress
+              .toLowerCase()
+              .includes(value.toLowerCase());
+          })
+          .slice(0, 4)
+      );
     }
 
-  // Filter listed submissions with each input change
+    // Filter listed submissions with each input change
 
     if (value == "") {
       setResultRecords(submissions);
@@ -112,12 +110,39 @@ export default function SearchAndList() {
     }
   };
 
-  // handles a click selection of an autocomplete suggestion
+  // Handles a click selection of an autocomplete suggestion
 
   const handleSuggestionClick = (suggestion) => {
     setInput(suggestion);
     handleChange(suggestion, filter);
     setautocompleteSuggestions([]);
+  };
+
+  // Handles rendering of autocomplete suggestions based on filter
+
+  function renderAutoCompleteValue(suggestion) {
+
+    let autocompleteValue = "";
+
+    if (filter === "all") {
+
+      if (suggestion.locationName.toLowerCase().includes(input.toLowerCase())) {
+        autocompleteValue = suggestion.locationName;
+      } else if (
+        suggestion.locationAddress.toLowerCase().includes(input.toLowerCase())
+      ) {
+        autocompleteValue = suggestion.locationAddress;
+      } else autocompleteValue = "Error: Cannot render value";
+
+    } else if (filter === "name") {
+      autocompleteValue = suggestion.locationName;
+
+    } else if (filter === "address") {
+      autocompleteValue = suggestion.locationAddress;
+    }
+
+    return autocompleteValue;
+
   }
 
   return (
@@ -187,22 +212,24 @@ export default function SearchAndList() {
 
           <div className="dropdown">
             {autocompleteSuggestions.map((suggestion) => (
-              <div 
-              className="dropdown-row" 
-              key={suggestion.id}
-              onClick={(event) => { 
-                  handleSuggestionClick((filter==="all") ? (suggestion.locationName || suggestion.locationAddress) :
-                  ((filter==="name") ? (suggestion.locationName) : (suggestion.locationAddress)))
+              <div
+                className="dropdown-row"
+                key={suggestion.id}
+                onClick={(event) => {
+                  handleSuggestionClick(
+                    filter === "all"
+                      ? suggestion.locationName || suggestion.locationAddress
+                      : filter === "name"
+                      ? suggestion.locationName
+                      : suggestion.locationAddress
+                  );
                   event.stopPropagation();
-                  }
-                }
+                }}
               >
-              { (filter==="all") ? (suggestion.locationName || suggestion.locationAddress) :
-              ((filter==="name") ? (suggestion.locationName) : (suggestion.locationAddress)) }
+                {renderAutoCompleteValue(suggestion)}
               </div>
             ))}
           </div>
-          
         </div>
       </div>
 
@@ -218,9 +245,3 @@ export default function SearchAndList() {
     </div>
   );
 }
-
-//PR details
-// - Implemented Autocomplete to search bar on /searchandlist
-// - List will display appropriate suggestions for the query as you type, a maximum of 3 suggestions at a time
-// - Clicking an Autocomplete suggestion auto-fills your search input, updates the list to that query, and stops showing autocomplete suggestions
-// - TODO: Autocomplete responds to "all" filter
