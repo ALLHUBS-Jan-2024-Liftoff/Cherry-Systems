@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { updateUser } from '../../service/UserServices';
 import ProfileInfoCard from './ProfileInfoCard';
+import defaultImg from '../../assets/logo-62px.png';
 
 const UpdateUserForm = () => {
     const { user } = useAuth();
@@ -12,6 +13,7 @@ const UpdateUserForm = () => {
     const [verifyEmail, setVerifyEmail] = useState(user.email);
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
+    const [profileImage, setProfileImage] = useState(0);
 
     const [error, setError] = useState("");
 
@@ -106,7 +108,77 @@ const UpdateUserForm = () => {
                             />
                         </label>
                     </div>
+                    <div className="form-group">
+                        <label className="form-label">
+                            Profile Image
+                            <input
+                            type="radio"
+                            className="form-control"
+                            id='profileImage'
+                            name='profileImage'
+                            value={profileImage}
+                            onChange={(e) => setProfileImage(e.target.value)}
+                            required
+                            />
+                        </label>
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label">
+                            Profile Image
+                            <br/>
+                        <input 
+                            type="radio" 
+                            id="profileImage"
+                            value={0}
+                            name='profileImage'
+                            onChange={(e) => setProfileImage(e.target.value)}
+                            />
+                            <label for="profileImage"><img src={defaultImg} /></label>
+                        <input 
+                            type="radio" 
+                            id="profileImage"
+                            value={1}
+                            name='profileImage'
+                            onChange={(e) => setProfileImage(e.target.value)}
+                            />
+                            <label for="profileImage"><img src={defaultImg} /></label>
+                        <input 
+                            type="radio" 
+                            id="profileImage"
+                            value={2}
+                            name='profileImage'
+                            onChange={(e) => setProfileImage(e.target.value)}
+                            />
+                            <label for="profileImage"><img src={defaultImg} /></label>
+                        <br/>
+                        <input 
+                            type="radio" 
+                            id="profileImage"
+                            value={3}
+                            name='profileImage'
+                            onChange={(e) => setProfileImage(e.target.value)}
+                            />
+                            <label for="profileImage"><img src={defaultImg} /></label>
+                        <input 
+                            type="radio" 
+                            id="profileImage"
+                            value={4}
+                            name='profileImage'
+                            onChange={(e) => setProfileImage(e.target.value)}
+                            />
+                            <label for="profileImage"><img src={defaultImg} /></label>
+                        <input 
+                            type="radio" 
+                            id="profileImage"
+                            value={5}
+                            name='profileImage'
+                            onChange={(e) => setProfileImage(e.target.value)}
+                            />
+                        <label for="profileImage"><img src={defaultImg} /></label>
+                    </label>
+                    </div>
 
+                    <br/>
                     <button type="submit" className="submit-button">
                         Save
                     </button>
