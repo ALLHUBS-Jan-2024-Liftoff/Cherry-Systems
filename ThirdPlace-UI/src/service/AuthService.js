@@ -62,7 +62,7 @@ export const logout = async () => {
         return response.data;
     } catch (error) {
         // console.log("Logout log: in authService catch");
-        console.error('Failed to logout!', allDefaultMessages);
+        console.error('Failed to logout!');
         throw error;
     };
 };
