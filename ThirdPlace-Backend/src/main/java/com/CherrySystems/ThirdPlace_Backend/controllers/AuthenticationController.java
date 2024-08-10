@@ -1,8 +1,11 @@
 package com.CherrySystems.ThirdPlace_Backend.controllers;
 
+import com.CherrySystems.ThirdPlace_Backend.models.Category;
+import com.CherrySystems.ThirdPlace_Backend.models.Submission;
 import com.CherrySystems.ThirdPlace_Backend.models.User;
 import com.CherrySystems.ThirdPlace_Backend.models.dto.LoginFormDTO;
 import com.CherrySystems.ThirdPlace_Backend.models.dto.RegistrationFormDTO;
+import com.CherrySystems.ThirdPlace_Backend.models.dto.SubmissionFormDTO;
 import com.CherrySystems.ThirdPlace_Backend.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -10,6 +13,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
@@ -17,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping("/api/user")
@@ -120,7 +126,6 @@ public class AuthenticationController {
         }
 
         String username = loginFormDTO.getUsername();
-
         String password = loginFormDTO.getPassword();
         String email = loginFormDTO.getEmail();
 
@@ -180,5 +185,72 @@ public class AuthenticationController {
     }
 
 //    TODO: Edit User method
+    @PatchMapping("/update")
+    public ResponseEntity<?> updateUser(@RequestBody @Valid RegistrationFormDTO registrationFormDTO,
+                                        Errors errors, HttpSession session) {
 
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().body(errors.getAllErrors());
+        }
+
+        // Get User from session
+        User userToUpdate = getUserFromSession(session);
+
+        // Updates User data only for those that were changed
+        String username = registrationFormDTO.getUsername();
+        String email = registrationFormDTO.getEmail();
+        String verifyEmail = registrationFormDTO.getVerifyEmail();
+        String password = registrationFormDTO.getPassword();
+        String verifyPassword = registrationFormDTO.getVerifyPassword();
+
+        User existingUsername = userRepository.findByUsername(username);
+        User existingEmail = userRepository.findByEmail(email);
+
+        String currentUsername = userToUpdate.getUsername();
+        String currentEmail = userToUpdate.getEmail();
+
+        // Collect errors
+        if (!currentUsername.equalsIgnoreCase(username)) {
+            if (registrationFormDTO.getUsername().isEmpty()) {
+                errors.rejectValue("username", "username.isEmpty", "Username is required.");
+            } else if (existingUsername != null) {
+                errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists.");
+            }
+        }
+
+        if (!currentEmail.equalsIgnoreCase(email)) {
+            if (registrationFormDTO.getEmail().isEmpty()) {
+                errors.rejectValue("email", "email.isEmpty", "Email is required.");
+            } else if (existingEmail != null) {
+                errors.rejectValue("email", "email.alreadyexists", "A user with that email already exists.");
+            }
+        }
+
+        if (registrationFormDTO.getVerifyEmail().isEmpty()) {
+            errors.rejectValue("verifyEmail", "verifyEmail.isEmpty", "Verify Email is required.");
+        } else if (!email.equals(verifyEmail)) {
+            errors.rejectValue("email", "emails.mismatch", "Emails do not match.");
+        }
+
+        if (registrationFormDTO.getPassword().isEmpty()) {
+            errors.rejectValue("password", "password.isEmpty", "Password is required.");
+        } else if (registrationFormDTO.getVerifyPassword().isEmpty()) {
+            errors.rejectValue("verifyPassword", "verifyPassword.isEmpty", "Verify Password is required.");
+        } else if (!password.equals(verifyPassword)) {
+            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match.");
+        }
+
+        // If no errors, save updated User to database
+        if (errors.hasErrors()) {
+            return ResponseEntity.badRequest().body(errors.getAllErrors());
+        } else {
+            userToUpdate.setUsername(registrationFormDTO.getUsername());
+            userToUpdate.setEmail(registrationFormDTO.getEmail());
+            final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            userToUpdate.setPwHash(encoder.encode(registrationFormDTO.getPassword()));
+
+            userRepository.save(userToUpdate);
+            return ResponseEntity.ok("User successfully updated!");
+        }
+    }
 }
