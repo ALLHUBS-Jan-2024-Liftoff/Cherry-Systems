@@ -1,10 +1,14 @@
 package com.CherrySystems.ThirdPlace_Backend.models.dto;
 
+import com.CherrySystems.ThirdPlace_Backend.models.Submission;
+
 public class RateAndReviewDTO {
 
     private int rating;
 
     private String reviewText;
+
+    private Submission submission;
 
     public int getRating() {
         return rating;
@@ -20,5 +24,13 @@ public class RateAndReviewDTO {
 
     public void setReviewText(String reviewText) {
         this.reviewText = reviewText;
+    }
+
+    public Submission getSubmission() {
+        return submission;
+    }
+
+    public void setSubmission(Submission submission) {
+        this.submission = submission;
     }
 }
