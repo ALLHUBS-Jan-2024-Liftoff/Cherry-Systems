@@ -75,7 +75,6 @@ public class AuthenticationController {
             String verifyEmail = registrationFormDTO.getVerifyEmail();
             String password = registrationFormDTO.getPassword();
             String verifyPassword = registrationFormDTO.getVerifyPassword();
-            Integer profileImage = registrationFormDTO.getProfileImage();
 
             User existingUsername = userRepository.findByUsername(username);
             User existingEmail = userRepository.findByEmail(email);
