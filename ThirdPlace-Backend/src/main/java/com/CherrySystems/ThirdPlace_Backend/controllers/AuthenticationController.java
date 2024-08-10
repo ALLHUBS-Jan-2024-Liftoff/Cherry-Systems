@@ -75,6 +75,7 @@ public class AuthenticationController {
             String verifyEmail = registrationFormDTO.getVerifyEmail();
             String password = registrationFormDTO.getPassword();
             String verifyPassword = registrationFormDTO.getVerifyPassword();
+            Integer profileImage = registrationFormDTO.getProfileImage();
 
             User existingUsername = userRepository.findByUsername(username);
             User existingEmail = userRepository.findByEmail(email);
@@ -108,7 +109,7 @@ public class AuthenticationController {
             if (errors.hasErrors()) {
                 return ResponseEntity.badRequest().body(errors.getAllErrors());
             } else {
-                User newUser = new User(username, email, password);
+                User newUser = new User(username, email, password, 0);
                 setUserInSession(request.getSession(), newUser);
                 userRepository.save(newUser);
 
@@ -184,7 +185,7 @@ public class AuthenticationController {
         userRepository.deleteById(userId);
     }
 
-//    TODO: Edit User method
+//    Edit User method
     @PatchMapping("/update")
     public ResponseEntity<?> updateUser(@RequestBody @Valid RegistrationFormDTO registrationFormDTO,
                                         Errors errors, HttpSession session) {
@@ -202,6 +203,7 @@ public class AuthenticationController {
         String verifyEmail = registrationFormDTO.getVerifyEmail();
         String password = registrationFormDTO.getPassword();
         String verifyPassword = registrationFormDTO.getVerifyPassword();
+        Integer profileImage = registrationFormDTO.getProfileImage();
 
         User existingUsername = userRepository.findByUsername(username);
         User existingEmail = userRepository.findByEmail(email);
@@ -244,10 +246,11 @@ public class AuthenticationController {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(errors.getAllErrors());
         } else {
-            userToUpdate.setUsername(registrationFormDTO.getUsername());
-            userToUpdate.setEmail(registrationFormDTO.getEmail());
+            userToUpdate.setUsername(username);
+            userToUpdate.setEmail(email);
             final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            userToUpdate.setPwHash(encoder.encode(registrationFormDTO.getPassword()));
+            userToUpdate.setPwHash(encoder.encode(password));
+            userToUpdate.setProfileImage(profileImage);
 
             userRepository.save(userToUpdate);
             return ResponseEntity.ok("User successfully updated!");
