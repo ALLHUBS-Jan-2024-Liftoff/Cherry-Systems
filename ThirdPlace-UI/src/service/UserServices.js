@@ -48,6 +48,7 @@ export const deleteUser = async (userId) => {
   try {
     await axios.post(`${BASEAPIURL}/delete`, null, {
       params: { userId },
+      withCredentials: true
     });
   } catch (error) {
     console.error("There was an error deleting the User!", error);
