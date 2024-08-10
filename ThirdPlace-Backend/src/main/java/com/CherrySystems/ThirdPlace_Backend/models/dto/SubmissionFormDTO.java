@@ -1,6 +1,9 @@
 package com.CherrySystems.ThirdPlace_Backend.models.dto;
 
 
+import com.CherrySystems.ThirdPlace_Backend.models.Category;
+
+import java.util.List;
 
 public class SubmissionFormDTO {
 
@@ -14,6 +17,8 @@ public class SubmissionFormDTO {
     private String description;
 
     private String submissionReview;
+
+    private List<Integer> categories;
 
     public String getLocationName() {
         return locationName;
@@ -53,5 +58,13 @@ public class SubmissionFormDTO {
 
     public void setSubmissionReview(String submissionReview) {
         this.submissionReview = submissionReview;
+    }
+
+    public List<Integer> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Integer> categories) {
+        this.categories = categories;
     }
 }
