@@ -6,13 +6,13 @@
 
 <br/>
 
-ThirdPlace is an app dedicated to solving the <a href="https://en.wikipedia.org/wiki/Loneliness_epidemic">loneliness epidemic.</a> By offering a space for users to locate, share, and review third places, people can connect with their local communities in <a href="https://en.wikipedia.org/wiki/Third_place">third places</a> outside their homes and offices.
+ThirdPlace is an app dedicated to solving the <a href="https://en.wikipedia.org/wiki/Loneliness_epidemic">loneliness epidemic</a>. By offering a space for users to locate, share, and review third places, people can connect with their local communities in <a href="https://en.wikipedia.org/wiki/Third_place">third places</a> outside their homes and offices.
 
 ### Tech Stack
 - React
 - JavaScript
 - Java
-- Spring
+- Spring / Spring Boot
 - MySQL
 - Bootstrap
 - Google Maps API
