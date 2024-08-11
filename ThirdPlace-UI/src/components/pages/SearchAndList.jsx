@@ -4,9 +4,9 @@ import Navbar from "../navigation/Navbar";
 import CondensedSubmission from "../condensed-submission/CondensedSubmission.jsx";
 
 export default function SearchAndList() {
-  
   const [submissions, setSubmissions] = useState([]);
   const [resultRecords, setResultRecords] = useState([]);
+  const [autocompleteSuggestions, setautocompleteSuggestions] = useState([]);
   const [filter, setFilter] = useState("all");
   const [input, setInput] = useState("");
 
@@ -17,7 +17,6 @@ export default function SearchAndList() {
   }, []);
 
   const loadSubmissions = async () => {
-
     const result = await axios
       .get("http://localhost:8080/api/submission/searchandlist")
       .catch((error) => {
@@ -27,12 +26,55 @@ export default function SearchAndList() {
     setResultRecords(result.data);
   };
 
-  // Filter submissions with each input change
+  // handleChange function triggers with each change in selection or input
 
   const handleChange = (value, filter) => {
-    
+
     setInput(value);
     setFilter(filter);
+
+    // Filter autocomplete suggestions with each input change
+
+    if (value === "") {
+      setautocompleteSuggestions([]);
+    } else if (filter === "all") {
+      setautocompleteSuggestions(
+        submissions
+          .filter(function (submission) {
+            return (
+              submission.locationName
+                .toLowerCase()
+                .includes(value.toLowerCase()) ||
+              submission.locationAddress
+                .toLowerCase()
+                .includes(value.toLowerCase())
+            );
+          })
+          .slice(0, 4)
+      );
+    } else if (filter === "name") {
+      setautocompleteSuggestions(
+        submissions
+          .filter(function (submission) {
+            return submission.locationName
+              .toLowerCase()
+              .includes(value.toLowerCase());
+          })
+          .slice(0, 4)
+      );
+    } else if (filter === "address") {
+      setautocompleteSuggestions(
+        submissions
+          .filter(function (submission) {
+            return submission.locationAddress
+              .toLowerCase()
+              .includes(value.toLowerCase());
+          })
+          .slice(0, 4)
+      );
+    }
+
+    // Filter listed submissions with each input change
 
     if (value == "") {
       setResultRecords(submissions);
@@ -67,6 +109,41 @@ export default function SearchAndList() {
       );
     }
   };
+
+  // Handles a click selection of an autocomplete suggestion
+
+  const handleSuggestionClick = (suggestion) => {
+    setInput(suggestion);
+    handleChange(suggestion, filter);
+    setautocompleteSuggestions([]);
+  };
+
+  // Handles rendering of autocomplete suggestions based on filter
+
+  function renderAutoCompleteValue(suggestion) {
+
+    let autocompleteValue = "";
+
+    if (filter === "all") {
+
+      if (suggestion.locationName.toLowerCase().includes(input.toLowerCase())) {
+        autocompleteValue = suggestion.locationName;
+      } else if (
+        suggestion.locationAddress.toLowerCase().includes(input.toLowerCase())
+      ) {
+        autocompleteValue = suggestion.locationAddress;
+      } else autocompleteValue = "Error: Cannot render value";
+
+    } else if (filter === "name") {
+      autocompleteValue = suggestion.locationName;
+
+    } else if (filter === "address") {
+      autocompleteValue = suggestion.locationAddress;
+    }
+
+    return autocompleteValue;
+
+  }
 
   return (
     <div>
@@ -126,11 +203,33 @@ export default function SearchAndList() {
           <input
             className="form-control"
             type="text"
+            autoComplete="off"
             name="searchQuery"
             value={input}
             onChange={(event) => handleChange(event.target.value, filter)}
             placeholder="Type to search..."
           />
+
+          <div className="dropdown">
+            {autocompleteSuggestions.map((suggestion) => (
+              <div
+                className="dropdown-row"
+                key={suggestion.id}
+                onClick={(event) => {
+                  handleSuggestionClick(
+                    filter === "all"
+                      ? suggestion.locationName || suggestion.locationAddress
+                      : filter === "name"
+                      ? suggestion.locationName
+                      : suggestion.locationAddress
+                  );
+                  event.stopPropagation();
+                }}
+              >
+                {renderAutoCompleteValue(suggestion)}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

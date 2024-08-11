@@ -131,14 +131,43 @@ button:active {
   background-color: #873232;
 }
 
+/* Google Maps div display */
 #map {
   height: 100%;
+}
+
+/* Search form CSS */
+.dropdown {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border: solid 1px #6B737D;
+}
+
+.dropdown:empty {
+  border: none;
+}
+
+.dropdown-row {
+  cursor: pointer;
+  text-align: start;
+  padding: 3px 5px;
+}
+
+.dropdown-row:hover {
+  background-color: #F2F5F5;
+}
+
+.dropdown-row:active {
+  background-color: #6B737D;
+  color: white;
 }
 
 .search-form {
   margin-bottom: 40px;
 }
 
+/* Review stars */
 .starsContainer {
   display: flex;
 }
