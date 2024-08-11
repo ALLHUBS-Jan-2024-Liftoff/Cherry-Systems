@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { updateUser } from '../../service/UserServices';
 import ProfileInfoCard from './ProfileInfoCard';
-import defaultImg from '../../assets/logo-62px.png';
+import plant0 from '../../assets/plant0.png';
+import plant1 from '../../assets/plant1.png';
+import plant2 from '../../assets/plant2.png';
+import plant3 from '../../assets/plant3.png';
+import plant4 from '../../assets/plant4.png';
+import plant5 from '../../assets/plant5.png';
 
 const UpdateUserForm = () => {
     const { user } = useAuth();
@@ -15,6 +20,7 @@ const UpdateUserForm = () => {
     const [verifyPassword, setVerifyPassword] = useState("");
     const [profileImage, setProfileImage] = useState(0);
 
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
@@ -84,7 +90,9 @@ const UpdateUserForm = () => {
                         <label className="form-label">
                             Password
                             <input
-                            type="password"
+                            type={
+                                showPassword ? "text" : "password"
+                            }
                             className="form-control"
                             name='password'
                             value={password}
@@ -98,7 +106,9 @@ const UpdateUserForm = () => {
                         <label className="form-label">
                             Verify Password
                             <input
-                            type="password"
+                            type={
+                                showPassword ? "text" : "password"
+                            }
                             className="form-control"
                             name='verifyPassword'
                             value={verifyPassword}
@@ -108,6 +118,17 @@ const UpdateUserForm = () => {
                             />
                         </label>
                     </div>
+                    <label>
+                        <small>Show Passwords</small>
+                        <input
+                            name="check"
+                            type="checkbox"
+                            value={showPassword}
+                            onChange={() =>
+                                setShowPassword((prev) => !prev)
+                            }
+                            />
+                    </label>
                     <div className="form-group">
                         <label className="form-label">
                             Profile Image
@@ -119,7 +140,7 @@ const UpdateUserForm = () => {
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
-                            <label htmlFor={0}><img src={defaultImg} className="form-label"/></label>{"\t"} 
+                            <label htmlFor={0}><img src={plant0} className="form-label"/></label>{"\t"} 
                         <input 
                             type="radio" 
                             id="profileImage1"
@@ -127,7 +148,7 @@ const UpdateUserForm = () => {
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
-                            <label htmlFor={1}><img src={defaultImg} className="form-label"/></label>{"\t"} 
+                            <label htmlFor={1}><img src={plant1} className="form-label"/></label>{"\t"} 
                         <input 
                             type="radio" 
                             id="profileImage2"
@@ -135,7 +156,7 @@ const UpdateUserForm = () => {
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
-                            <label htmlFor={2}><img src={defaultImg} className="form-label"/></label>{"\t"} 
+                            <label htmlFor={2}><img src={plant2} className="form-label"/></label>{"\t"} 
                         <br/>
                         <input 
                             type="radio" 
@@ -144,7 +165,7 @@ const UpdateUserForm = () => {
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
-                            <label htmlFor={3}><img src={defaultImg} className="form-label"/></label>{"\t"} 
+                            <label htmlFor={3}><img src={plant3} className="form-label"/></label>{"\t"} 
                         <input 
                             type="radio" 
                             id="profileImage4"
@@ -152,7 +173,7 @@ const UpdateUserForm = () => {
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
-                            <label htmlFor={4}><img src={defaultImg} className="form-label"/></label>{"\t"} 
+                            <label htmlFor={4}><img src={plant4} className="form-label"/></label>{"\t"} 
                         <input 
                             type="radio" 
                             id="profileImage5"
@@ -160,7 +181,7 @@ const UpdateUserForm = () => {
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
-                        <label htmlFor={5}><img src={defaultImg} className="form-label"/></label>{"\t"} 
+                        <label htmlFor={5}><img src={plant5} className="form-label"/></label>{"\t"} 
                     </label>
                     </div>
 
