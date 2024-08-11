@@ -113,32 +113,32 @@ public class ReviewController {
         }
 
         //Find review by ID in repository
-        Review reviewById = reviewRepository.findById(id).get();
+        Review updateReview = reviewRepository.findById(id).get();
 
 
         //Check if current user is user responsible for post, if true, update user
-        if (!(reviewById.getUser()).equals(user)) {
+        if (!(updateReview.getUser()).equals(user)) {
             return ResponseEntity.badRequest().body("User cannot update a review they did not write.");
         } else {
-            reviewById.setUser(user);
+            updateReview.setUser(user);
         }
 
         //Check if submission is the submission for the review
-        Integer submissionById = reviewById.getSubmission().getId();
+        Integer submissionById = updateReview.getSubmission().getId();
         if (!(submissionById).equals(rateAndReviewDTO.getSubmissionId())) {
             return ResponseEntity.badRequest().body("Review is not for this submission.");
         } else {
-            reviewById.setSubmission(reviewById.getSubmission());
+            updateReview.setSubmission(updateReview.getSubmission());
         }
 
         //Update rating
-        reviewById.setRating(rateAndReviewDTO.getRating());
+        updateReview.setRating(rateAndReviewDTO.getRating());
 
         //Update reviewText
-        reviewById.setReviewText(rateAndReviewDTO.getReviewText());
+        updateReview.setReviewText(rateAndReviewDTO.getReviewText());
 
         //Save updated review in repository
-        reviewRepository.save(reviewById);
+        reviewRepository.save(updateReview);
         return ResponseEntity.ok().body("Review updated.");
     }
 
