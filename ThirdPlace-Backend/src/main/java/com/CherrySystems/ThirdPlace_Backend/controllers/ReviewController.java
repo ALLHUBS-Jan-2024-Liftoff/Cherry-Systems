@@ -36,15 +36,21 @@ public class ReviewController {
     @Autowired
     private AuthenticationController authenticationController;
 
-    //Create a new review for a submission
+    //Create a new review
     //@PostMapping("submission/{id}")
-    @PostMapping("reviews/new")
-    public ResponseEntity<?> newReview(@RequestBody RateAndReviewDTO rateAndReviewDTO, Integer id, HttpSession session) {
+    @PostMapping("submission/{id}/reviews/new")
+    public ResponseEntity<?> newReview(@RequestBody RateAndReviewDTO rateAndReviewDTO, @PathVariable Integer id, HttpSession session) {
 
+        //Initialize a newReview object to save
         Review newReview = new Review();
 
+        //verify user is logged in to create new review, set that user in session as the user for new review object
         User user = authenticationController.getUserFromSession(session);
-        newReview.setUser(user);
+        if (user == null ) {
+            return ResponseEntity.badRequest().body("User must be logged in to create a new review.");
+        } else {
+            newReview.setUser(user);
+        }
 
         //Get current submission data from repository -> sets submission connected to review
         Optional<Submission> submissionById = submissionRepository.findById(id);
@@ -53,18 +59,20 @@ public class ReviewController {
             newReview.setSubmission(currentSubmission);
         }
 
+        //set rating in new review
         newReview.setRating(rateAndReviewDTO.getRating());
+
+        //set reviewText in new review
         newReview.setReviewText(rateAndReviewDTO.getReviewText());
 
+        //save new review in repo
         reviewRepository.save(newReview);
         return ResponseEntity.ok("New review submitted");
     }
 
 
-    //
     @GetMapping("submission/{id}/reviews")
-    @GetMapping("reviews")
-    public ResponseEntity<?> submissionReviews(@PathVariable Integer id) {
+    public ResponseEntity<?> reviewsBySubmission(@PathVariable Integer id) {
 
         //Get current submission data -> get reviews by submissionId
         Optional<Submission> submissionById = submissionRepository.findById(id);
@@ -79,7 +87,7 @@ public class ReviewController {
 
     // See all reviews by userName
     @GetMapping("/{userName}/reviews")
-    public ResponseEntity<?> userReviews(@PathVariable String userName) {
+    public ResponseEntity<?> reviewsByUser(@PathVariable String userName) {
 
         //Finds user in Repository by userName
         User user = userRepository.findByUsername(userName);
@@ -94,50 +102,48 @@ public class ReviewController {
         }
     }
 
-    //TODO: Update review by review id
-    @PatchMapping("/reviews/{reviewID}")
-    public ResponseEntity<?> updateUserReviews(@RequestBody RateAndReviewDTO rateAndReviewDTO, @PathVariable Integer reviewId, HttpSession session) {
+    //TODO: Update review by review ID
+    @PatchMapping("/reviews/{id}")
+    public ResponseEntity<?> updateUserReviews(@RequestBody RateAndReviewDTO rateAndReviewDTO, @PathVariable Integer id, HttpSession session) {
 
-        //Gets user from session
+        //Gets user from session and verify login
         User user = authenticationController.getUserFromSession(session);
-
-        //Do not respond if user is not logged in
         if (user == null) {
-            return ResponseEntity.badRequest().body("User not logged in.");
+            return ResponseEntity.badRequest().body("User is not logged in.");
         }
 
-        //Find review by reviewID
-        Optional<Review> reviewById = reviewRepository.findById(reviewId);
-        if (!reviewById.isPresent()) {
-            return ResponseEntity.badRequest().body("Review does not exist.");
+        //Find review by ID in repository
+        Review reviewById = reviewRepository.findById(id).get();
+
+
+        //Check if current user is user responsible for post, if true, update user
+        if (!(reviewById.getUser()).equals(user)) {
+            return ResponseEntity.badRequest().body("User cannot update a review they did not write.");
+        } else {
+            reviewById.setUser(user);
         }
 
-        //Update review
-        Review updateReview = new Review();
-
-        updateReview.setUser(user);
-        updateReview.setSubmission(rateAndReviewDTO.getSubmission());
-        updateReview.setRating(rateAndReviewDTO.getRating());
-        updateReview.setReviewText(rateAndReviewDTO.getReviewText());
-
-
-        //If user is logged in, get  by userName,  and allow data changes
-        if (user.getUsername().equals(userName)) {
-            List<Review> userReviews = reviewRepository.findByUserName(userName);
-            for (Review review : userReviews ) {
-
-            }
-
-
-            return ResponseEntity.ok(userReviews);
+        //Check if submission is the submission for the review
+        Integer submissionById = reviewById.getSubmission().getId();
+        if (!(submissionById).equals(rateAndReviewDTO.getSubmissionId())) {
+            return ResponseEntity.badRequest().body("Review is not for this submission.");
+        } else {
+            reviewById.setSubmission(reviewById.getSubmission());
         }
 
-        userName = user.getUsername();
+        //Update rating
+        reviewById.setRating(rateAndReviewDTO.getRating());
 
+        //Update reviewText
+        reviewById.setReviewText(rateAndReviewDTO.getReviewText());
 
-
+        //Save updated review in repository
+        reviewRepository.save(reviewById);
+        return ResponseEntity.ok().body("Review updated.");
     }
 
-    //TODO: Delete reviews by userID
+
+    //TODO: Delete reviews by reviewID
+    
 
 }
