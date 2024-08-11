@@ -158,10 +158,11 @@ public class ReviewController {
         //Find review by ID in repository
         Review reviewById = reviewRepository.findById(id).get();
 
-        if (reviewById.getUser().equals(user)) {
-        reviewRepository.deleteById(id);
+        if (!(reviewById.getUser()).equals(user)) {
+            return ResponseEntity.badRequest().body("Review can only be deleted by posting user.");
+        } else {
+            reviewRepository.deleteById(id);
         }
-
         return ResponseEntity.ok().body("Review deleted.");
     }
 
