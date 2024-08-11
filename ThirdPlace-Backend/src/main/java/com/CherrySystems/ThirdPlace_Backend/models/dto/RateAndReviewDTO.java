@@ -8,8 +8,6 @@ public class RateAndReviewDTO {
 
     private String reviewText;
 
-//    private Submission submission;
-
     private Integer submissionId;
 
     public int getRating() {
@@ -27,14 +25,6 @@ public class RateAndReviewDTO {
     public void setReviewText(String reviewText) {
         this.reviewText = reviewText;
     }
-
-//    public Submission getSubmission() {
-//        return submission;
-//    }
-//
-//    public void setSubmission(Submission submission) {
-//        this.submission = submission;
-//    }
 
         public Integer getSubmissionId() {
         return submissionId;

@@ -68,14 +68,14 @@ public class ReviewController {
 
     //See reviews by submission
     @GetMapping("reviews")
-    public ResponseEntity<?> reviewsBySubmission(@RequestParam Integer id) {
+    public ResponseEntity<?> reviewsBySubmission(@RequestParam Integer submissionId) {
 
         //Get current submission data by ID
-        Submission submissionById = submissionRepository.findById(id).get();
+        Submission submissionById = submissionRepository.findById(submissionId).get();
 
         //Get reviews by submission
-        Integer submissionId = submissionById.getId();
-        List<Review> reviewList = reviewRepository.findBySubmissionId(submissionId);
+        Integer getSubmissionId = submissionById.getId();
+        List<Review> reviewList = reviewRepository.findBySubmissionId(getSubmissionId);
 
         //Check for reviews, populate list if reviews exist
         if (reviewList == null) {
