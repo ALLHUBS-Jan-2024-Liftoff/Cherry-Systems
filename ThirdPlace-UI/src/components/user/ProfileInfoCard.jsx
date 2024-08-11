@@ -1,9 +1,29 @@
 import React from "react";
-// import { deleteUser } from "../../service/UserServices";
+import { deleteUser } from "../../service/UserServices";
 import { useAuth } from "../../context/AuthContext";
 
 export default function ProfileInfoCard() {
   const { user } = useAuth();
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+
+    if (!confirm(`Are you sure you want to delete user: ${user.username}?`)) {
+      // Cancel is clicked
+      e.preventDefault();
+      alert('Cancelled: User was NOT deleted!');
+    } else {
+      // Ok is clicked
+      try {
+        await deleteUser(user.id);
+        alert(`${user.username} has been deleted!`);
+        window.location.href = "/";
+      } catch (error) {
+        console.error('Failed to delete user!', error);
+        throw error;
+      }
+    }
+};
 
   return (
     <div className="review-card">
@@ -33,7 +53,8 @@ export default function ProfileInfoCard() {
           </button>
           <button
             className="btn btn-danger"
-            onClick={() => deleteUser(user.id)}
+            value={user.id}
+            onClick={handleDelete}
             >
             Delete
           </button>
