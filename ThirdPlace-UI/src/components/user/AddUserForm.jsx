@@ -6,11 +6,14 @@ import { useAuth } from '../../context/AuthContext';
 
 const AddUserForm = () => {
     const { user, isAuthenticated } = useAuth();
+
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [verifyEmail, setVerifyEmail] = useState("");
     const [password, setPassword] = useState("");
     const [verifyPassword, setVerifyPassword] = useState("");
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const [userList, setUserList] = useState("");
     const [error, setError] = useState("");
@@ -153,7 +156,9 @@ const AddUserForm = () => {
                     <label className="form-label">
                         Password
                         <input
-                        type="password"
+                        type={
+                            showPassword ? "text" : "password"
+                        }
                         className="form-control"
                         name='password'
                         value={password}
@@ -166,13 +171,27 @@ const AddUserForm = () => {
                     <label className="form-label">
                         Verify Password
                         <input
-                        type="password"
+                        type={
+                            showPassword ? "text" : "password"
+                        }
                         className="form-control"
                         name='verifyPassword'
                         value={verifyPassword}
                         onChange={(e) => setVerifyPassword(e.target.value)}
                         required
                         />
+                    </label>
+                    <br />
+                    <label>
+                        <medium>Show Passwords</medium>
+                        <input
+                            name="check"
+                            type="checkbox"
+                            value={showPassword}
+                            onChange={() =>
+                                setShowPassword((prev) => !prev)
+                            }
+                            />
                     </label>
                 </div>
 
