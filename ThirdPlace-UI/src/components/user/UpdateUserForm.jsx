@@ -137,6 +137,7 @@ const UpdateUserForm = () => {
                             type="radio" 
                             id="defaultImage"
                             value={0}
+                            defaultChecked={user.profileImage === 0}
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
@@ -145,6 +146,7 @@ const UpdateUserForm = () => {
                             type="radio" 
                             id="profileImage1"
                             value={1}
+                            defaultChecked={user.profileImage === 1}
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
@@ -153,6 +155,7 @@ const UpdateUserForm = () => {
                             type="radio" 
                             id="profileImage2"
                             value={2}
+                            defaultChecked={user.profileImage === 2}
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
@@ -162,6 +165,7 @@ const UpdateUserForm = () => {
                             type="radio" 
                             id="profileImage3"
                             value={3}
+                            defaultChecked={user.profileImage === 3}
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
@@ -170,6 +174,7 @@ const UpdateUserForm = () => {
                             type="radio" 
                             id="profileImage4"
                             value={4}
+                            defaultChecked={user.profileImage === 4}
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
@@ -178,6 +183,7 @@ const UpdateUserForm = () => {
                             type="radio" 
                             id="profileImage5"
                             value={5}
+                            defaultChecked={user.profileImage === 5}
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
