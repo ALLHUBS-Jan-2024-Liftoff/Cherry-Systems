@@ -24,6 +24,13 @@ li {
   padding: 1rem;
 }
 
+/* For Login hide password text */
+medium {
+  font-size: small;
+  color: rgb(98, 98, 98);
+  margin: 0px 7px 0px 48px;
+}
+
 .gray-text {
   color: #6B737D;
 }
@@ -96,17 +103,32 @@ button:active {
   box-shadow: 0px 1px .25rem #6B737D;
 }
 
-medium {
-  color: rgb(98, 98, 98);
-  margin: 0px 7px 0px 0px;
-}
-
 .submit-button:hover {
   box-shadow: 1px 1px .25rem #6B737D;
 }
 
 .submit-button:active {
   background-color: #683287;
+}
+
+/* For Delete and Cancel buttons in Profile page */
+.delete-button {
+  color: white;
+  font-weight: 600;
+  background-color: #ac5252;
+  margin: .25rem;
+  padding: 10px 24px;
+  border-radius: 100px;
+  border: none;
+  box-shadow: 0px 1px .25rem #6B737D;
+}
+
+.delete-button:hover {
+  box-shadow: 1px 1px .25rem #6B737D;
+}
+
+.delete-button:active {
+  background-color: #873232;
 }
 
 /* Google Maps div display */

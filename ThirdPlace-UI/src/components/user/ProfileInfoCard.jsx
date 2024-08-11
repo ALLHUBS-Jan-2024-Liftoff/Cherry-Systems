@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { deleteUser } from "../../service/UserServices";
 import { useAuth } from "../../context/AuthContext";
+import UpdateUserForm from "./UpdateUserForm";
 
 export default function ProfileInfoCard() {
   const { user } = useAuth();
+  const [editMode, setEditMode] = useState(false);
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    if (!confirm(`Would you like to edit user: ${user.username}?`)) {
+      // Cancel is clicked
+      e.preventDefault();
+      alert('Cancelled: User will NOT be edited!');
+    } else {
+      // Ok is clicked
+      setEditMode(true);
+    }
+  };
 
   const handleDelete = async (e) => {
     e.preventDefault();
@@ -23,42 +38,48 @@ export default function ProfileInfoCard() {
         throw error;
       }
     }
-};
+  };
 
   return (
-    <div className="review-card">
-      <h2>User Info</h2>
+    <>
+      {!editMode ? (
+      <section className="review-card">
+        <h2>User Info</h2>
 
-      <table className="table">
-        <tbody>
-          <tr>
-            <th scope="row">Username</th>
-            <td>{user.username}</td>
-          </tr>
-          <tr>
-            <th scope="row">Email</th>
-            <td>{user.email}</td>
-          </tr>
-          <tr>
-            <th scope="row">Password</th>
-            <td>*******</td>
-          </tr>
-        </tbody>
-      </table>
-      <span>
-          <button 
-            className="btn btn-primary" 
-            onClick={() => editUser(user.id)}>
-            Edit
-          </button>
-          <button
-            className="btn btn-danger"
-            value={user.id}
-            onClick={handleDelete}
-            >
-            Delete
-          </button>
-      </span>
-    </div>
+        <table className="table">
+          <tbody>
+            <tr>
+              <th scope="row">Username:</th>
+              <td>{user.username}</td>
+            </tr>
+            <tr>
+              <th scope="row">Email:</th>
+              <td>{user.email}</td>
+            </tr>
+            <tr>
+              <th scope="row">Password:</th>
+              <td>*******</td>
+            </tr>
+          </tbody>
+        </table>
+        <span>
+            <button 
+              className="submit-button" 
+              onClick={handleUpdate}>
+              Edit
+            </button>
+            <button
+              className="delete-button"
+              value={user.id}
+              onClick={handleDelete}
+              >
+              Delete
+            </button>
+        </span>
+      </section>
+      ) : (
+        <UpdateUserForm/>
+      )}
+    </>
   );
 }
