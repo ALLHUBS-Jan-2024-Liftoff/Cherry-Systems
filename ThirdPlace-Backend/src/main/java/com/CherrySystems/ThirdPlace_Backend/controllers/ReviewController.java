@@ -9,15 +9,13 @@ import com.CherrySystems.ThirdPlace_Backend.repositories.ReviewRepository;
 import com.CherrySystems.ThirdPlace_Backend.repositories.SubmissionRepository;
 import com.CherrySystems.ThirdPlace_Backend.repositories.UserRepository;
 import jakarta.servlet.http.HttpSession;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
-// @RequestMapping("api"), add submission/{id} to PostMapping, use {id} to locate submission
+
+
 
 @RestController
 @RequestMapping("api/")
@@ -37,9 +35,8 @@ public class ReviewController {
     private AuthenticationController authenticationController;
 
     //Create a new review
-    //@PostMapping("submission/{id}")
-    @PostMapping("submission/{id}/reviews/new")
-    public ResponseEntity<?> newReview(@RequestBody RateAndReviewDTO rateAndReviewDTO, @PathVariable Integer id, HttpSession session) {
+    @PostMapping("reviews/new")
+    public ResponseEntity<?> newReview(@RequestBody RateAndReviewDTO rateAndReviewDTO, HttpSession session) {
 
         //Initialize a newReview object to save
         Review newReview = new Review();
@@ -52,12 +49,10 @@ public class ReviewController {
             newReview.setUser(user);
         }
 
-        //Get current submission data from repository -> sets submission connected to review
-        Optional<Submission> submissionById = submissionRepository.findById(id);
-        if (submissionById.isPresent()) {
-            Submission currentSubmission = submissionById.get();
-            newReview.setSubmission(currentSubmission);
-        }
+        //Get current submissionID
+        Integer submissionById = rateAndReviewDTO.getSubmissionId();
+        Submission reviewSubmission = submissionRepository.findById(submissionById).get();
+        newReview.setSubmission(reviewSubmission);
 
         //set rating in new review
         newReview.setRating(rateAndReviewDTO.getRating());
@@ -71,21 +66,29 @@ public class ReviewController {
     }
 
 
-    @GetMapping("submission/{id}/reviews")
-    public ResponseEntity<?> reviewsBySubmission(@PathVariable Integer id) {
+    //See reviews by submission
+    @GetMapping("reviews")
+    public ResponseEntity<?> reviewsBySubmission(@RequestParam Integer id) {
 
-        //Get current submission data -> get reviews by submissionId
-        Optional<Submission> submissionById = submissionRepository.findById(id);
-            if (submissionById.isPresent()) {
-                List<Review> reviewList = reviewRepository.findBySubmission(submissionById);
-                return ResponseEntity.ok(reviewList);
-            } else {
-                return ResponseEntity.badRequest().body("Submission not found.");
-            }
+        //Get current submission data by ID
+        Submission submissionById = submissionRepository.findById(id).get();
+
+        //Get reviews by submission
+        Integer submissionId = submissionById.getId();
+        List<Review> reviewList = reviewRepository.findBySubmissionId(submissionId);
+
+        //Check for reviews, populate list if reviews exist
+        if (reviewList == null) {
+            return ResponseEntity.badRequest().body("Reviews for this submission do not exist.");
+        } else {
+            return ResponseEntity.ok(reviewList);
+        }
+
     }
 
 
-    // See all reviews by userName
+    //See all reviews by userName
+    //TODO: Move to a User Controller
     @GetMapping("/{userName}/reviews")
     public ResponseEntity<?> reviewsByUser(@PathVariable String userName) {
 
@@ -102,7 +105,7 @@ public class ReviewController {
         }
     }
 
-    //TODO: Update review by review ID
+    //Update review by reviewID
     @PatchMapping("reviews/{id}")
     public ResponseEntity<?> updateUserReviews(@RequestBody RateAndReviewDTO rateAndReviewDTO, @PathVariable Integer id, HttpSession session) {
 
@@ -143,7 +146,7 @@ public class ReviewController {
     }
 
 
-    //TODO: Delete reviews by reviewID
+    //Delete reviews by reviewID
     @DeleteMapping("reviews/{id}")
     public ResponseEntity<?> deleteReviewById(@PathVariable Integer id, HttpSession session) {
 
