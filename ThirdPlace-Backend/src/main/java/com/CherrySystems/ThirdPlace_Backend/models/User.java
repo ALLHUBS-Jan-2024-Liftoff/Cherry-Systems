@@ -28,6 +28,9 @@ public class User {
     @Column(name = "pw_hash")
     private String pwHash;
 
+    @Column(name = "cherry_points", columnDefinition = "INT DEFAULT 0")
+    private int cherryPoints;
+
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public User() {
@@ -38,6 +41,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.pwHash = encoder.encode(password);
+        this.cherryPoints = 0;
     }
 
     // Getters and Setters
@@ -59,6 +63,14 @@ public class User {
 
     public void setPwHash(String pwHash) {
         this.pwHash = pwHash;
+    }
+
+    public int getCherryPoints() {
+        return cherryPoints;
+    }
+
+    public void setCherryPoints(int cherryPoints) {
+        this.cherryPoints = cherryPoints;
     }
 
     public boolean isMatchingPassword(String password) {
