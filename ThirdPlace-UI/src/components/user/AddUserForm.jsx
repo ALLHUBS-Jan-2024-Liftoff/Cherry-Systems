@@ -183,7 +183,7 @@ const AddUserForm = () => {
                     </label>
                     <br />
                     <label>
-                        <medium>Show Passwords</medium>
+                        <small>Show Passwords</small>
                         <input
                             name="check"
                             type="checkbox"
