@@ -1,5 +1,6 @@
 package com.CherrySystems.ThirdPlace_Backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -25,6 +26,7 @@ public class Category {
 //            Arrays.asList("Outdoors", "Indoors", "Community Center", "Cafe", "Library", "Park", "Free", "Paid")
 //    );
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "categories")
     private final List<Submission> submissions = new ArrayList<>();
 
