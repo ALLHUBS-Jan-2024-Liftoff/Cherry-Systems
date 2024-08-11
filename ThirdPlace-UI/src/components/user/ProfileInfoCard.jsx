@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { deleteUser } from "../../service/UserServices";
 import { useAuth } from "../../context/AuthContext";
 import UpdateUserForm from "./UpdateUserForm";
+import ProfileImage from "./ProfileImage";
 
 export default function ProfileInfoCard() {
   const { user } = useAuth();
@@ -45,6 +46,8 @@ export default function ProfileInfoCard() {
       {!editMode ? (
       <section className="review-card">
         <h2>User Info</h2>
+
+        <ProfileImage/>
 
         <table className="table">
           <tbody>

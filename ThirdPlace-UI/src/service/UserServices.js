@@ -44,13 +44,14 @@ export const registerUser = async (username, email, verifyEmail, password, verif
   }
 };
 
-export const updateUser = async (username, email, verifyEmail, password, verifyPassword) => {
+export const updateUser = async (username, email, verifyEmail, password, verifyPassword, profileImage) => {
   const userData = {
     username,
     email,
     verifyEmail,
     password,
-    verifyPassword
+    verifyPassword,
+    profileImage
   };
 
   try {

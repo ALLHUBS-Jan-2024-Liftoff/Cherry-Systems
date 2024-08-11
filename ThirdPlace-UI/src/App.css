@@ -25,8 +25,7 @@ li {
 }
 
 /* For Login hide password text */
-medium {
-  font-size: small;
+small {
   color: rgb(98, 98, 98);
   margin: 0px 7px 0px 48px;
 }
