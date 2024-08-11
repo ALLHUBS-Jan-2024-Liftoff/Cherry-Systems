@@ -21,7 +21,7 @@ const UpdateUserForm = () => {
         e.preventDefault();
 
         try {
-            await updateUser(username, email, verifyEmail, password, verifyPassword);
+            await updateUser(username, email, verifyEmail, password, verifyPassword, profileImage);
             window.location.reload(); // Reload to update context
             setError('');
             alert(`${user.username} was successfully updated!`)
@@ -111,74 +111,59 @@ const UpdateUserForm = () => {
                     <div className="form-group">
                         <label className="form-label">
                             Profile Image
-                            <input
-                            type="radio"
-                            className="form-control"
-                            id='profileImage'
-                            name='profileImage'
-                            value={profileImage}
-                            onChange={(e) => setProfileImage(e.target.value)}
-                            required
-                            />
-                        </label>
-                    </div>
-                    <div className="form-group">
-                        <label className="form-label">
-                            Profile Image
                             <br/>
                         <input 
                             type="radio" 
-                            id="profileImage"
+                            id="defaultImage"
                             value={0}
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
-                            <label for="profileImage"><img src={defaultImg} /></label>
+                            <label htmlFor={0}><img src={defaultImg} className="form-label"/></label>{"\t"} 
                         <input 
                             type="radio" 
-                            id="profileImage"
+                            id="profileImage1"
                             value={1}
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
-                            <label for="profileImage"><img src={defaultImg} /></label>
+                            <label htmlFor={1}><img src={defaultImg} className="form-label"/></label>{"\t"} 
                         <input 
                             type="radio" 
-                            id="profileImage"
+                            id="profileImage2"
                             value={2}
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
-                            <label for="profileImage"><img src={defaultImg} /></label>
+                            <label htmlFor={2}><img src={defaultImg} className="form-label"/></label>{"\t"} 
                         <br/>
                         <input 
                             type="radio" 
-                            id="profileImage"
+                            id="profileImage3"
                             value={3}
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
-                            <label for="profileImage"><img src={defaultImg} /></label>
+                            <label htmlFor={3}><img src={defaultImg} className="form-label"/></label>{"\t"} 
                         <input 
                             type="radio" 
-                            id="profileImage"
+                            id="profileImage4"
                             value={4}
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
-                            <label for="profileImage"><img src={defaultImg} /></label>
+                            <label htmlFor={4}><img src={defaultImg} className="form-label"/></label>{"\t"} 
                         <input 
                             type="radio" 
-                            id="profileImage"
+                            id="profileImage5"
                             value={5}
                             name='profileImage'
                             onChange={(e) => setProfileImage(e.target.value)}
                             />
-                        <label for="profileImage"><img src={defaultImg} /></label>
+                        <label htmlFor={5}><img src={defaultImg} className="form-label"/></label>{"\t"} 
                     </label>
                     </div>
 
-                    <br/>
                     <button type="submit" className="submit-button">
                         Save
                     </button>

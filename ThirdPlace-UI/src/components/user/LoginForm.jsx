@@ -83,7 +83,7 @@ const LoginForm = () => {
                     </label>
                     <br />
                     <label>
-                        <medium>Show Password</medium>
+                        <small>Show Password</small>
                         <input
                             name="check"
                             type="checkbox"
