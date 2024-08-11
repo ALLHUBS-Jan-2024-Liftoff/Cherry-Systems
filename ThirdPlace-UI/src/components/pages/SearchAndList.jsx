@@ -203,7 +203,7 @@ export default function SearchAndList() {
           <input
             className="form-control"
             type="text"
-            autocomplete="off"
+            autoComplete="off"
             name="searchQuery"
             value={input}
             onChange={(event) => handleChange(event.target.value, filter)}
