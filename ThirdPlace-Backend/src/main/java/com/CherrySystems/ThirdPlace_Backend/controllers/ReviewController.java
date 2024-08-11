@@ -103,7 +103,7 @@ public class ReviewController {
     }
 
     //TODO: Update review by review ID
-    @PatchMapping("/reviews/{id}")
+    @PatchMapping("reviews/{id}")
     public ResponseEntity<?> updateUserReviews(@RequestBody RateAndReviewDTO rateAndReviewDTO, @PathVariable Integer id, HttpSession session) {
 
         //Gets user from session and verify login
@@ -144,6 +144,22 @@ public class ReviewController {
 
 
     //TODO: Delete reviews by reviewID
-    
+    @DeleteMapping("reviews/{id}")
+    public ResponseEntity<?> deleteReviewById(@PathVariable Integer id, HttpSession session) {
+
+        User user = authenticationController.getUserFromSession(session);
+        if (user == null) {
+            return ResponseEntity.badRequest().body("User is not logged in.");
+        }
+
+        //Find review by ID in repository
+        Review reviewById = reviewRepository.findById(id).get();
+
+        if (reviewById.getUser().equals(user)) {
+        reviewRepository.deleteById(id);
+        }
+
+        return ResponseEntity.ok().body("Review deleted.");
+    }
 
 }
