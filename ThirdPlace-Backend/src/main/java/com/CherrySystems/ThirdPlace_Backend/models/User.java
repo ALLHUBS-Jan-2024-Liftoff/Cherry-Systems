@@ -31,6 +31,9 @@ public class User {
     @Column(name = "cherry_points", columnDefinition = "INT DEFAULT 0")
     private int cherryPoints;
 
+    @Column(name = "profile_image")
+    private Integer profileImage;
+
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public User() {
@@ -42,6 +45,7 @@ public class User {
         this.email = email;
         this.pwHash = encoder.encode(password);
         this.cherryPoints = 0;
+        this.profileImage = profileImage;
     }
 
     // Getters and Setters
@@ -63,14 +67,6 @@ public class User {
 
     public void setPwHash(String pwHash) {
         this.pwHash = pwHash;
-    }
-
-    public int getCherryPoints() {
-        return cherryPoints;
-    }
-
-    public void setCherryPoints(int cherryPoints) {
-        this.cherryPoints = cherryPoints;
     }
 
     public boolean isMatchingPassword(String password) {
