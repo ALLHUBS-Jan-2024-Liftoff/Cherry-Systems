@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS review_vote;
 DROP TABLE IF EXISTS submission_vote;
 DROP TABLE IF EXISTS review;
 DROP TABLE IF EXISTS submission;
+DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS users_seq;
 
@@ -18,6 +19,11 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) NOT NULL UNIQUE
 );
 
+CREATE TABLE IF NOT EXISTS categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(255) NOT NULL UNIQUE
+);
+
 CREATE TABLE IF NOT EXISTS submission (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -29,7 +35,9 @@ CREATE TABLE IF NOT EXISTS submission (
     submission_review TEXT NOT NULL,
     submission_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     average_rating DECIMAL(3,2) DEFAULT 0,
-    FOREIGN KEY (user_id) REFERENCES Users(id)
+    category_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 
 CREATE TABLE IF NOT EXISTS review (
