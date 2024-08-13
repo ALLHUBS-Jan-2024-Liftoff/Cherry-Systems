@@ -48,6 +48,8 @@ export default function ProfileInfoCard() {
         <h2>User Info</h2>
 
         <ProfileImage/>
+        <br/>
+        <br/>
 
         <table className="table">
           <tbody>
