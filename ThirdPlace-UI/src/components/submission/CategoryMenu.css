@@ -1,0 +1,57 @@
+
+/* button {
+    color: white;
+    font-weight: 600;
+    background-color: #8648A3;
+    margin: .25rem;
+    padding: 10px 24px;
+    border-radius: 100px;
+    border: none;
+    box-shadow: 0px 1px .25rem #6B737D;
+} */
+
+.category-dropdown-div {
+    position: relative;
+    border: none;
+}
+
+.category-dropdown {
+    background-color: white;
+    height: 30px;
+    width: 200px;
+    color: black;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.category-dropdown:hover {
+    box-shadow: 1px 1px .25rem #6B737D;
+}
+
+.category-dropdown:active{
+    background-color: #683287;
+    color: white;
+}
+
+.category-dropdown-option {
+    padding: 5px 8px;
+}
+
+.panel {
+    position: absolute;
+    z-index: 10;
+    background: white;
+    padding: 10px;
+    color: black;
+    font-size: 15px;
+    display: grid;
+    /* overflow-y: auto; // makes scroll bar, needs fixed height (use for profile page scroll) */
+    /* height: 100px; */
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.panel fieldset {
+    display: flex;
+    align-items: center;
+}
