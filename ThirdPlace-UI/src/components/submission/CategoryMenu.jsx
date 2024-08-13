@@ -14,7 +14,6 @@ export function CategoryMenu() {
     useEffect(() => {
         const onClick = (e) => {
             if(e.target !== dropdownRef.current) {
-                console.log("here");
                 setIsDropDownDisplayed(false);
             }
         };
@@ -44,7 +43,6 @@ export function CategoryMenu() {
 
             setSelectedCategories(keyValuePairCategories);
 
-            console.log(allCategoriesArr);
             return allCategoriesArr;
         } catch (error) {
             console.error("Error loading categories list from database!");
@@ -74,12 +72,12 @@ export function CategoryMenu() {
                             xmlns="http://www.w3.org/2000/svg" 
                             fill="none" 
                             viewBox="0 0 24 24" 
-                            stroke-width="1.5" 
+                            strokeWidth="1.5" 
                             stroke="currentColor"
                         >
                             <path 
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                                 d="m19.5 8.25-7.5 7.5-7.5-7.5" 
                             />
                         </svg>
@@ -88,12 +86,12 @@ export function CategoryMenu() {
                             xmlns="http://www.w3.org/2000/svg" 
                             fill="none" 
                             viewBox="0 0 24 24" 
-                            stroke-width="1.5" 
+                            strokeWidth="1.5" 
                             stroke="currentColor" 
                         >
                             <path 
-                                stroke-linecap="round" 
-                                stroke-linejoin="round" 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round" 
                                 d="m4.5 15.75 7.5-7.5 7.5 7.5" 
                             />
                         </svg>
