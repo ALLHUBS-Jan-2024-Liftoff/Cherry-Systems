@@ -28,6 +28,9 @@ public class User {
     @Column(name = "pw_hash")
     private String pwHash;
 
+    @Column(name = "cherry_points", columnDefinition = "INT DEFAULT 0")
+    private int cherryPoints;
+
     @Column(name = "profile_image")
     private Integer profileImage;
 
@@ -41,6 +44,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.pwHash = encoder.encode(password);
+        this.cherryPoints = 0;
         this.profileImage = profileImage;
     }
 
@@ -65,16 +69,17 @@ public class User {
         this.pwHash = pwHash;
     }
 
-    public boolean isMatchingPassword(String password) {
-        return encoder.matches(password, pwHash);
-    }
-
     public Integer getProfileImage() {
         return profileImage;
     }
 
     public void setProfileImage(Integer profileImage) {
         this.profileImage = profileImage;
+    }
+
+
+    public boolean isMatchingPassword(String password) {
+        return encoder.matches(password, pwHash);
     }
 
     @Override
