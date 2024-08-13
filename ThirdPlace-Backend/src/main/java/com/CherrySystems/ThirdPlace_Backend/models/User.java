@@ -40,7 +40,7 @@ public class User {
     }
 
     // Constructors
-    public User(@NotNull String username, @NotNull String email, @NotNull String password) {
+    public User(@NotNull String username, @NotNull String email, @NotNull String password, Integer profileImage) {
         this.username = username;
         this.email = email;
         this.pwHash = encoder.encode(password);
@@ -68,6 +68,15 @@ public class User {
     public void setPwHash(String pwHash) {
         this.pwHash = pwHash;
     }
+
+    public Integer getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(Integer profileImage) {
+        this.profileImage = profileImage;
+    }
+
 
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
