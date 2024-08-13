@@ -10,33 +10,43 @@
     box-shadow: 0px 1px .25rem #6B737D;
 } */
 
-.category-dropdown-div {
+.category-dropdown {
     position: relative;
     border: none;
 }
 
-.category-dropdown {
+.category-dropdown-div {
     background-color: white;
     height: 30px;
     width: 200px;
     color: black;
     display: flex;
     align-items: center;
-    padding-left: 10px;
+    justify-content: space-around;
 }
 
-.category-dropdown:hover {
+.category-dropdown-div:hover {
     box-shadow: 1px 1px .25rem #6B737D;
 }
 
-.category-dropdown:active{
+.category-dropdown-div:active{
     background-color: #683287;
     color: white;
+}
+
+.category-dropdown-div svg {
+    width: 15px;
+    height: 15px;
 }
 
 .category-dropdown-option {
     padding: 5px 8px;
 }
+
+/* change checkbox color later */
+/* input[type="checkbox"] {
+    border-color: #4f8247;
+} */
 
 .panel {
     position: absolute;
@@ -46,12 +56,18 @@
     color: black;
     font-size: 15px;
     display: grid;
-    /* overflow-y: auto; // makes scroll bar, needs fixed height (use for profile page scroll) */
-    /* height: 100px; */
+    overflow-y: auto;
+    height: 180px;
     grid-template-columns: repeat(2, 1fr);
 }
 
 .panel fieldset {
     display: flex;
     align-items: center;
+}
+
+.panel fieldset.selected {
+    background: #8648A3;
+    color: white;
+    border-radius: 12px;
 }
