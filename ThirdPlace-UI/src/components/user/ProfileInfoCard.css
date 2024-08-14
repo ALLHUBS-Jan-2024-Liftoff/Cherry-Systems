@@ -1,5 +1,91 @@
 
-section.profile-img-cherry-score {
+.review-card-edit {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    background-color: #F2F5F5;
+    width: 575px;
+    height: 325px;
+    padding: 42px 42px;
+    margin: 1.6rem 0rem;
+    border-radius: 32px;
+    box-shadow: 1px 1px .25rem #6B737D;
+}
+
+.contains-all-but-buttons {
+    display: flex;
+}
+
+section.img-cherry-score {
+    display: flex;
+}
+
+.score-and-table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.profileInfoCard-buttons {
+    display: flex;
+    justify-content: right;
+    margin-top: -50px;
+    padding-right: 45px;
+}
+
+.cherry-score-component-div-green {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    color: black;
+    background: #94d281;
+    border-radius: 25px;
+    border: dashed;
+    border-color: white;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.cherry-score-component-div-red {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    color: black;
+    background: #d28181;
+    border-radius: 25px;
+    border: dashed;
+    border-color: white;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.for-padding {
+    padding: 35px;  
+}
+
+.cherry-score-title {
+    font-size: 20px;
+    margin-bottom: 0px;
+    margin-right: 10px;
+}
+
+.cherry-img-and-score {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+
+}
+
+.cherryPoints-and-img {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+.cherry-img-and-score img {
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
 }
