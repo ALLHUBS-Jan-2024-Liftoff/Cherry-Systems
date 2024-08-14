@@ -3,6 +3,7 @@ import { deleteUser } from "../../service/UserServices";
 import { useAuth } from "../../context/AuthContext";
 import UpdateUserForm from "./UpdateUserForm";
 import ProfileImage from "./ProfileImage";
+import { CherryScoreBadge } from "./CherryScoreBadge";
 
 export default function ProfileInfoCard() {
   const { user } = useAuth();
@@ -48,6 +49,8 @@ export default function ProfileInfoCard() {
         <h2>User Info</h2>
 
         <ProfileImage/>
+        <br/>
+        <br/>
 
         <table className="table">
           <tbody>
