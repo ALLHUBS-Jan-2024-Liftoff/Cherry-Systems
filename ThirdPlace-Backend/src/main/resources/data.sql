@@ -9,10 +9,10 @@ INSERT INTO categories (category_name) VALUES
 ('Paid');
 
 -- sample users
-INSERT INTO users (username, pw_Hash, email) VALUES
-('user1', 'hashed_password_1', 'user1@example.com'),
-('user2', 'hashed_password_2', 'user2@example.com'),
-('user3', 'hashed_password_3', 'user3@example.com');
+INSERT INTO users (username, pw_Hash, email, profile_image) VALUES
+('user1', 'hashed_password_1', 'user1@example.com', 0),
+('user2', 'hashed_password_2', 'user2@example.com', 1),
+('user3', 'hashed_password_3', 'user3@example.com', 2);
 
 -- sample submissions
 INSERT INTO submission (user_id, location_name, location_address, place_id, rating, description, submission_review, average_rating, category_id)

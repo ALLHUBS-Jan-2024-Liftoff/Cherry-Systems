@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(50) NOT NULL UNIQUE,
     pw_Hash VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    cherry_points INT DEFAULT 0;,
-    profile_image INT DEFAULT 0 CHECK (profile_picture_id BETWEEN 0 AND 6)
+    cherry_points INT DEFAULT 0,
+    profile_image INT DEFAULT 0 CHECK (profile_image BETWEEN 0 AND 6)
 );
 
 CREATE TABLE IF NOT EXISTS categories (
