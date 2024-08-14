@@ -1,4 +1,6 @@
+import CategoryBadges from "../submission/CategoryBadges";
 import Address from "./Address"
+
 
 export default function CondensedSubmission(props) {
 
@@ -11,6 +13,8 @@ export default function CondensedSubmission(props) {
         <td>
             <h6>{data.props.locationName}</h6>
             <Address props={data.props}/>
+            <br/>
+            <CategoryBadges props={data.props}/>
         </td>
     {/* //TODO display average star rating */}
         <td>⭐⭐⭐⭐⭐</td>
