@@ -59,3 +59,13 @@ VALUES
 (1, 1, 'up'),
 (2, 3, 'down'),
 (3, 2, 'down');
+
+-- sample favorites
+
+INSERT INTO favorite (user_id, submission_id) VALUES
+(1, 1),
+(2, 1),
+(2, 2),
+(3, 1),
+(3, 2),
+(3, 3);
