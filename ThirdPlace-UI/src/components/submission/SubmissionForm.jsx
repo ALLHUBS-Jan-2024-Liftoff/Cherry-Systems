@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import RateAndReview from './RateAndReview'
+import { CategoryMenu } from './CategoryMenu'
 
 export default function SubmissionForm() {
 
@@ -22,6 +23,7 @@ export default function SubmissionForm() {
                         <textarea name="description" rows="4"/>
                     </label>
                 </div>
+                <CategoryMenu/>
                 <br></br>
                 <div>
                     <RateAndReview />

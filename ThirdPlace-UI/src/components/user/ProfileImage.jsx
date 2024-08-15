@@ -32,9 +32,9 @@ const ProfileImage = () => {
     }, [])
 
     return (
-        <>
-            <img src={img}></img>
-        </>
+        <div className='profileImg-div'>
+            <img src={img} className='profileImg'></img>
+        </div>
     )
 }
 
