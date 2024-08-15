@@ -1,36 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function CategoryBadges(props) {
-
     let data = props;
 
-    let categoriesArr = data.props.categories;
-    console.log(categoriesArr);
-
-    let bootstrapBadgesColors = [
-        "badge rounded-pill text-bg-primary",
-        "badge rounded-pill text-bg-secondary",
-        "badge rounded-pill text-bg-success",
-        "badge rounded-pill text-bg-danger",
-        "badge rounded-pill text-bg-warning",
-        "badge rounded-pill text-bg-info",
-        "badge rounded-pill text-bg-dark"
-    ];
-    
-    
-
-    const randomColor = () => {
-        let output = "";
-        output = Math.floor(Math.random() * bootstrapBadgesColors.length);
-
-        return bootstrapBadgesColors[output];
-    } 
+    let categoriesArr = data.props;
 
     return (
         <>
             {categoriesArr.map((category) => (
                 <span key={category.id}>
-                    <span id="bootstrapBadges" class={randomColor()}>{category.name}</span>
+                    <span id="bootstrapBadges" class="badge rounded-pill">{category.name}</span>
                 </span>
             ))}
         </>

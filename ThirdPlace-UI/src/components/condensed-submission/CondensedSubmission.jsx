@@ -14,7 +14,7 @@ export default function CondensedSubmission(props) {
             <h6>{data.props.locationName}</h6>
             <Address props={data.props}/>
             <br/>
-            <CategoryBadges props={data.props}/>
+            <CategoryBadges props={data.props.categories}/>
         </td>
     {/* //TODO display average star rating */}
         <td>⭐⭐⭐⭐⭐</td>

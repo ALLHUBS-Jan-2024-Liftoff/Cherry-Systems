@@ -181,6 +181,7 @@ button:active {
 }
 
 .badge {
+  background: #622386;
   margin-top: 10px;
   margin-left: 5px;
 }
