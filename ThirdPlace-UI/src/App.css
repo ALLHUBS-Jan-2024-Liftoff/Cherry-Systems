@@ -34,6 +34,12 @@ small {
   color: #6B737D;
 }
 
+.gray-text-edit {
+  font-size: 10px;
+  color: #6B737D;
+  padding-top: 10px;
+}
+
 .review-card {
   background-color: #F2F5F5;
   padding: 42px 42px;
@@ -128,6 +134,14 @@ button:active {
 
 .delete-button:active {
   background-color: #873232;
+}
+
+.profileImg {
+  border: solid;
+  border-width: 1px;
+  border-radius: 100%;
+  border-color: #e0e0e0;
+  margin-top: 8px;
 }
 
 /* Google Maps div display */

@@ -1,0 +1,74 @@
+.category-dropdown {
+    position: relative;
+    border: none;
+}
+
+.category-dropdown-div {
+    background-color: white;
+    height: 30px;
+    width: 200px;
+    border: solid;
+    border-width: 1px;
+    border-color: rgb(103, 103, 103);
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.category-dropdown-div:hover {
+    box-shadow: 1px 1px .25rem #6B737D;
+}
+
+.category-dropdown-div:active{
+    background-color: #683287;
+    color: white;
+}
+
+.category-dropdown-div svg {
+    width: 15px;
+    height: 15px;
+}
+
+.category-dropdown-option {
+    padding: 5px 8px;
+}
+
+input[type="checkbox"] {
+    accent-color: #8648A3;
+}
+
+input[type="checkbox"]:hover {
+    accent-color: #683287;
+}
+
+.panel {
+    position: absolute;
+    z-index: 10;
+    background: white;
+    padding: 10px;
+    border: solid;
+    border-width: 1px;
+    border-color: rgb(103, 103, 103);
+    color: black;
+    font-size: 15px;
+    display: grid;
+    overflow-y: auto;
+    height: 180px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.panel:hover {
+    box-shadow: 1px 1px .25rem #6B737D;
+}
+
+.panel fieldset {
+    display: flex;
+    align-items: center;
+}
+
+.panel fieldset.selected {
+    background: #8648A3;
+    color: white;
+    border-radius: 12px;
+}
