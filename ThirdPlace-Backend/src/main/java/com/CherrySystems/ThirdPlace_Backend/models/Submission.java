@@ -52,6 +52,12 @@ public class Submission {
     private BigDecimal averageRating = BigDecimal.ZERO;
 
     @ManyToMany
+    @JoinTable(
+            name = "submission_categories",
+            joinColumns = @JoinColumn(name = "submission_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+
     private List<Category> categories = new ArrayList<>();
 
 
