@@ -180,6 +180,12 @@ button:active {
   margin-bottom: 40px;
 }
 
+.badge {
+  background: #622386;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
 /* Review stars */
 .starsContainer {
   display: flex;
@@ -193,4 +199,3 @@ button:active {
 .star:hover {
   transform: scale(1.1);
 }
-
