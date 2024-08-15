@@ -40,8 +40,9 @@ public class SubmissionController {
 
 //Processes Submission Form - Takes form submission data in JSON form to create an object.
 //Postman request I was using for testing --> { "locationName":"Kaldi Coffee", "locationAddress":"Somewhere in STL", "rating":"4", "description":"Coffee Shop", "submissionReview":"This place has great coffee" }
-    @PostMapping("/form")
+    @PostMapping("/submitlocation")
     public ResponseEntity<?> newSubmission(@RequestBody SubmissionFormDTO submissionFormDTO, HttpSession session) {
+//    public Submission newSubmission(@RequestBody SubmissionFormDTO submissionFormDTO, HttpSession session) {
 
         Submission newSubmission = new Submission();
 
@@ -68,16 +69,23 @@ public class SubmissionController {
 
         //Looks in Submission Repository for submissions with the same location. Will only save newSubmission if database search returns null
         if (isLocationInRepository == null) {
-            submissionRepository.save(newSubmission);
-            return ResponseEntity.ok("New Submission completed");
+            return ResponseEntity.ok(submissionRepository.save(newSubmission));
         } else {
-            return ResponseEntity.badRequest().body("Location has already been submitted.");
+            return ResponseEntity.badRequest().body("Unable to save new submission.");
         }
+
+//        return newSubmission;
     }
 
+    //TODO: View submissions by userName
 
     //View all Submissions
-    @GetMapping("/searchandlist")
+//    @GetMapping("/searchandlist")
+//    public List<Submission> getAllSubmissions(){
+//        return (List<Submission>) submissionRepository.findAll();
+//    }
+
+    @GetMapping("/all")
     public List<Submission> getAllSubmissions(){
         return (List<Submission>) submissionRepository.findAll();
     }
