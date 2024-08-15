@@ -17,6 +17,8 @@ export default function CategoryBadges(props) {
         "badge rounded-pill text-bg-dark"
     ];
     
+    
+
     const randomColor = () => {
         let output = "";
         output = Math.floor(Math.random() * bootstrapBadgesColors.length);
