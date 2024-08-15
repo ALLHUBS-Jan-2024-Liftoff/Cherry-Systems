@@ -17,13 +17,18 @@ export default function CategoryBadges(props) {
         "badge rounded-pill text-bg-dark"
     ];
     
-    let randomColor = bootstrapBadgesColors[Math.floor(Math.random() * bootstrapBadgesColors.length)];
+    const randomColor = () => {
+        let output = "";
+        output = Math.floor(Math.random() * bootstrapBadgesColors.length);
+
+        return bootstrapBadgesColors[output];
+    } 
 
     return (
         <>
             {categoriesArr.map((category) => (
                 <span key={category.id}>
-                    <span id="bootstrapBadges" class={randomColor}>{category.name}</span>
+                    <span id="bootstrapBadges" class={randomColor()}>{category.name}</span>
                 </span>
             ))}
         </>
