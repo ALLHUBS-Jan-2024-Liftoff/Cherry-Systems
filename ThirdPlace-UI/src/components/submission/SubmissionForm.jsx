@@ -1,86 +1,10 @@
-import React, { useState } from 'react';
-import { addSubmission } from '../../service/SubmissionService';
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import RateAndReview from './RateAndReview'
 import axios from 'axios';
+import { addSubmission } from '../../service/SubmissionService';
 
-
-
-const SubmissionForm = () => {
-    // const [submissionList, setSubmissionList] = useState([]);
-    const [submissionData, setSubmissionData] = useState({
-        locationName: '',
-        locationAddress: '',
-        description: '',
-        rating: 4, 
-        submissionReview: 'This place has awesome coffee!'
-    });
-    // const [locationName, setLocationName] = useState("");
-    // const [locationAddress, setLocationAddress] = useState("");
-    // const [description, setDescription] = useState("");
-
-    // useEffect(() => {
-    //     fetchSubmissions()
-    //         .then(setSubmissionList)
-    //         .catch((error) => {
-    //             console.error("Unable to fetch all submissions.", error);
-    //         });
-    // }, []);
-    // console.log(submissionList);
-
-
-    const handleChange = (e) => {
-        setSubmissionData({...submissionData, [e.target.name]: e.target.value });
-    };
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault(); 
-
-        if (submissionData.locationName !== "" && submissionData.locationAddress !== "" && submissionData.description !== "") {
-            addSubmission(submissionData.locationName, submissionData.locationAddress, submissionData.description); 
-            alert("Submission successfully created!")
-        } else {
-            alert("Submission was not created. Please complete the form.")
-        }
-            
-        // const form = document.getElementById('submission-form');
-        // const formData = new FormData(form);
-       
-    
-        // try {
-        //     const response = await axios
-        //     .post("http://localhost:8080/api/submission/submitlocation", submissionData, {
-        //         headers: { 'Content-Type': 'application/json'}
-        //     })
-        //     console.log(response.data);
-        //     return response.data
-        //     // alert("Submission: " + response.data);
-        // } catch (error) {
-        //     console.error("Unable to save submission.", error);
-        //     alert("Unable to save new submission.", error);
-        // }
-
-
-
-        // const config = {
-        //     headers: {
-        //         'Accept':'application/javascript',
-        //     }
-        // }
-    }
-
-    // document.getElementById('submission-form').addEventListener('submit', handleSubmit)
-
-        // if (locationName !== "" && locationAddress !== "" && description !== "") {
-        //     addSubmission(locationName, locationAddress, description); 
-        //     setLocationName("");
-        //     setLocationAddress("");
-        //     setDescription(""); 
-        // }
-        // alert("Submission successfully submitted with: " + locationName + ", " + locationAddress + ", " + description);
-            // navigate('/submission');
-            // navigate(`/submission/${submissionId}`, {submissionId})
-    // };
-   
+export default function SubmissionForm() {
 
     return (
         <>
@@ -123,6 +47,7 @@ const SubmissionForm = () => {
                         required/>
                     </label>
                 </div>
+                <CategoryMenu/>
                 <br></br>
                 <div>
                     {/* <RateAndReview /> */}

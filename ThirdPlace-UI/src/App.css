@@ -34,6 +34,12 @@ small {
   color: #6B737D;
 }
 
+.gray-text-edit {
+  font-size: 10px;
+  color: #6B737D;
+  padding-top: 10px;
+}
+
 .review-card {
   background-color: #F2F5F5;
   padding: 42px 42px;
@@ -130,6 +136,14 @@ button:active {
   background-color: #873232;
 }
 
+.profileImg {
+  border: solid;
+  border-width: 1px;
+  border-radius: 100%;
+  border-color: #e0e0e0;
+  margin-top: 8px;
+}
+
 /* Google Maps div display */
 #map {
   height: 100%;
@@ -166,6 +180,12 @@ button:active {
   margin-bottom: 40px;
 }
 
+.badge {
+  background: #622386;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
 /* Review stars */
 .starsContainer {
   display: flex;
@@ -179,4 +199,3 @@ button:active {
 .star:hover {
   transform: scale(1.1);
 }
-

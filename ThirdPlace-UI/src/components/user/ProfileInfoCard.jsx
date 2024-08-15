@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { deleteUser } from "../../service/UserServices";
 import { useAuth } from "../../context/AuthContext";
 import UpdateUserForm from "./UpdateUserForm";
 import ProfileImage from "./ProfileImage";
+import { CherryScoreBadge } from "./CherryScoreBadge";
 
 export default function ProfileInfoCard() {
   const { user } = useAuth();
@@ -44,28 +45,41 @@ export default function ProfileInfoCard() {
   return (
     <>
       {!editMode ? (
-      <section className="review-card">
-        <h2>User Info</h2>
-
-        <ProfileImage/>
-
-        <table className="table">
-          <tbody>
-            <tr>
-              <th scope="row">Username:</th>
-              <td>{user.username}</td>
-            </tr>
-            <tr>
-              <th scope="row">Email:</th>
-              <td>{user.email}</td>
-            </tr>
-            <tr>
-              <th scope="row">Password:</th>
-              <td>*******</td>
-            </tr>
-          </tbody>
-        </table>
-        <span>
+      <section className="review-card-edit">
+        <div className="contains-all-but-buttons">
+          <section className="img-cherry-score">
+            <div>
+              <ProfileImage/>
+              <p className="gray-text-edit">
+                <center>🍒 Powered by Cherry Systems</center>
+              </p>
+            </div>
+            <div className="score-and-table">
+              <div className={user.cherryPoints > 0 ? 'cherry-score-component-div-green' : 'cherry-score-component-div-red'}>
+                <CherryScoreBadge/>
+              </div>
+              <div className="profile-card-table"> 
+                <table className="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Username:</th>
+                      <td>{user.username}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Email:</th>
+                      <td>{user.email}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Password:</th>
+                      <td>*******</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+        <span className="profileInfoCard-buttons">
             <button 
               className="submit-button" 
               onClick={handleUpdate}>
