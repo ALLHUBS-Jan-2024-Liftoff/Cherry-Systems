@@ -44,10 +44,44 @@ export const registerUser = async (username, email, verifyEmail, password, verif
   }
 };
 
+export const updateUser = async (username, email, verifyEmail, password, verifyPassword, profileImage) => {
+  const userData = {
+    username,
+    email,
+    verifyEmail,
+    password,
+    verifyPassword,
+    profileImage
+  };
+
+  try {
+    const response = await axios.patch(`${BASEAPIURL}/update`, userData, {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true
+    });
+    console.log("Registration Response: ", response.data, response.status);
+    return response.data;
+  } catch (error) {
+    const errorData = error.response.data;
+    let allDefaultMessages = [];
+
+    // Add all "defaultMessage" from error response to empty array to be logged in console
+    for (let i = 0; i < errorData.length; i++) {  
+      allDefaultMessages.push(errorData[i].defaultMessage);
+
+      alert(errorData[i].defaultMessage);
+    }
+
+    console.error("Error updating current user!", allDefaultMessages);
+    throw error;
+  }
+};
+
 export const deleteUser = async (userId) => {
   try {
     await axios.post(`${BASEAPIURL}/delete`, null, {
       params: { userId },
+      withCredentials: true
     });
   } catch (error) {
     console.error("There was an error deleting the User!", error);

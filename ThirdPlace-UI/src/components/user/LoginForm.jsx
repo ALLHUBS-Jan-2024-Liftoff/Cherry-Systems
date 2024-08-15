@@ -6,10 +6,13 @@ import { useAuth } from '../../context/AuthContext';
 
 const LoginForm = () => {
     const { login } = useAuth();
+
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
     const [showPassword, setShowPassword] = useState(false);
+    
     const [error, setError] = useState("");
 
     useEffect(() => {
@@ -21,7 +24,7 @@ const LoginForm = () => {
 
         try {
             await login(username, email, password);
-            window.location.reload(); // check if need this
+            window.location.reload(); // Reload to update context
             setError('');
             alert(`${username} has logged in!`);
             window.location.href = "/";
@@ -80,7 +83,7 @@ const LoginForm = () => {
                     </label>
                     <br />
                     <label>
-                        <medium>Show Password</medium>
+                        <small>Show Password</small>
                         <input
                             name="check"
                             type="checkbox"

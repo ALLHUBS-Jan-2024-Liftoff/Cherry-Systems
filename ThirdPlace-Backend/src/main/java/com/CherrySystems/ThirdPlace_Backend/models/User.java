@@ -28,16 +28,24 @@ public class User {
     @Column(name = "pw_hash")
     private String pwHash;
 
+    @Column(name = "cherry_points", columnDefinition = "INT DEFAULT 0")
+    private int cherryPoints;
+
+    @Column(name = "profile_image")
+    private Integer profileImage;
+
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public User() {
     }
 
     // Constructors
-    public User(@NotNull String username, @NotNull String email, @NotNull String password) {
+    public User(@NotNull String username, @NotNull String email, @NotNull String password, Integer profileImage) {
         this.username = username;
         this.email = email;
         this.pwHash = encoder.encode(password);
+        this.cherryPoints = 0;
+        this.profileImage = profileImage;
     }
 
     // Getters and Setters
@@ -60,6 +68,15 @@ public class User {
     public void setPwHash(String pwHash) {
         this.pwHash = pwHash;
     }
+
+    public Integer getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(Integer profileImage) {
+        this.profileImage = profileImage;
+    }
+
 
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
