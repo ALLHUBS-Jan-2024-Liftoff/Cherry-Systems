@@ -1,8 +1,18 @@
+INSERT INTO categories (category_name) VALUES
+('Outdoors'),
+('Indoors'),
+('Community Center'),
+('Cafe'),
+('Library'),
+('Park'),
+('Free'),
+('Paid');
+
 -- sample users
-INSERT INTO users (username, pw_Hash, email) VALUES
-('user1', 'hashed_password_1', 'user1@example.com'),
-('user2', 'hashed_password_2', 'user2@example.com'),
-('user3', 'hashed_password_3', 'user3@example.com');
+INSERT INTO users (username, pw_Hash, email, profile_image) VALUES
+('user1', 'hashed_password_1', 'user1@example.com', 0),
+('user2', 'hashed_password_2', 'user2@example.com', 1),
+('user3', 'hashed_password_3', 'user3@example.com', 2);
 
 -- sample submissions
 INSERT INTO submission (user_id, location_name, location_address, place_id, rating, description, submission_review, average_rating)
@@ -10,6 +20,16 @@ VALUES
 (1, 'Mokabes Coffee House', '3606 Arsenal St, St. Louis, MO 63116, USA', 'ChIJEU0-nWe02IcR5Idj1tWs-To', 5, 'Quiet coffee house.', 'Great coffee!', 4.00),
 (2, 'City Museum', '750 N 16th St, St. Louis, MO 63103, USA', 'ChIJVR6Awj2z2IcRBMqKMCBEfMk', 4, 'Giant art park where you can climb everything', 'Art is cool!', 2.67),
 (3, 'Forest Park', '5595 Grand Dr, St. Louis, MO 63112, USA', 'ChIJycR4kUa12IcRqpSybQLFJ50', 2, 'Very big park, with museums ', 'Not as cool as Tower Grove Park!', 1.33);
+
+INSERT INTO submission_categories (submission_id, category_id)
+VALUES
+(1, 4),
+(1, 1),
+(2, 2),
+(2, 6),
+(3, 3),
+(3, 5),
+(3, 7);
 
 -- sample reviews
 INSERT INTO review (submission_id, user_id, rating, review_text)
