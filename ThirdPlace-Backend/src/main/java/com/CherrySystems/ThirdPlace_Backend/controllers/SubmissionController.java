@@ -1,8 +1,10 @@
 package com.CherrySystems.ThirdPlace_Backend.controllers;
 
+import com.CherrySystems.ThirdPlace_Backend.models.Category;
 import com.CherrySystems.ThirdPlace_Backend.models.Submission;
 import com.CherrySystems.ThirdPlace_Backend.models.User;
 import com.CherrySystems.ThirdPlace_Backend.models.dto.SubmissionFormDTO;
+import com.CherrySystems.ThirdPlace_Backend.repositories.CategoryRepository;
 import com.CherrySystems.ThirdPlace_Backend.repositories.SubmissionRepository;
 import com.CherrySystems.ThirdPlace_Backend.repositories.UserRepository;
 import jakarta.persistence.Id;
@@ -29,6 +31,9 @@ public class SubmissionController {
     private UserRepository userRepository;
 
     @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
     private AuthenticationController authenticationController;
 
 
@@ -45,9 +50,11 @@ public class SubmissionController {
         newSubmission.setDescription(submissionFormDTO.getDescription());
         newSubmission.setSubmissionReview(submissionFormDTO.getSubmissionReview());
 
+        List<Category> categoryList = (List<Category>) categoryRepository.findAllById(submissionFormDTO.getCategories());
+        newSubmission.setCategories(categoryList);
+
         //TODO: get user from session/authentication, currently holding dummy data to appease constructor
         User user = authenticationController.getUserFromSession(session);
-
 //        User user1 = userRepository.findByUsername("user1");
         newSubmission.setUser(user);
 
@@ -92,7 +99,7 @@ public class SubmissionController {
 
     //Allows users to edit submission entity in DB
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateSubmission(@PathVariable Integer id, @RequestBody SubmissionFormDTO submissionFormDTO) {
+    public ResponseEntity<?> updateSubmission(@PathVariable Integer id, @RequestBody SubmissionFormDTO submissionFormDTO, HttpSession session) {
 
         //Finds submission by ID in repository
         Submission findInRepo = submissionRepository.findById(id).get();
@@ -104,9 +111,13 @@ public class SubmissionController {
         findInRepo.setDescription(submissionFormDTO.getDescription());
         findInRepo.setSubmissionReview(submissionFormDTO.getSubmissionReview());
 
+        List<Category> categoryList = (List<Category>) categoryRepository.findAllById(submissionFormDTO.getCategories());
+        findInRepo.setCategories(categoryList);
+
         //TODO: get user from session/authentication, currently holding dummy data to appease constructor
-        User user1 = userRepository.findByUsername("user1");
-        findInRepo.setUser(user1);
+        User user = authenticationController.getUserFromSession(session);
+//        User user1 = userRepository.findByUsername("user1");
+        findInRepo.setUser(user);
 
         //TODO: get placeID from Maps API address, currently holding dummy data to appease constructor
         findInRepo.setPlaceId("123abc");
