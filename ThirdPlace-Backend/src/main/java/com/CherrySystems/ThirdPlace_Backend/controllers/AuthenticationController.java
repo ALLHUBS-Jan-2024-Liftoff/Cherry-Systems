@@ -108,7 +108,7 @@ public class AuthenticationController {
             if (errors.hasErrors()) {
                 return ResponseEntity.badRequest().body(errors.getAllErrors());
             } else {
-                User newUser = new User(username, email, password, 0);
+                User newUser = new User(username, email, password, 0, 0);
                 setUserInSession(request.getSession(), newUser);
                 userRepository.save(newUser);
 

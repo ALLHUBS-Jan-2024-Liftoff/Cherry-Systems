@@ -40,12 +40,12 @@ public class User {
     }
 
     // Constructors
-    public User(@NotNull String username, @NotNull String email, @NotNull String password, Integer profileImage) {
+    public User(@NotNull String username, @NotNull String email, @NotNull String password, Integer profileImage, Integer cherryPoints) {
         this.username = username;
         this.email = email;
         this.pwHash = encoder.encode(password);
-        this.cherryPoints = 0;
         this.profileImage = profileImage;
+        this.cherryPoints = cherryPoints;
     }
 
     // Getters and Setters
@@ -77,6 +77,9 @@ public class User {
         this.profileImage = profileImage;
     }
 
+    public int getCherryPoints() {
+        return cherryPoints;
+    }
 
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
