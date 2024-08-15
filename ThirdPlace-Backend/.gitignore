@@ -38,6 +38,3 @@ out/
 
 # Environment Variables
 .env
-
-# Ignore application.properties
-application.properties
