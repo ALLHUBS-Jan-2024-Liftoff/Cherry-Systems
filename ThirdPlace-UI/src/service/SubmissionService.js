@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
 
 
 
@@ -14,6 +13,7 @@ export const fetchSubmissions = async () => {
         console.error("Unable to fetch submissions");
         throw error;
     }
+
 };
 
 

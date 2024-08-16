@@ -65,14 +65,9 @@ public class SubmissionController {
 
     //TODO: View submissions by userName
 
-    //View all Submissions
-//    @GetMapping("/searchandlist")
-//    public List<Submission> getAllSubmissions(){
-//        return (List<Submission>) submissionRepository.findAll();
-//    }
-
+//     View all Submissions
     @GetMapping("/all")
-    public List<Submission> getAllSubmissions(){
+    public List<Submission> fetchAllSubmissions(){
         return (List<Submission>) submissionRepository.findAll();
     }
 

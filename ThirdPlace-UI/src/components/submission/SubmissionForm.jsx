@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import RateAndReview from './RateAndReview'
-import axios from 'axios';
 import { fetchSubmissions, addSubmission } from '../../service/SubmissionService';
 import { CategoryMenu } from './CategoryMenu';
 // import { useNavigate } from 'react-router-dom';
-
-
-
 
 
 const SubmissionForm = () => {

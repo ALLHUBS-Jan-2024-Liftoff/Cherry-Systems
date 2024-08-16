@@ -11,6 +11,6 @@ public interface SubmissionRepository extends CrudRepository<Submission, Integer
 
     Submission findByLocationName(String locationName);
 
-    Optional<Submission> findBy(String locationName);
+//    Optional<Submission> findBy(String locationName);
 
 }
