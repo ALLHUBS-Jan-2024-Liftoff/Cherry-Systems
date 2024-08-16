@@ -78,8 +78,6 @@ public class SubmissionController {
 
 
     //View Each Submission by ID
-    //TODO: Could create a CondensedSubmissionView model to show/view only locationName, locationAddress, description, rating, submissionReview.
-    //TODO: Submission model to inherit CondensedSubmissionView
     @GetMapping("/{id}")
     public ResponseEntity<?> viewSubmissionById(@PathVariable Integer id) {
         Optional<Submission> submissionById = submissionRepository.findById(id);
@@ -92,7 +90,7 @@ public class SubmissionController {
     }
 
 
-    //Allows users to edit submission entity in DB
+   //Allows users to edit submission entity in DB
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateSubmission(@PathVariable Integer id, @RequestBody SubmissionFormDTO submissionFormDTO, HttpSession session) {
 
