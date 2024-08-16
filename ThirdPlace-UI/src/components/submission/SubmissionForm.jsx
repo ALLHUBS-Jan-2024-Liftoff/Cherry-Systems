@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import RateAndReview from './RateAndReview'
-import { CategoryMenu } from './CategoryMenu'
+import axios from 'axios';
+import { addSubmission } from '../../service/SubmissionService';
 
 import axios from 'axios';
 
