@@ -55,6 +55,7 @@ const SubmissionForm = () => {
                 alert("Location already exists in ThirdPlace.")
                 //TODO: reroute page to submission page by submissionID navigate('/submission')
                 e.preventDefault();
+                window.location.reload();
                 return;
             }
             return true;
