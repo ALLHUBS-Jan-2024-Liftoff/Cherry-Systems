@@ -35,10 +35,15 @@ A Google Maps API key is required.
    - Maps JavaScript API
    - Places API	
    - Address Validation API
+#### Clone the Repository
+            https://github.com/ALLHUBS-Jan-2024-Liftoff/Cherry-Systems.git
+#### Install npm dependencies
+            npm install
 #### In your local repo:
 1. In `ThirdPlace-UI` (the front end code's directory), create a file with the name `.env`. Make sure you don't place this in the src directory.
 2. Inside `.env`, paste this: `VITE_GOOGLE_MAPS_API_KEY=value`
 3. Replace `value` with your API key from Google Maps API.
 4. Open your `.gitignore` file. Insert a line for `.env`
 
- 
+## Register and Login a User
+

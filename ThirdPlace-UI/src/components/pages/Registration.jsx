@@ -18,12 +18,12 @@ const Registration = () => {
     <>
       <Navbar />
 
-      <h1>Register</h1>
+      <h1 className="login-sign-up">Register</h1>
 
-      <div className="container review-card">
+      <div className="container login-sign-up-card">
         <AddUserForm />
       </div>
-
+      
       <p className="gray-text">
         <center>🍒 Powered by Cherry Systems </center>
       </p>

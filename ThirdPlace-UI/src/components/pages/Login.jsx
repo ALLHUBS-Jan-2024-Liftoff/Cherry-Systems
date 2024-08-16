@@ -18,9 +18,9 @@ export default function Login() {
     <>
       <Navbar />
       
-      <h1>Login</h1>
+      <h1 className='login-sign-up'>Login</h1>
 
-      <div className="container review-card">
+      <div className="container login-sign-up-card">
         <LoginForm />
       </div>
 

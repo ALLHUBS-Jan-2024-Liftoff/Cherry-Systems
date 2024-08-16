@@ -50,7 +50,7 @@ export default function ProfileInfoCard() {
           <section className="img-cherry-score">
             <div>
               <ProfileImage/>
-              <p className="gray-text-edit">
+              <p className="gray-text-edit-profile-card">
                 <center>🍒 Powered by Cherry Systems</center>
               </p>
             </div>
