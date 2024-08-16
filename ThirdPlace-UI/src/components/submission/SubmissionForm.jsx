@@ -57,6 +57,7 @@ const SubmissionForm = () => {
         if (submissionData.locationName !== "" && submissionData.locationAddress !== "" && submissionData.description !== "" && validLocation(submissionData.locationName)) {
             addSubmission(submissionData.locationName, submissionData.locationAddress, submissionData.description);
             alert("Submission successfully created!");
+            window.location.reload();
         } 
        
     } 
