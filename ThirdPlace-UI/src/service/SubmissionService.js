@@ -1,7 +1,5 @@
 import axios from "axios";
-import react from 'react';
-
-// import { useState } from "react";
+import { useState } from "react";
 
 
 
@@ -10,16 +8,13 @@ import react from 'react';
 export const fetchSubmissions = async () => {
     try {
         const response = await axios
-        .get('http://localhost:8080/api/submission/all');
+        .get('http://localhost:8080/api/submission/all')
         return response.data;
     } catch (error) {
         console.error("Unable to fetch submissions");
         throw error;
     }
-    // setSubmissionList(result.data);
-    // console.log(submissionList);
 };
-// console.log(submissionList);
 
 
 
@@ -31,7 +26,8 @@ export const addSubmission = async (locationName, locationAddress, description) 
     locationAddress, 
     description,
     rating: 4,
-    submissionReview: 'This place has awesome coffee!'
+    submissionReview: 'This place has awesome coffee!',
+    categories: [0]
    };
    
     try {
@@ -42,11 +38,9 @@ export const addSubmission = async (locationName, locationAddress, description) 
         }
     );
         console.log(addSubmission.data);
-        alert("Submission added successfully!");
         return response.data;
     } catch(error) {
         console.error("Unable to save submission.", error);
-        alert("Unable to save new submission.", error);
     }
 };
 
