@@ -195,7 +195,7 @@ const AddUserForm = () => {
                     </label>
                 </div>
 
-                <button type="submit" className="submit-button">
+                <button type="submit" className="submit-button-register">
                     Register
                 </button>
             </form>

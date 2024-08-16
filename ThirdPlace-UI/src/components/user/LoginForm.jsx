@@ -95,7 +95,7 @@ const LoginForm = () => {
                     </label>
                 </div>
 
-                <button type="submit"  className="submit-button">
+                <button type="submit"  className="submit-button-login">
                     Log in
                 </button>
             </form>
