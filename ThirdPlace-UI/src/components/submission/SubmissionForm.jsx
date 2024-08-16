@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import RateAndReview from './RateAndReview'
 import { fetchSubmissions, addSubmission } from '../../service/SubmissionService';
 import { CategoryMenu } from './CategoryMenu';
 // import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 const SubmissionForm = () => {
@@ -64,6 +65,61 @@ const SubmissionForm = () => {
 
     } 
 
+
+// Google Maps Javascript API address bar code
+
+    let autocomplete;
+    
+    async function initAutoComplete() {
+
+        const {Autocomplete} = await google.maps.importLibrary("places");
+
+        autocomplete = new google.maps.places.Autocomplete(
+        document.getElementById("autocomplete"),
+        {
+            fields: ["name", "place_id", "geometry"]
+        }
+        );
+        //trigger place selection handler
+        autocomplete.addListener("place_changed", onPlaceChanged);
+    }
+
+    const [address, setAddress] = useState("");
+    const [placeId, setPlaceId] = useState("");
+    const addressInputRef = useRef(null);
+
+    //TODO write handler for place selection checking if a valid selection is made, and if so, grab placeId
+    function onPlaceChanged() {
+    const place = autocomplete.getPlace();
+    console.log(`place name: ${place.name}`)
+    console.log(`place geometry: ${place.geometry}`)
+    console.log(`place id: ${place.place_id}`)
+
+
+    if (!place.geometry) {
+        document.getElementById("autocomplete").value = "Enter valid address...";
+        console.log("NOT valid address");
+        console.log(`place name: ${place.name}`)
+        console.log(`inputRef: ${addressInputRef.current.value}`)
+    } else {
+        // document.getElementById("details").innerHTML = place.name;
+        console.log(`valid address found: ${place.name}`);
+        setPlaceId(place.place_id);
+        setAddress(place.name);
+
+        // state value not initialized
+        console.log(`place id and address hook values: ${placeId}, ${address}`);
+
+    }
+    }
+    console.log(`place id and address hook values outside functions: ${placeId}, ${address}`);
+
+    //TODO: block users from posting form without valid place geometry
+    //TODO: save PlaceId as a value for back end
+
+    initAutoComplete();
+
+
     return (
         <>
             <form
@@ -85,6 +141,9 @@ const SubmissionForm = () => {
                         <input 
                         type="text" 
                         name="locationAddress"
+                        id="autocomplete"
+                        placeholder="Enter valid address..."
+                        ref={addressInputRef}
                         value={submissionData.locationAddress} 
                         onChange={handleChange} 
                         required
