@@ -35,7 +35,7 @@ export default function NavLinks() {
                         <Link to={{ pathname: '/SearchAndList', state: { user, isAuthenticated }}} className="nav-item">View Locations</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to={{ pathname: '/SubmitLocation', state: { user, isAuthenticated }}} className="nav-item">Submit Location</Link>
+                        <Link to={{ pathname: '/submission/submitlocation', state: { user, isAuthenticated }}} className="nav-item">Submit Location</Link>
                     </li>
 
                     <li className="nav-item">

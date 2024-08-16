@@ -38,12 +38,15 @@ public class SubmissionController {
     private AuthenticationController authenticationController;
 
 
-//Processes Submission Form - Takes form submission data in JSON form to create an object.
-//Postman request I was using for testing --> { "locationName":"Kaldi Coffee", "locationAddress":"Somewhere in STL", "rating":"4", "description":"Coffee Shop", "submissionReview":"This place has great coffee" }
-    @PostMapping("/form")
-    public ResponseEntity<?> newSubmission(@RequestBody SubmissionFormDTO submissionFormDTO, HttpSession session) {
+    //  Processes Submission Form, creating new submission.
+    @PostMapping("/submitlocation")
+    public Submission newSubmission(@RequestBody SubmissionFormDTO submissionFormDTO, HttpSession session) {
 
         Submission newSubmission = new Submission();
+
+        // obtains current user information from session, assigns as submission user
+        User user = authenticationController.getUserFromSession(session);
+        newSubmission.setUser(user);
 
         newSubmission.setLocationName(submissionFormDTO.getLocationName());
         newSubmission.setLocationAddress(submissionFormDTO.getLocationAddress());
@@ -53,31 +56,22 @@ public class SubmissionController {
 
         List<Category> categoryList = (List<Category>) categoryRepository.findAllById(submissionFormDTO.getCategories());
         newSubmission.setCategories(categoryList);
-
-        //TODO: get user from session/authentication, currently holding dummy data to appease constructor
-        User user = authenticationController.getUserFromSession(session);
-//        User user1 = userRepository.findByUsername("user1");
-        newSubmission.setUser(user);
-
+        
         //TODO: get placeID from Maps API address, currently holding dummy data to appease constructor
         newSubmission.setPlaceId("123abc");
 
-        String currentLocationName = submissionFormDTO.getLocationName();
-        Submission isLocationInRepository = submissionRepository.findByLocationName(currentLocationName);
-
-
-        //Looks in Submission Repository for submissions with the same location. Will only save newSubmission if database search returns null
-        if (isLocationInRepository == null) {
-            submissionRepository.save(newSubmission);
-            return ResponseEntity.ok("New Submission completed");
-        } else {
-            return ResponseEntity.badRequest().body("Location has already been submitted.");
-        }
+        return submissionRepository.save(newSubmission);
     }
 
+    //TODO: View submissions by userName
 
     //View all Submissions
-    @GetMapping("/searchandlist")
+//    @GetMapping("/searchandlist")
+//    public List<Submission> getAllSubmissions(){
+//        return (List<Submission>) submissionRepository.findAll();
+//    }
+
+    @GetMapping("/all")
     public List<Submission> getAllSubmissions(){
         return (List<Submission>) submissionRepository.findAll();
     }
