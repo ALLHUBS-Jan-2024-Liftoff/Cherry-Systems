@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../navigation/Navbar";
 import SubmissionForm from "../submission/SubmissionForm";
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import { fetchSubmissions, deleteSubmission } from "../../service/SubmissionService";
 
 export default function SubmitLocation() {
     const { user, isAuthenticated } = useAuth();
     const navigate = useNavigate();
+    const [submission, setSubmission] = useState([]);
+    // const [locationName, setLocationName] = useState("");
+    // const [locationAddress, setLocationAddress] = useState("");
+    // const [description, setDescription] = useState("");
     
     // useEffect(() => {
     //     if (user === null) {
@@ -15,7 +20,25 @@ export default function SubmitLocation() {
     //     }
     // }, [])
 
-    return( 
+    useEffect(() => {
+        fetchSubmissions()
+        .then(setSubmission)
+        .catch((error) => {
+            console.error("There was an error fetching all submissions.", error);
+        });
+    }, []);
+
+    // const processAddSubmission = (locationName, locationAddress, description) => {
+    //     addSubmission(locationName, locationAddress, description)
+    //         .then((newSubmission) => {
+    //             setSubmission([...submission, newSubmission]);
+    //         })
+    //         .catch((error) => {
+    //             console.error("There was an issue creating new submission.", error);
+    //         });
+    // };
+
+    return ( 
         <>
             <Navbar />
             {user === null ? (
