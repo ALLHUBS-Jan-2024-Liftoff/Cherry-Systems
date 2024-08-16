@@ -6,7 +6,7 @@ import { CategoryMenu } from './CategoryMenu'
 import axios from 'axios';
 
 import { fetchSubmissions, addSubmission } from '../../service/SubmissionService';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 
@@ -24,9 +24,9 @@ const SubmissionForm = () => {
         categories: []
     });
 
-    // const [submissionId, setSubmissionId] = useState();
     // const navigate = useNavigate();
    
+    // fetches an array of submission objects from database each time the form is initialized//
     useEffect(() => {
         fetchSubmissions()
             .then(setSubmissionList)
@@ -36,30 +36,38 @@ const SubmissionForm = () => {
     }, []);
 
 
+    // assigns input values to submission form data components // 
     const handleChange = (e) => {
         setSubmissionData({...submissionData, [e.target.name]: e.target.value });
     };
                    
-                
+    
+    // on form submission // 
     const handleSubmit = async (e) => {
         e.preventDefault(); 
-                    
+             
+        // checks to see if submitting location name is in database // 
         const locationNameExists = submissionList.find(({locationName}) => locationName === submissionData.locationName);
+
+        // validates the location name, alerting users if location is already in database; If location exists, prevent form from submitting; else return true validation // 
         const validLocation = () => {
             if (locationNameExists !== undefined) { 
                 alert("Location already exists in ThirdPlace.")
+                //TODO: reroute page to submission page by submissionID navigate('/submission')
                 e.preventDefault();
                 return;
             }
             return true;
         };
 
+        // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
         if (submissionData.locationName !== "" && submissionData.locationAddress !== "" && submissionData.description !== "" && validLocation(submissionData.locationName)) {
             addSubmission(submissionData.locationName, submissionData.locationAddress, submissionData.description);
             alert("Submission successfully created!");
             window.location.reload();
+            //TODO: reroute page to submission page by submissionID navigate('/submission')
         } 
-       
+
     } 
 
     return (

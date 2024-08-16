@@ -27,7 +27,7 @@ export const addSubmission = async (locationName, locationAddress, description) 
     description,
     rating: 4,
     submissionReview: 'This place has awesome coffee!',
-    categories: [0]
+    categories: []
    };
    
     try {
