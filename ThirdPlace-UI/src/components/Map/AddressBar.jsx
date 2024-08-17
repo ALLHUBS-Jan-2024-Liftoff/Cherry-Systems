@@ -1,62 +1,60 @@
 import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 
+
+async function initAutoComplete() {
+
+  const {Autocomplete} = await google.maps.importLibrary("places");
+
+  const autocomplete = new google.maps.places.Autocomplete(
+    document.getElementById("autocomplete"),
+    {
+      fields: ["formatted_address", "place_id", "geometry"]
+    }
+  );
+
+  //trigger place selection handler
+  // autocomplete.addListener("place_changed", onPlaceChanged);
+
+  return autocomplete.getPlace();
+
+}
 
 export default function AddressBar({address, setAddress, placeId, setPlaceId}) {
 
-  let autocomplete;
-  
-async function initAutoComplete() {
+  const [place, setPlace] = useState();
 
-    const {Autocomplete} = await google.maps.importLibrary("places");
-
-    autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById("autocomplete"),
-      {
-        fields: ["name", "place_id", "geometry"]
-      }
-    );
-    //trigger place selection handler
-    autocomplete.addListener("place_changed", onPlaceChanged);
-
-}
-//TODO delete when passed up
-// const [address, setAddress] = useState("");
-// const [placeId, setPlaceId] = useState("");
-// const inputRef = useRef(null);
+  useEffect(() => {
+    (async () => setPlace(await initAutoComplete()))();
+  }, []);
 
 //TODO write handler for place selection checking if a valid selection is made, and if so, grab placeId
 function onPlaceChanged() {
-  const place = autocomplete.getPlace();
-  console.log(`place name: ${place.name}`)
+
+  if (!place) {
+    return;
+  }
+
+  // const place = autocomplete.getPlace();
+  console.log(`place name: ${place.formatted_address}`)
   console.log(`place geometry: ${place.geometry}`)
   console.log(`place id: ${place.place_id}`)
 
-
   if (!place.geometry) {
-    document.getElementById("autocomplete").value = "Enter valid address...";
+    // document.getElementById("autocomplete").value = "Enter valid address...";
     console.log("NOT valid address");
     console.log(`place name: ${place.name}`)
-    // console.log(`inputRef: ${inputRef.current.value}`);
   } else {
-    // document.getElementById("details").innerHTML = place.name;
     console.log(`valid address found: ${place.name}`);
     
     setPlaceId(place.place_id);
-    setAddress(place.name);
-
-    // state value not initialized
-    console.log(`place id and address hook values: ${placeId}, ${address}`);
-
+    setAddress(place.formatted_address);
   }
 }
 console.log(`place id and address hook values outside functions: ${placeId}, ${address}`);
 
-//TODO: block users from posting form without valid place geometry
+//TODO: block users from posting form without valid place geometry: validate with a boolean useState hook passed up to parent?
 //TODO: save PlaceId as a value for back end
-
-  initAutoComplete();
-
 
   return (
     <>
@@ -64,8 +62,8 @@ console.log(`place id and address hook values outside functions: ${placeId}, ${a
               Address: <br></br>
               <input name="locationAddress" 
               id="autocomplete"
+              onChange={onPlaceChanged}
               placeholder="Enter valid address..."
-              // ref={inputRef}
             />
             </label>
     </>
