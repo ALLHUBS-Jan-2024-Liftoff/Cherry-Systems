@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../navigation/Navbar';
+import { useParams } from 'react-router-dom';
+import { fetchSubmissions } from '../../service/SubmissionService';
 
 export default function Submission() {
+  const { locationName } = useParams();
+
+  useEffect( () => {
+    fetchSubmissions()
+    .then 
+  })
+  // const [submission, setSubmission] = useState("");
+//   const { submissionName } = useParams();
+
+// const submissionData = {
+//   submissionName: 'Watershed Nature Preserve',
+//   locationAddress: "",
+//   description: "",
+//   rating: "",
+//   review: "",
+//   categories: ""
+// }
+
   return (
     <div>
         <Navbar/>
@@ -10,7 +30,7 @@ export default function Submission() {
 
         <div className='review-card'>
             <h3>Location Name</h3>
-            <p>Location Address here</p>
+            <p>Location Address</p>
         </div>
         <div className='review-card'>
             <h3>First Review here</h3>

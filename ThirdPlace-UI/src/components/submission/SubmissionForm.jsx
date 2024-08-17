@@ -4,6 +4,7 @@ import { fetchSubmissions, addSubmission } from '../../service/SubmissionService
 import { CategoryMenu } from './CategoryMenu';
 // import { useNavigate } from 'react-router-dom';
 import AddressBar from '../Map/AddressBar';
+import { Link } from 'react-router-dom';
 
 
 const SubmissionForm = () => {
@@ -66,12 +67,13 @@ const SubmissionForm = () => {
             return true;
         };
 
+
         // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
             addSubmission(submissionName, address, description);
             alert("Submission successfully created!");
             window.location.reload();
-            //TODO: reroute page to submission page by submissionID navigate('/submission')
+            //TODO: route page to submission page by submissionID navigate('/submission')
         } 
 
     } 
@@ -123,7 +125,7 @@ const SubmissionForm = () => {
                     {/* <RateAndReview /> */}
                 </div>
 
-                <button type="submit" className="submit-button" >Submit Location</button>
+                <Link type="submit" className="submit-button" to={`/${submissionName}`}>Submit Location</Link>
             </form>
         </>
     );
