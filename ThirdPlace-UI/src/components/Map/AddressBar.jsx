@@ -17,7 +17,7 @@ async function initAutoComplete() {
   // autocomplete.addListener("place_changed", onPlaceChanged);
 
   return autocomplete.getPlace();
-
+//if you need to call getplace again, call in onplacechanged handler
 }
 
 export default function AddressBar({address, setAddress, placeId, setPlaceId}) {
