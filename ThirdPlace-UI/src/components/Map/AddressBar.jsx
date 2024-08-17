@@ -2,7 +2,7 @@ import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 import React, {useState, useRef} from 'react';
 
 
-export default function AddressBar() {
+export default function AddressBar({address, setAddress, placeId, setPlaceId}) {
 
   let autocomplete;
   
@@ -20,10 +20,10 @@ async function initAutoComplete() {
     autocomplete.addListener("place_changed", onPlaceChanged);
 
 }
-
-const [address, setAddress] = useState("");
-const [placeId, setPlaceId] = useState("");
-const inputRef = useRef(null);
+//TODO delete when passed up
+// const [address, setAddress] = useState("");
+// const [placeId, setPlaceId] = useState("");
+// const inputRef = useRef(null);
 
 //TODO write handler for place selection checking if a valid selection is made, and if so, grab placeId
 function onPlaceChanged() {
@@ -37,10 +37,11 @@ function onPlaceChanged() {
     document.getElementById("autocomplete").value = "Enter valid address...";
     console.log("NOT valid address");
     console.log(`place name: ${place.name}`)
-    console.log(`inputRef: ${inputRef.current.value}`)
+    // console.log(`inputRef: ${inputRef.current.value}`);
   } else {
     // document.getElementById("details").innerHTML = place.name;
     console.log(`valid address found: ${place.name}`);
+    
     setPlaceId(place.place_id);
     setAddress(place.name);
 
@@ -54,34 +55,19 @@ console.log(`place id and address hook values outside functions: ${placeId}, ${a
 //TODO: block users from posting form without valid place geometry
 //TODO: save PlaceId as a value for back end
 
-  // const handleSubmit = (event) => {
-    // event.preventDefault();
-  // }
-
   initAutoComplete();
 
 
   return (
     <>
-      <div className="review-card">
-        <form>
-          <div className="form-group">
             <label>
-              Address <br></br>
+              Address: <br></br>
               <input name="locationAddress" 
               id="autocomplete"
               placeholder="Enter valid address..."
-              ref={inputRef}
-/>
+              // ref={inputRef}
+            />
             </label>
-          </div>
-          <input
-            type="submit"
-            className="submit-button"
-            value="Submit Location"
-          />
-        </form>
-      </div>
     </>
   );
 }
