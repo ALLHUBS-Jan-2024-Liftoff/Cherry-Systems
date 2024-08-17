@@ -2,31 +2,13 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import './CategoryMenu.css';
 
-export function CategoryMenu({categories, setCategories}) {
+export function CategoryMenu({selectedCategories, setSelectedCategories}) {
     const [categoriesList, setCategoriesList] = useState({});
     const [isDropdownDisplayed, setIsDropDownDisplayed] = useState(false);
-    const [selectedCategories, setSelectedCategories] = useState({});
 
     const numberOfCategoriesSelected = Object.values(selectedCategories).filter(Boolean).length
 
     const dropdownRef = useRef(null);
-
-    const processSelectedCategories = () => {
-        let categoryIds = [];
-
-        const pickBy = (selectedCategories, fn) =>
-            Object.fromEntries(Object.entries(selectedCategories).filter(([k, v]) => fn(v, k)));
-
-        // console.log(pickBy(selectedCategories, x => x === true));
-
-        categoryIds = Object.keys(pickBy(selectedCategories, x => x === true));
-        
-        // console.log(categoryIds);
-
-        setCategories(categoryIds);
-    }
-
-    // console.log(selectedCategories);
 
     const dropdown = (e) => {
         e.stopPropagation();
@@ -37,7 +19,6 @@ export function CategoryMenu({categories, setCategories}) {
         };
         
         document.addEventListener('click', onClick);
-        processSelectedCategories();
 
         return () => {
             document.removeEventListener('click', onClick);
@@ -83,7 +64,6 @@ export function CategoryMenu({categories, setCategories}) {
                     }}
                 >
                     {numberOfCategoriesSelected > 0 ? `${numberOfCategoriesSelected}  categories selected` : '---select categories---'}
-
                     {/* caret icons from heroicons.com */}
                     {!isDropdownDisplayed  ? (
                         <svg 
@@ -114,17 +94,15 @@ export function CategoryMenu({categories, setCategories}) {
                             />
                         </svg>
                     )}
-
                 </div>
                 {isDropdownDisplayed && 
                     <div
-                        // onClick={(e) => e.stopPropagation()}
                         onClick={dropdown}
                         ref={dropdownRef}
                         className='panel'
                     >
                         {categoriesList.map((category) => (
-                            <fieldset 
+                            <fieldset
                                 key={category.id}
                                 className={selectedCategories[category.id] ? 'selected' : ''}
                             >
@@ -139,7 +117,7 @@ export function CategoryMenu({categories, setCategories}) {
                                     htmlFor={`input-${category.id}`}
                                     className='category-dropdown-option'
                                 >
-                                        {category.name}
+                                    {category.name}
                                 </label>
                             </fieldset>
                         ))}
