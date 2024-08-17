@@ -14,12 +14,12 @@ const SubmissionForm = () => {
     const [description, setDescription] = useState("");
     const [rating, setRating] = useState(4);
     const [submissionReview, setSubmissionReview] = useState("This place has awesome coffee!");
-    const [categories, setCategories] = useState("");
+    const [selectedCategories, setSelectedCategories] = useState({});
+    const [categories, setCategories] = useState([]);
 
     const [submissionList, setSubmissionList] = useState([]);
 
     // Previous data state
-
     // const [submissionData, setSubmissionData] = useState({
     //     locationName: '',
     //     locationAddress: '',
@@ -30,7 +30,7 @@ const SubmissionForm = () => {
     // });
 
     // const navigate = useNavigate();
-   
+
     // fetches an array of submission objects from database each time the form is initialized//
     useEffect(() => {
         fetchSubmissions()
@@ -40,17 +40,27 @@ const SubmissionForm = () => {
             });
     }, []);
 
+    // Filter out true categories ids from selectedCategories, then set to categories
+    useEffect(() => {
+        let categoryIds = [];
+
+        const pickBy = (selectedCategories, fn) =>
+            Object.fromEntries(Object.entries(selectedCategories).filter(([k, v]) => fn(v, k)));
+
+        categoryIds = Object.keys(pickBy(selectedCategories, x => x === true));
+
+        setCategories(categoryIds);
+    }, [selectedCategories]);
 
     // assigns input values to submission form data components // 
     // const handleChange = (e) => {
         // setSubmissionData({...submissionData, [e.target.name]: e.target.value });
     // };
-                   
     
     // on form submission // 
     const handleSubmit = async (e) => {
         e.preventDefault(); 
-             
+
         // checks to see if submitting location name is in database // 
         const locationNameExists = submissionList.find(({locationName}) => locationName === submissionName);
 
@@ -68,11 +78,11 @@ const SubmissionForm = () => {
 
         // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
-            addSubmission(submissionName, address, description);
+            addSubmission(submissionName, address, description, categories);
             alert("Submission successfully created!");
             window.location.reload();
             //TODO: reroute page to submission page by submissionID navigate('/submission')
-        } 
+        };
 
     } 
 
@@ -112,12 +122,12 @@ const SubmissionForm = () => {
                         type="text" 
                         rows="4"
                         name="description" 
-                        value={description} 
+                        value={description}
                         onChange={(e) => setDescription(e.target.value)} 
                         required/>
                     </label>
                 </div>
-                <CategoryMenu/>
+                    <CategoryMenu selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
                 <br></br>
                 <div>
                     {/* <RateAndReview /> */}
