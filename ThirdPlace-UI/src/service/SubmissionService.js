@@ -37,7 +37,6 @@ export const addSubmission = async (locationName, locationAddress, description) 
             withCredentials: true
         }
     );
-        console.log(addSubmission.data);
         return response.data;
     } catch(error) {
         console.error("Unable to save submission.", error);

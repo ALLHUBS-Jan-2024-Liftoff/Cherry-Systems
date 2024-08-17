@@ -3,19 +3,31 @@ import RateAndReview from './RateAndReview'
 import { fetchSubmissions, addSubmission } from '../../service/SubmissionService';
 import { CategoryMenu } from './CategoryMenu';
 // import { useNavigate } from 'react-router-dom';
+import AddressBar from '../Map/AddressBar';
 
 
 const SubmissionForm = () => {
 
+    const [address, setAddress] = useState("");
+    const [placeId, setPlaceId] = useState("");
+    const [submissionName, setSubmissionName] = useState("");
+    const [description, setDescription] = useState("");
+    const [rating, setRating] = useState(4);
+    const [submissionReview, setSubmissionReview] = useState("This place has awesome coffee!");
+    const [categories, setCategories] = useState("");
+
     const [submissionList, setSubmissionList] = useState([]);
-    const [submissionData, setSubmissionData] = useState({
-        locationName: '',
-        locationAddress: '',
-        description: '',
-        rating: 4, 
-        submissionReview: 'This place has awesome coffee!', 
-        categories: []
-    });
+
+    // Previous data state
+
+    // const [submissionData, setSubmissionData] = useState({
+    //     locationName: '',
+    //     locationAddress: '',
+    //     description: '',
+    //     rating: 4, 
+    //     submissionReview: 'This place has awesome coffee!', 
+    //     categories: []
+    // });
 
     // const navigate = useNavigate();
    
@@ -30,9 +42,9 @@ const SubmissionForm = () => {
 
 
     // assigns input values to submission form data components // 
-    const handleChange = (e) => {
-        setSubmissionData({...submissionData, [e.target.name]: e.target.value });
-    };
+    // const handleChange = (e) => {
+        // setSubmissionData({...submissionData, [e.target.name]: e.target.value });
+    // };
                    
     
     // on form submission // 
@@ -40,7 +52,7 @@ const SubmissionForm = () => {
         e.preventDefault(); 
              
         // checks to see if submitting location name is in database // 
-        const locationNameExists = submissionList.find(({locationName}) => locationName === submissionData.locationName);
+        const locationNameExists = submissionList.find(({locationName}) => locationName === submissionName);
 
         // validates the location name, alerting users if location is already in database; If location exists, prevent form from submitting; else return true validation // 
         const validLocation = () => {
@@ -55,14 +67,16 @@ const SubmissionForm = () => {
         };
 
         // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
-        if (submissionData.locationName !== "" && submissionData.locationAddress !== "" && submissionData.description !== "" && validLocation(submissionData.locationName)) {
-            addSubmission(submissionData.locationName, submissionData.locationAddress, submissionData.description);
+        if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
+            addSubmission(submissionName, address, description);
             alert("Submission successfully created!");
             window.location.reload();
             //TODO: reroute page to submission page by submissionID navigate('/submission')
         } 
 
     } 
+
+    // console.log(`Location name: ${submissionData.locationName} Location Address: ${submissionData.locationAddress} Prop address: ${address} Prop placeId: ${placeId}`);
 
     return (
         <>
@@ -73,15 +87,15 @@ const SubmissionForm = () => {
                     <label>Location Name: <br></br>
                         <input 
                         type="text" 
-                        name="locationName" 
-                        value={submissionData.locationName} 
-                        onChange={handleChange} 
+                        name="submissionName" 
+                        value={submissionName} 
+                        onChange={(e) => setSubmissionName(e.target.value)} 
                         required
                         />
                     </label>
                 </div>
                 <div className="form-group">
-                    <label>Address: <br></br>
+                    {/* <label>Address: <br></br>
                         <input 
                         type="text" 
                         name="locationAddress"
@@ -89,7 +103,8 @@ const SubmissionForm = () => {
                         onChange={handleChange} 
                         required
                         />
-                    </label>
+                    </label> */}
+                    <AddressBar address={address} setAddress={setAddress} placeId={placeId} setPlaceId={setPlaceId} />
                 </div>
                 <div className="form-group">
                     <label>Description: <br></br>
@@ -97,8 +112,8 @@ const SubmissionForm = () => {
                         type="text" 
                         rows="4"
                         name="description" 
-                        value={submissionData.description} 
-                        onChange={handleChange} 
+                        value={description} 
+                        onChange={(e) => setDescription(e.target.value)} 
                         required/>
                     </label>
                 </div>
