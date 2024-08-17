@@ -14,7 +14,9 @@ const SubmissionForm = () => {
     const [description, setDescription] = useState("");
     const [rating, setRating] = useState(4);
     const [submissionReview, setSubmissionReview] = useState("This place has awesome coffee!");
-    const [categories, setCategories] = useState("");
+    const [categories, setCategories] = useState([]);
+
+    console.log(categories);
 
     const [submissionList, setSubmissionList] = useState([]);
 
@@ -68,7 +70,7 @@ const SubmissionForm = () => {
 
         // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
-            addSubmission(submissionName, address, description);
+            addSubmission(submissionName, address, description, categories);
             alert("Submission successfully created!");
             window.location.reload();
             //TODO: reroute page to submission page by submissionID navigate('/submission')
@@ -117,7 +119,7 @@ const SubmissionForm = () => {
                         required/>
                     </label>
                 </div>
-                <CategoryMenu/>
+                <CategoryMenu categories={categories} setCategories={setCategories}/>
                 <br></br>
                 <div>
                     {/* <RateAndReview /> */}

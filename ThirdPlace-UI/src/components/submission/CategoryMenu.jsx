@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import './CategoryMenu.css';
 
-export function CategoryMenu() {
+export function CategoryMenu({categories, setCategories}) {
     const [categoriesList, setCategoriesList] = useState({});
     const [isDropdownDisplayed, setIsDropDownDisplayed] = useState(false);
     const [selectedCategories, setSelectedCategories] = useState({});
@@ -11,20 +11,38 @@ export function CategoryMenu() {
 
     const dropdownRef = useRef(null);
 
-    useEffect(() => {
+    const processSelectedCategories = () => {
+        let categoryIds = [];
+
+        const pickBy = (selectedCategories, fn) =>
+            Object.fromEntries(Object.entries(selectedCategories).filter(([k, v]) => fn(v, k)));
+
+        // console.log(pickBy(selectedCategories, x => x === true));
+
+        categoryIds = Object.keys(pickBy(selectedCategories, x => x === true));
+        
+        // console.log(categoryIds);
+
+        setCategories(categoryIds);
+    }
+
+    // console.log(selectedCategories);
+
+    const dropdown = (e) => {
+        e.stopPropagation();
         const onClick = (e) => {
             if(e.target !== dropdownRef.current) {
                 setIsDropDownDisplayed(false);
             }
         };
-
+        
         document.addEventListener('click', onClick);
+        processSelectedCategories();
 
         return () => {
             document.removeEventListener('click', onClick);
         };
-
-    }, []);
+    }
 
     const loadCategories = async () => {
         try {
@@ -100,7 +118,8 @@ export function CategoryMenu() {
                 </div>
                 {isDropdownDisplayed && 
                     <div
-                        onClick={(e) => e.stopPropagation()}
+                        // onClick={(e) => e.stopPropagation()}
+                        onClick={dropdown}
                         ref={dropdownRef}
                         className='panel'
                     >
