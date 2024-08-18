@@ -76,7 +76,7 @@ const SubmissionForm = () => {
 
     } 
 
-    // console.log(`Location name: ${submissionData.locationName} Location Address: ${submissionData.locationAddress} Prop address: ${address} Prop placeId: ${placeId}`);
+    console.log(`Prop address: ${address} Prop placeId: ${placeId}`);
 
     return (
         <>
