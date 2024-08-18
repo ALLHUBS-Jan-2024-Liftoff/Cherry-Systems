@@ -72,6 +72,13 @@ public class SubmissionController {
     }
 
 
+    //View each submission by locationName
+//    @GetMapping("/{locationName}")
+//    public Submission viewSubmissionByLocationName(@PathVariable String locationName) {
+//        Submission submissionByLocationName = submissionRepository.findByLocationName(locationName);
+//        return submissionByLocationName;
+//    }
+
     //View Each Submission by ID
     @GetMapping("/{id}")
     public ResponseEntity<?> viewSubmissionById(@PathVariable Integer id) {

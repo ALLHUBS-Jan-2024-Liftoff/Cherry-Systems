@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import RateAndReview from './RateAndReview'
 import { fetchSubmissions, addSubmission } from '../../service/SubmissionService';
 import { CategoryMenu } from './CategoryMenu';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AddressBar from '../Map/AddressBar';
 import { Link } from 'react-router-dom';
 
@@ -17,6 +17,8 @@ const SubmissionForm = () => {
     const [submissionReview, setSubmissionReview] = useState("This place has awesome coffee!");
     const [categories, setCategories] = useState("");
 
+    const navigate = useNavigate();
+    
     const [submissionList, setSubmissionList] = useState([]);
 
     // Previous data state
@@ -30,7 +32,6 @@ const SubmissionForm = () => {
     //     categories: []
     // });
 
-    // const navigate = useNavigate();
    
     // fetches an array of submission objects from database each time the form is initialized//
     useEffect(() => {
@@ -58,9 +59,10 @@ const SubmissionForm = () => {
         // validates the location name, alerting users if location is already in database; If location exists, prevent form from submitting; else return true validation // 
         const validLocation = () => {
             if (locationNameExists !== undefined) { 
-                alert("Location already exists in ThirdPlace.")
+                alert("Location already exists in ThirdPlace.");
+                navigate('../'+submissionName, {replace: true});
                 //TODO: reroute page to submission page by submissionID navigate('/submission')
-                e.preventDefault();
+                // e.preventDefault();
                 window.location.reload();
                 return;
             }
@@ -72,7 +74,8 @@ const SubmissionForm = () => {
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
             addSubmission(submissionName, address, description);
             alert("Submission successfully created!");
-            window.location.reload();
+            navigate('../'+submissionName, {replace: true});
+            // window.location.href(`'http:localhost:5173/${submissionName}`);
             //TODO: route page to submission page by submissionID navigate('/submission')
         } 
 
@@ -124,8 +127,12 @@ const SubmissionForm = () => {
                 <div>
                     {/* <RateAndReview /> */}
                 </div>
+                {/* to={`/${submissionName}`}  */}
+               
+                {/* <Link type="submit" className="submit-button" to={`/${submissionName}`}>Submit Location</Link> */}
 
-                <Link type="submit" className="submit-button" to={`/${submissionName}`}>Submit Location</Link>
+                <button type="submit" className="submit-button">Submit Location</button>
+
             </form>
         </>
     );

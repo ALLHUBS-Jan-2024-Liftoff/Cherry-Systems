@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     element: <SubmitLocation/>,
   },
   {
-    path: ':locationName',
+    path: '/:submissionName',
     element: <Submission/>,
   }, 
   {
