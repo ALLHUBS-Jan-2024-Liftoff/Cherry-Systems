@@ -12,6 +12,8 @@ public class SubmissionFormDTO {
 
     private String locationAddress;
 
+    private String placeId;
+
     private Integer rating;
 
     private String description;
@@ -34,6 +36,14 @@ public class SubmissionFormDTO {
 
     public void setLocationAddress(String locationAddress) {
         this.locationAddress = locationAddress;
+    }
+
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
     }
 
     public Integer getRating() {

@@ -1,73 +1,83 @@
 import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-import React, {useState, useRef} from 'react';
+import React, { useState, useEffect, useRef, useCallback } from "react";
 
+async function initAutoComplete(inputRef, onPlaceChanged) {
+  const { Autocomplete } = await google.maps.importLibrary("places");
 
-export default function AddressBar({address, setAddress, placeId, setPlaceId}) {
+  const autocomplete = new google.maps.places.Autocomplete(
+    // document.getElementById("autocomplete"),
+    inputRef,
+    {
+      fields: ["formatted_address", "place_id", "geometry"],
+    }
+  );
 
-  let autocomplete;
-  
-async function initAutoComplete() {
+  //trigger place selection handler
+  autocomplete.addListener("place_changed", () =>
+    onPlaceChanged(autocomplete.getPlace())
+  );
 
-    const {Autocomplete} = await google.maps.importLibrary("places");
+  return autocomplete;
+}
 
-    autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById("autocomplete"),
-      {
-        fields: ["name", "place_id", "geometry"]
+export default function AddressBar({
+  address,
+  setAddress,
+  placeId,
+  setPlaceId,
+}) {
+  const [autocomplete, setAutocomplete] = useState(),
+  inputRef = useRef(null);
+
+  // useCallback hook prevents unnecessary recreation of function with each re-render
+  const onPlaceChanged = useCallback(
+    (place) => {
+      if (!place) {
+        console.log(place);
+        return;
       }
-    );
-    //trigger place selection handler
-    autocomplete.addListener("place_changed", onPlaceChanged);
 
-}
-//TODO delete when passed up
-// const [address, setAddress] = useState("");
-// const [placeId, setPlaceId] = useState("");
-// const inputRef = useRef(null);
+      //TODO: block users from posting form without valid place geometry
 
-//TODO write handler for place selection checking if a valid selection is made, and if so, grab placeId
-function onPlaceChanged() {
-  const place = autocomplete.getPlace();
-  console.log(`place name: ${place.name}`)
-  console.log(`place geometry: ${place.geometry}`)
-  console.log(`place id: ${place.place_id}`)
+      // if (!place.geometry) {
+      //   console.log("NOT valid address");
+      //   console.log(`place name: ${place.name}`)
+      // } else {
+      //   console.log(`valid address found: ${place.name}`);
 
+      setPlaceId(place.place_id);
+      setAddress(place.formatted_address);
+    },
+    [setPlaceId, setAddress]
+  );
 
-  if (!place.geometry) {
-    document.getElementById("autocomplete").value = "Enter valid address...";
-    console.log("NOT valid address");
-    console.log(`place name: ${place.name}`)
-    // console.log(`inputRef: ${inputRef.current.value}`);
-  } else {
-    // document.getElementById("details").innerHTML = place.name;
-    console.log(`valid address found: ${place.name}`);
-    
-    setPlaceId(place.place_id);
-    setAddress(place.name);
-
-    // state value not initialized
-    console.log(`place id and address hook values: ${placeId}, ${address}`);
-
-  }
-}
-console.log(`place id and address hook values outside functions: ${placeId}, ${address}`);
-
-//TODO: block users from posting form without valid place geometry
-//TODO: save PlaceId as a value for back end
-
-  initAutoComplete();
-
+  useEffect(() => {
+    (async () => {
+      if (inputRef.current == null) return;
+      else {
+        const ac = await initAutoComplete(
+          inputRef.current,
+          onPlaceChanged
+        ).catch((ex) => {
+          throw Error(`initAutoComplete: ${ex.toString()}`);
+        });
+        setAutocomplete(ac);
+      }
+    })();
+  }, [inputRef.current, onPlaceChanged]);
 
   return (
     <>
-            <label>
-              Address: <br></br>
-              <input name="locationAddress" 
-              id="autocomplete"
-              placeholder="Enter valid address..."
-              // ref={inputRef}
-            />
-            </label>
+      <label>
+        Address: <br></br>
+        <input
+          name="locationAddress"
+          id="autocomplete"
+          ref={inputRef}
+          onChange={onPlaceChanged}
+          placeholder="Enter valid address..."
+        />
+      </label>
     </>
   );
 }
