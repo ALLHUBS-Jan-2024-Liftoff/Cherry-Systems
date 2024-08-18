@@ -1,5 +1,5 @@
 import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 
 
 async function initAutoComplete(inputRef, onPlaceChanged) {
@@ -26,21 +26,8 @@ export default function AddressBar({address, setAddress, placeId, setPlaceId}) {
   const [autocomplete, setAutocomplete] = useState(),
   inputRef = useRef(null);
 
-useEffect(() => {
-(async () => {
-if (inputRef.current == null) 
-  return;
-else {
-  const ac = await initAutoComplete(inputRef.current, onPlaceChanged).catch(ex => {
-    throw Error(`initAutoComplete: ${ex.toString()}`);
-  });
-  setAutocomplete(ac);
-}
-})();
-}, [inputRef.current]);
-
 //TODO write handler for place selection checking if a valid selection is made, and if so, grab placeId
-function onPlaceChanged(place) {
+const onPlaceChanged = useCallback((place) => {
 
   if (!place) {
     console.log(place);
@@ -70,8 +57,26 @@ function onPlaceChanged(place) {
     setPlaceId(place.place_id);
     setAddress(place.formatted_address);
   // }
+}, [setPlaceId, setAddress]);
+
+useEffect(() => {
+(async () => {
+if (inputRef.current == null) 
+  return;
+else {
+  const ac = await initAutoComplete(inputRef.current, onPlaceChanged).catch(ex => {
+    throw Error(`initAutoComplete: ${ex.toString()}`);
+  });
+  setAutocomplete(ac);
 }
+})();
+}, [inputRef.current, onPlaceChanged]);
+
+
 console.log(`place id and address hook values outside functions: ${placeId}, ${address}`);
+
+
+
 
 //TODO: block users from posting form without valid place geometry: validate with a boolean useState hook passed up to parent?
 //TODO: save PlaceId as a value for back end
