@@ -47,7 +47,7 @@ export const addSubmission = async (locationName, locationAddress, placeId, desc
    };
    
     try {
-        const {response} = await axios
+        const response = await axios
         .post(`http://localhost:8080/api/submission/submitlocation`, submissonData, { 
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true
