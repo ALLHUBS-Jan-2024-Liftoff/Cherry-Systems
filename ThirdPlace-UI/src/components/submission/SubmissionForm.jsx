@@ -4,7 +4,6 @@ import { fetchSubmissions, addSubmission } from '../../service/SubmissionService
 import { CategoryMenu } from './CategoryMenu';
 import { useNavigate } from 'react-router-dom';
 import AddressBar from '../Map/AddressBar';
-import { Link } from 'react-router-dom';
 
 
 const SubmissionForm = () => {
@@ -13,8 +12,8 @@ const SubmissionForm = () => {
     const [placeId, setPlaceId] = useState("");
     const [submissionName, setSubmissionName] = useState("");
     const [description, setDescription] = useState("");
-    const [rating, setRating] = useState(4);
-    const [submissionReview, setSubmissionReview] = useState("This place has awesome coffee!");
+    const [rating, setRating] = useState(0);
+    const [submissionReview, setSubmissionReview] = useState("");
     const [selectedCategories, setSelectedCategories] = useState({});
     const [categories, setCategories] = useState([]);
 
@@ -69,7 +68,7 @@ const SubmissionForm = () => {
 
         // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
-            addSubmission(submissionName, address, placeId, description, categories);
+            addSubmission(submissionName, address, placeId, description, rating, submissionReview, categories);
             alert("Submission successfully created!");
             navigate('../'+submissionName, {replace: true});
         } 
@@ -88,6 +87,7 @@ const SubmissionForm = () => {
                         <input 
                         type="text" 
                         name="submissionName" 
+                        placeholder='Write location name...'
                         value={submissionName} 
                         onChange={(e) => setSubmissionName(e.target.value)} 
                         required
@@ -112,6 +112,7 @@ const SubmissionForm = () => {
                         type="text" 
                         rows="4"
                         name="description" 
+                        placeholder='Write a description...'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} 
                         required/>
@@ -120,12 +121,9 @@ const SubmissionForm = () => {
                     <CategoryMenu selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
                 <br></br>
                 <div>
-                    {/* <RateAndReview /> */}
+                    <RateAndReview rating={rating} setRating={setRating} submissionReview={submissionReview} setSubmissionReview={setSubmissionReview}/>
                 </div>
-                {/* to={`/${submissionName}`}  */}
-               
-                {/* <Link type="submit" className="submit-button" to={`/${submissionName}`}>Submit Location</Link> */}
-
+                
                 <button type="submit" className="submit-button">Submit Location</button>
 
             </form>
