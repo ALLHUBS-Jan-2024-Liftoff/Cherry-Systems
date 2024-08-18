@@ -38,14 +38,15 @@ export default function Submission() {
           <div className='review-card'>
               <h8><u>Address: </u></h8>
               <p>{submissionByName.locationAddress}</p>
-          </div>
-          <div className='review-card'>
+          
               <h8><u>Description: </u></h8>
               <p>{submissionByName.description}</p>
-          </div>
-          <div className='review-card'>
-              <h3>First Review here</h3>
-              <p>Review and Rating</p>
+            </div>
+            <div className='review-card'>
+              <h4><u>First Review: </u></h4>
+              <h6>Submitted by: {submissionByName.user.username}</h6>
+              <font size="2">on: {submissionByName.submissionDate}</font><br></br>
+              <p>{submissionByName.submissionReview}</p>
           </div>
           <div className='review-card'>
               <h3>Additional User Reviews</h3>

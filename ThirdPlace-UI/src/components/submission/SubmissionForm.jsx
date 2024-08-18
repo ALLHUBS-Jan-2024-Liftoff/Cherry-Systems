@@ -13,8 +13,8 @@ const SubmissionForm = () => {
     const [placeId, setPlaceId] = useState("");
     const [submissionName, setSubmissionName] = useState("");
     const [description, setDescription] = useState("");
-    const [rating, setRating] = useState(4);
-    const [submissionReview, setSubmissionReview] = useState("This place has awesome coffee!");
+    const [rating, setRating] = useState(0);
+    const [submissionReview, setSubmissionReview] = useState("");
     const [selectedCategories, setSelectedCategories] = useState({});
     const [categories, setCategories] = useState([]);
 
@@ -80,7 +80,7 @@ const SubmissionForm = () => {
 
         // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
-            addSubmission(submissionName, address, description, categories);
+            addSubmission(submissionName, address, description, rating, submissionReview, categories);
             alert("Submission successfully created!");
             navigate('../'+submissionName, {replace: true});
         } 
@@ -99,6 +99,7 @@ const SubmissionForm = () => {
                         <input 
                         type="text" 
                         name="submissionName" 
+                        placeholder='Write location name...'
                         value={submissionName} 
                         onChange={(e) => setSubmissionName(e.target.value)} 
                         required
@@ -123,6 +124,7 @@ const SubmissionForm = () => {
                         type="text" 
                         rows="4"
                         name="description" 
+                        placeholder='Write a description...'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} 
                         required/>
@@ -131,12 +133,9 @@ const SubmissionForm = () => {
                     <CategoryMenu selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
                 <br></br>
                 <div>
-                    {/* <RateAndReview /> */}
+                    <RateAndReview rating={rating} setRating={setRating} submissionReview={submissionReview} setSubmissionReview={setSubmissionReview}/>
                 </div>
-                {/* to={`/${submissionName}`}  */}
-               
-                {/* <Link type="submit" className="submit-button" to={`/${submissionName}`}>Submit Location</Link> */}
-
+                
                 <button type="submit" className="submit-button">Submit Location</button>
 
             </form>
