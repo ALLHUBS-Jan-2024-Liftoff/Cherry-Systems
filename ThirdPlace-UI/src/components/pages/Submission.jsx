@@ -12,7 +12,7 @@ export default function Submission() {
   
 
   // fetches an array of submission objects from database each time the form is initialized//
-  
+
   useEffect(() => {
       fetchSubmissions()
         .then(setSubmissionList)
@@ -33,14 +33,14 @@ export default function Submission() {
       <div>
           <Navbar/>
 
-          <h1>{submissionName}</h1>
+          <h1><u>{submissionName}</u></h1>
         
           <div className='review-card'>
-              <h3>Address: </h3>
+              <h8><u>Address: </u></h8>
               <p>{submissionByName.locationAddress}</p>
           </div>
           <div className='review-card'>
-              <h3>Description:</h3>
+              <h8><u>Description: </u></h8>
               <p>{submissionByName.description}</p>
           </div>
           <div className='review-card'>
