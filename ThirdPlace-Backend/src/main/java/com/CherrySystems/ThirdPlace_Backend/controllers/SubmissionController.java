@@ -50,15 +50,13 @@ public class SubmissionController {
 
         newSubmission.setLocationName(submissionFormDTO.getLocationName());
         newSubmission.setLocationAddress(submissionFormDTO.getLocationAddress());
+        newSubmission.setPlaceId(submissionFormDTO.getPlaceId());
         newSubmission.setRating(submissionFormDTO.getRating());
         newSubmission.setDescription(submissionFormDTO.getDescription());
         newSubmission.setSubmissionReview(submissionFormDTO.getSubmissionReview());
 
         List<Category> categoryList = (List<Category>) categoryRepository.findAllById(submissionFormDTO.getCategories());
         newSubmission.setCategories(categoryList);
-        
-        //TODO: get placeID from Maps API address, currently holding dummy data to appease constructor
-        newSubmission.setPlaceId("123abc");
 
         return submissionRepository.save(newSubmission);
     }
@@ -102,6 +100,7 @@ public class SubmissionController {
         //Updates submission data only for those that were changed
         findInRepo.setLocationName(submissionFormDTO.getLocationName());
         findInRepo.setLocationAddress(submissionFormDTO.getLocationAddress());
+        findInRepo.setPlaceId(submissionFormDTO.getPlaceId());
         findInRepo.setRating(submissionFormDTO.getRating());
         findInRepo.setDescription(submissionFormDTO.getDescription());
         findInRepo.setSubmissionReview(submissionFormDTO.getSubmissionReview());
@@ -113,9 +112,6 @@ public class SubmissionController {
         User user = authenticationController.getUserFromSession(session);
 //        User user1 = userRepository.findByUsername("user1");
         findInRepo.setUser(user);
-
-        //TODO: get placeID from Maps API address, currently holding dummy data to appease constructor
-        findInRepo.setPlaceId("123abc");
 
         //saves updated information to DB
         submissionRepository.save(findInRepo);

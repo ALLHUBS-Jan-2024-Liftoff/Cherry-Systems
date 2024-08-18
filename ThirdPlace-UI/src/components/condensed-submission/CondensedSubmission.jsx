@@ -8,6 +8,8 @@ export default function CondensedSubmission(props) {
 
     let data = props;
 
+    let singleSubmission = data.props;
+
     const renderStars = (rating) => {
         if (rating === 0) {
             return "No reviews yet!";
@@ -27,14 +29,14 @@ export default function CondensedSubmission(props) {
     };
 
     return (
-       <>
-        <td>
-            <h6>{data.props.locationName}</h6>
-            <Address props={data.props}/>
-            <br/>
-            <CategoryBadges props={data.props.categories}/>
-        </td>
-        <td>{renderStars(data.props.averageRating)}</td>
+        <>
+            <td>
+                <h6>{data.props.locationName}</h6>
+                <Address props={data.props}/>
+                <br/>
+                <CategoryBadges props={singleSubmission}/>
+            </td>
+            <td>{renderStars(data.props.averageRating)}</td>
         </>
     
     )

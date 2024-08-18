@@ -97,8 +97,8 @@ export function CategoryMenu({selectedCategories, setSelectedCategories}) {
                 </div>
                 {isDropdownDisplayed && 
                     <div
-                        onClick={dropdown}
                         ref={dropdownRef}
+                        onClick={dropdown}
                         className='panel'
                     >
                         {categoriesList.map((category) => (
