@@ -10,6 +10,7 @@ export default function Submission() {
   const { submissionName } = useParams();
   
   const [submissionList, setSubmissionList] = useState([]);
+    
 
   // fetches an array of submission objects from database each time the form is initialized//
 
@@ -24,6 +25,16 @@ export default function Submission() {
   //  pulls the submission by submission name  //
 
   const submissionByName = submissionList.find(({locationName}) => locationName === submissionName);
+
+  const renderStars = (rating) => {
+    // const fullStars = Math.floor(rating);
+    const stars = [];
+
+    for (let i = 0; i < rating; i++) {
+        stars.push("⭐");
+      }
+      return stars;
+  }; 
 
   //  renders page when data loads  //
 
@@ -44,8 +55,10 @@ export default function Submission() {
             <div className='review-card'>
               <h4><u>First Review: </u></h4>
               <h6>Submitted by: {submissionByName.user.username}</h6>
-              <font size="2">on: {submissionByName.submissionDate}</font><br></br>
-              <p>{submissionByName.submissionReview}</p>
+              <font size="2">on: {submissionByName.submissionDate}</font><br></br><br></br>
+              
+              <p>{renderStars(submissionByName.rating)} <br></br>
+                {submissionByName.submissionReview}</p>
           </div>
           <div className='review-card'>
               <h3>Additional User Reviews</h3>
