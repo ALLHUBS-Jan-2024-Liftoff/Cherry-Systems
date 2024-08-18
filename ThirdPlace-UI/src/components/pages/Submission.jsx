@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import Navbar from '../navigation/Navbar';
 import { useParams } from 'react-router-dom';
 import { fetchSubmissions } from '../../service/SubmissionService';
@@ -56,7 +55,7 @@ export default function Submission() {
               <h4><u>First Review: </u></h4>
               <h6>Submitted by: {submissionByName.user.username}</h6>
               <font size="2">on: {submissionByName.submissionDate}</font><br></br><br></br>
-              
+
               <p>{renderStars(submissionByName.rating)} <br></br>
                 {submissionByName.submissionReview}</p>
           </div>
