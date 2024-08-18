@@ -35,10 +35,34 @@ A Google Maps API key is required.
    - Maps JavaScript API
    - Places API	
    - Address Validation API
+##### Clone the Repository
+            https://github.com/ALLHUBS-Jan-2024-Liftoff/Cherry-Systems.git
+##### Install npm dependencies
+            npm install
 #### In your local repo:
 1. In `ThirdPlace-UI` (the front end code's directory), create a file with the name `.env`. Make sure you don't place this in the src directory.
 2. Inside `.env`, paste this: `VITE_GOOGLE_MAPS_API_KEY=value`
 3. Replace `value` with your API key from Google Maps API.
 4. Open your `.gitignore` file. Insert a line for `.env`
 
- 
+## Register and Login/Logout a User
+
+#### 1. From the home page, click on the Sign Up Button to get to the Registration form and create a new user
+![ThirdPlace_Home_Index_Page 01](https://github.com/user-attachments/assets/ad29b9e2-b841-4624-adbf-b96b32d12ba2)
+#### 2. Register a new user
+![ThirdPlace_Registration_Cropped_Page 01](https://github.com/user-attachments/assets/3edbced9-1e06-42ed-9055-41e0234e95bc)
+#### 3. After a new user is created, you will be directed to the Login page to login
+![ThirdPlace_Login_Cropped_Page 01](https://github.com/user-attachments/assets/db637311-00f0-43ad-99af-2640ba8861ea)
+#### 4. After login, you will be directed back to the Home page where you have access to the Submit Location and Profile pages along with Logout button
+![ThirdPlace_Home_Index_Logged In_Page 01](https://github.com/user-attachments/assets/b319fa5c-8f90-477d-b5d4-372c575b6723)
+
+## User Profile
+
+- See your Cherry Score on your Profile Info Card, when you engage with locations you recieve points that accummulate here. Receive 10 points for submitting a new Location, 5 points for reviewing an existing location, and 1 point for giving a existing submission a thumbs up or down.
+
+<br/>
+
+![ThirdPlace_User_Profile Info Card_No Points_Page 01](https://github.com/user-attachments/assets/216433c3-a586-4d9b-98c1-4a5d8347208c)
+![ThirdPlace_User_Profile Info Card_With Points_Page 01](https://github.com/user-attachments/assets/ff3edaea-e1d5-4c80-a647-1085e9c3a0c2)
+
+
