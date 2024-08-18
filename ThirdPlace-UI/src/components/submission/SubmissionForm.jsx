@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import RateAndReview from './RateAndReview'
 import { fetchSubmissions, addSubmission } from '../../service/SubmissionService';
 import { CategoryMenu } from './CategoryMenu';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AddressBar from '../Map/AddressBar';
+import { Link } from 'react-router-dom';
 
 
 const SubmissionForm = () => {
@@ -17,6 +18,8 @@ const SubmissionForm = () => {
     const [selectedCategories, setSelectedCategories] = useState({});
     const [categories, setCategories] = useState([]);
 
+    const navigate = useNavigate();
+    
     const [submissionList, setSubmissionList] = useState([]);
 
     // Previous data state
@@ -29,8 +32,7 @@ const SubmissionForm = () => {
     //     categories: []
     // });
 
-    // const navigate = useNavigate();
-
+   
     // fetches an array of submission objects from database each time the form is initialized//
     useEffect(() => {
         fetchSubmissions()
@@ -66,23 +68,22 @@ const SubmissionForm = () => {
 
         // validates the location name, alerting users if location is already in database; If location exists, prevent form from submitting; else return true validation // 
         const validLocation = () => {
-            if (locationNameExists !== undefined) { 
-                alert("Location already exists in ThirdPlace.")
-                //TODO: reroute page to submission page by submissionID navigate('/submission')
-                e.preventDefault();
+            if (locationNameExists !== undefined) {
+                alert("Location already exists in ThirdPlace.");
+                navigate('../'+submissionName, {replace: true});
                 window.location.reload();
                 return;
             }
             return true;
         };
 
+
         // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
             addSubmission(submissionName, address, description, categories);
             alert("Submission successfully created!");
-            window.location.reload();
-            //TODO: reroute page to submission page by submissionID navigate('/submission')
-        };
+            navigate('../'+submissionName, {replace: true});
+        } 
 
     } 
 
@@ -132,8 +133,12 @@ const SubmissionForm = () => {
                 <div>
                     {/* <RateAndReview /> */}
                 </div>
+                {/* to={`/${submissionName}`}  */}
+               
+                {/* <Link type="submit" className="submit-button" to={`/${submissionName}`}>Submit Location</Link> */}
 
-                <button type="submit" className="submit-button" >Submit Location</button>
+                <button type="submit" className="submit-button">Submit Location</button>
+
             </form>
         </>
     );
