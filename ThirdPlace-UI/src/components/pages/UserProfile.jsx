@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProfileInfoCard from '../user/ProfileInfoCard';
 import Navbar from '../navigation/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from "../../context/AuthContext";
+import FavoriteList from '../user/FavoriteList';
 
 export default function UserProfile() {
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
+  const [favorites, setFavorites] = useState([]);
+
 
   // useEffect(() => {
   //   if (user === null) {
@@ -14,6 +17,16 @@ export default function UserProfile() {
   //     console.log("Must be logged in to view profile.");
   //   }
   // }, [])
+
+  useEffect(() => {
+    if (user) {
+      // Fetch the user's favorites
+      fetch(`http://localhost:8080/api/favorites/user/${user.id}`)
+        .then(response => response.json())
+        .then(data => setFavorites(data))
+        .catch(error => console.error('Error fetching favorites:', error));
+    }
+  }, [user]);
 
   return (
     <div>
@@ -36,10 +49,24 @@ export default function UserProfile() {
               <h3>Submitted Locations</h3>
               <p>Locations here</p>
           </div>
-          <div className='review-card'>
+
+
+
+          <div className='review-card-favorites'>
+            <div className='review-card-header'>
               <h3>Favorite Locations</h3>
-              <p>Favorite Locations here</p>
+              </div>
+              <div className='review-card-content'>
+            {/* Renders the list of favorite locations in condensed condition */}
+            {favorites.length > 0 ? (
+              <FavoriteList favorites={favorites.map(favorite => favorite.submission)} />
+            ) : (
+              <p>No favorite locations yet.</p>
+            )}
           </div>
+</div>
+
+
           <div className='review-card'>
               <h3>Peggy505's Comments</h3>
               <p>Comments here</p>
