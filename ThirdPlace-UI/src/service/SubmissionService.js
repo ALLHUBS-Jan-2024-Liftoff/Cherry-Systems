@@ -35,19 +35,19 @@ export const fetchSubmissions = async () => {
 
 //  Add new submission  //
 
-export const addSubmission = async (locationName, locationAddress, placeId, description, categories) => {
+export const addSubmission = async (locationName, locationAddress, placeId, description, rating, submissionReview, categories) => {
    const submissonData = {
     locationName, 
     locationAddress, 
     placeId,
     description,
-    rating: 4,
-    submissionReview: 'This place has awesome coffee!',
+    rating,
+    submissionReview,
     categories
    };
    
     try {
-        const {response} = await axios
+        const response = await axios
         .post(`http://localhost:8080/api/submission/submitlocation`, submissonData, { 
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true
