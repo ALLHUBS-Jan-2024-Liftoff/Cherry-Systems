@@ -58,11 +58,9 @@ const SubmissionForm = () => {
 
         // validates the location name, alerting users if location is already in database; If location exists, prevent form from submitting; else return true validation // 
         const validLocation = () => {
-            if (locationNameExists !== undefined) { 
+            if (locationNameExists !== undefined) {
                 alert("Location already exists in ThirdPlace.");
                 navigate('../'+submissionName, {replace: true});
-                //TODO: reroute page to submission page by submissionID navigate('/submission')
-                // e.preventDefault();
                 window.location.reload();
                 return;
             }
@@ -75,8 +73,6 @@ const SubmissionForm = () => {
             addSubmission(submissionName, address, description);
             alert("Submission successfully created!");
             navigate('../'+submissionName, {replace: true});
-            // window.location.href(`'http:localhost:5173/${submissionName}`);
-            //TODO: route page to submission page by submissionID navigate('/submission')
         } 
 
     } 
