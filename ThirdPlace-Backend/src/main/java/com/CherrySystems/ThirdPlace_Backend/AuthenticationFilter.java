@@ -22,7 +22,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
     AuthenticationController authenticationController;
 
 //    Refactor whitelist to allowlist later
-    private static final List<String> whitelist = Arrays.asList("/", "/login", "/registration", "/logout", "/searchandlist");
+    private static final List<String> whitelist = Arrays.asList("/", "/api/user/login", "/api/user/registration", "/api/user/logout", "/api/submission/searchandlist");
 
     private static boolean isWhitelisted(String path) {
         for (String pathRoot : whitelist) {

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import RateAndReview from './RateAndReview'
 import { fetchSubmissions, addSubmission } from '../../service/SubmissionService';
 import { CategoryMenu } from './CategoryMenu';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AddressBar from '../Map/AddressBar';
+import { Link } from 'react-router-dom';
 
 
 const SubmissionForm = () => {
@@ -14,12 +15,14 @@ const SubmissionForm = () => {
     const [description, setDescription] = useState("");
     const [rating, setRating] = useState(4);
     const [submissionReview, setSubmissionReview] = useState("This place has awesome coffee!");
-    const [categories, setCategories] = useState("");
+    const [selectedCategories, setSelectedCategories] = useState({});
+    const [categories, setCategories] = useState([]);
 
+    const navigate = useNavigate();
+    
     const [submissionList, setSubmissionList] = useState([]);
 
     // Previous data state
-
     // const [submissionData, setSubmissionData] = useState({
     //     locationName: '',
     //     locationAddress: '',
@@ -29,7 +32,6 @@ const SubmissionForm = () => {
     //     categories: []
     // });
 
-    // const navigate = useNavigate();
    
     // fetches an array of submission objects from database each time the form is initialized//
     useEffect(() => {
@@ -40,38 +42,47 @@ const SubmissionForm = () => {
             });
     }, []);
 
+    // Filter out true categories ids from selectedCategories, then set to categories
+    useEffect(() => {
+        let categoryIds = [];
+
+        const pickBy = (selectedCategories, fn) =>
+            Object.fromEntries(Object.entries(selectedCategories).filter(([k, v]) => fn(v, k)));
+
+        categoryIds = Object.keys(pickBy(selectedCategories, x => x === true));
+
+        setCategories(categoryIds);
+    }, [selectedCategories]);
 
     // assigns input values to submission form data components // 
     // const handleChange = (e) => {
         // setSubmissionData({...submissionData, [e.target.name]: e.target.value });
     // };
-                   
     
     // on form submission // 
     const handleSubmit = async (e) => {
         e.preventDefault(); 
-             
+
         // checks to see if submitting location name is in database // 
         const locationNameExists = submissionList.find(({locationName}) => locationName === submissionName);
 
         // validates the location name, alerting users if location is already in database; If location exists, prevent form from submitting; else return true validation // 
         const validLocation = () => {
-            if (locationNameExists !== undefined) { 
-                alert("Location already exists in ThirdPlace.")
-                //TODO: reroute page to submission page by submissionID navigate('/submission')
-                e.preventDefault();
+            if (locationNameExists !== undefined) {
+                alert("Location already exists in ThirdPlace.");
+                navigate('../'+submissionName, {replace: true});
                 window.location.reload();
                 return;
             }
             return true;
         };
 
+
         // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
-            addSubmission(submissionName, address, description);
+            addSubmission(submissionName, address, description, categories);
             alert("Submission successfully created!");
-            window.location.reload();
-            //TODO: reroute page to submission page by submissionID navigate('/submission')
+            navigate('../'+submissionName, {replace: true});
         } 
 
     } 
@@ -112,18 +123,22 @@ const SubmissionForm = () => {
                         type="text" 
                         rows="4"
                         name="description" 
-                        value={description} 
+                        value={description}
                         onChange={(e) => setDescription(e.target.value)} 
                         required/>
                     </label>
                 </div>
-                <CategoryMenu/>
+                    <CategoryMenu selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
                 <br></br>
                 <div>
                     {/* <RateAndReview /> */}
                 </div>
+                {/* to={`/${submissionName}`}  */}
+               
+                {/* <Link type="submit" className="submit-button" to={`/${submissionName}`}>Submit Location</Link> */}
 
-                <button type="submit" className="submit-button" >Submit Location</button>
+                <button type="submit" className="submit-button">Submit Location</button>
+
             </form>
         </>
     );

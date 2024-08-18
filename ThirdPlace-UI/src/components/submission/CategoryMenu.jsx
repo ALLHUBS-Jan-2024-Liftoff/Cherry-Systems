@@ -2,29 +2,28 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import './CategoryMenu.css';
 
-export function CategoryMenu() {
+export function CategoryMenu({selectedCategories, setSelectedCategories}) {
     const [categoriesList, setCategoriesList] = useState({});
     const [isDropdownDisplayed, setIsDropDownDisplayed] = useState(false);
-    const [selectedCategories, setSelectedCategories] = useState({});
 
     const numberOfCategoriesSelected = Object.values(selectedCategories).filter(Boolean).length
 
     const dropdownRef = useRef(null);
 
-    useEffect(() => {
+    const dropdown = (e) => {
+        e.stopPropagation();
         const onClick = (e) => {
             if(e.target !== dropdownRef.current) {
                 setIsDropDownDisplayed(false);
             }
         };
-
+        
         document.addEventListener('click', onClick);
 
         return () => {
             document.removeEventListener('click', onClick);
         };
-
-    }, []);
+    }
 
     const loadCategories = async () => {
         try {
@@ -65,7 +64,6 @@ export function CategoryMenu() {
                     }}
                 >
                     {numberOfCategoriesSelected > 0 ? `${numberOfCategoriesSelected}  categories selected` : '---select categories---'}
-
                     {/* caret icons from heroicons.com */}
                     {!isDropdownDisplayed  ? (
                         <svg 
@@ -96,16 +94,15 @@ export function CategoryMenu() {
                             />
                         </svg>
                     )}
-
                 </div>
                 {isDropdownDisplayed && 
                     <div
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={dropdown}
                         ref={dropdownRef}
                         className='panel'
                     >
                         {categoriesList.map((category) => (
-                            <fieldset 
+                            <fieldset
                                 key={category.id}
                                 className={selectedCategories[category.id] ? 'selected' : ''}
                             >
@@ -120,7 +117,7 @@ export function CategoryMenu() {
                                     htmlFor={`input-${category.id}`}
                                     className='category-dropdown-option'
                                 >
-                                        {category.name}
+                                    {category.name}
                                 </label>
                             </fieldset>
                         ))}

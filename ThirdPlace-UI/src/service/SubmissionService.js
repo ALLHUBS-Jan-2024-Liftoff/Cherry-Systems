@@ -10,24 +10,39 @@ export const fetchSubmissions = async () => {
         .get('http://localhost:8080/api/submission/all')
         return response.data;
     } catch (error) {
-        console.error("Unable to fetch submissions");
+        console.error("Unable to fetch all submissions.");
         throw error;
     }
 
 };
 
 
+//  Load submissions by Location Name  //
+
+// export const fetchSubmissionByLocationName = async () => {
+//     try {
+//         const response = await axios
+//         .get('http://localhost:8080/api/submission/{id}')
+//         return response.data;
+//     } catch (error) {
+//         console.error("Unable to fetch submission by that location.")
+//     }
+// }
+
+
+
+
 
 //  Add new submission  //
 
-export const addSubmission = async (locationName, locationAddress, description) => {
+export const addSubmission = async (locationName, locationAddress, description, categories) => {
    const submissonData = {
     locationName, 
     locationAddress, 
     description,
     rating: 4,
     submissionReview: 'This place has awesome coffee!',
-    categories: []
+    categories
    };
    
     try {
