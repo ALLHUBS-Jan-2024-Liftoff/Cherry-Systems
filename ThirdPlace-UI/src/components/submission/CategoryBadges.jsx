@@ -9,7 +9,7 @@ export default function CategoryBadges(props) {
         <>
             {categoriesArr.map((category) => (
                 <span key={category.id}>
-                    <span id="bootstrapBadges" class="badge rounded-pill">{category.name}</span>
+                    <span id="bootstrapBadges" className="badge rounded-pill">{category.name}</span>
                 </span>
             ))}
         </>
