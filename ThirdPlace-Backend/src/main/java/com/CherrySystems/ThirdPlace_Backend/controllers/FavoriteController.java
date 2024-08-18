@@ -32,4 +32,17 @@ public class FavoriteController {
         favoriteRepository.deleteById(favoriteId);
         return "Deleted Favorite ID: " + favoriteId;
     }
+
+//    @DeleteMapping
+//    public String deleteFavorite(@RequestBody Favorite favorite) {
+//        Favorite foundFavorite = favoriteRepository.findByUserIdAndSubmissionId(favorite.getUserId(), favorite.getSubmissionId());
+//        if (foundFavorite != null) {
+//            favoriteRepository.delete(foundFavorite);
+//            return "Deleted favorite for user ID: " + favorite.getUserId() + " and submission ID: " + favorite.getSubmissionId();
+//        } else {
+//            return "Favorite not found for user ID: " + favorite.getUserId() + " and submission ID: " + favorite.getSubmissionId();
+//        }
+//    }
+
+
 }

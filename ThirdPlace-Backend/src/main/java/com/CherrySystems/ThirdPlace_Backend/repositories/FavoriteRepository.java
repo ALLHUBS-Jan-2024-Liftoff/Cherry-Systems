@@ -13,4 +13,7 @@ public interface FavoriteRepository extends CrudRepository<Favorite, Integer> {
     List<Favorite> findByUserId(Integer userId);
 
     List<Favorite> findBySubmissionId(Integer submissionId);
+
+//    Favorite findByUserIdAndSubmissionId(Integer userId, Integer submission);
+
 }
