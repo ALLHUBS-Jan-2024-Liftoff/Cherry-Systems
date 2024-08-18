@@ -3,13 +3,13 @@ import axios from 'axios';
 import Navbar from '../navigation/Navbar';
 import { useParams } from 'react-router-dom';
 import { fetchSubmissions } from '../../service/SubmissionService';
+import CategoryBadges from '../submission/CategoryBadges';
 
 export default function Submission() {
 
   const { submissionName } = useParams();
   
   const [submissionList, setSubmissionList] = useState([]);
-  
 
   // fetches an array of submission objects from database each time the form is initialized//
 
@@ -25,7 +25,6 @@ export default function Submission() {
 
   const submissionByName = submissionList.find(({locationName}) => locationName === submissionName);
 
-
   //  renders page when data loads  //
 
   if (submissionList.length !== 0) {
@@ -34,7 +33,7 @@ export default function Submission() {
           <Navbar/>
 
           <h1><u>{submissionName}</u></h1>
-        
+          <CategoryBadges props={submissionByName}/>
           <div className='review-card'>
               <h8><u>Address: </u></h8>
               <p>{submissionByName.locationAddress}</p>
