@@ -68,7 +68,7 @@ const SubmissionForm = () => {
 
         // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
-            addSubmission(submissionName, address, description, rating, submissionReview, categories);
+            addSubmission(submissionName, address, placeId, description, rating, submissionReview, categories);
             alert("Submission successfully created!");
             navigate('../'+submissionName, {replace: true});
         } 
