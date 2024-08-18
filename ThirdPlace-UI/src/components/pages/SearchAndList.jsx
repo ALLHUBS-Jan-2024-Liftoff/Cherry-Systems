@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../navigation/Navbar";
 import CondensedSubmission from "../condensed-submission/CondensedSubmission.jsx";
+// import { fetchSubmissions } from "../../service/SubmissionService.js";
 
 export default function SearchAndList() {
   const [submissions, setSubmissions] = useState([]);
@@ -11,16 +12,16 @@ export default function SearchAndList() {
   const [input, setInput] = useState("");
 
   // Load submission data from back end
-
+  
   useEffect(() => {
     loadSubmissions();
   }, []);
 
   const loadSubmissions = async () => {
     const result = await axios
-      .get("http://localhost:8080/api/submission/searchandlist")
+      .get("http://localhost:8080/api/submission/all")
       .catch((error) => {
-        console.error("Error fetching data");
+        console.error("Error fetching data", error);
       });
     setSubmissions(result.data);
     setResultRecords(result.data);
