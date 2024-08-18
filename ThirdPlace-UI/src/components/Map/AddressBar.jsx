@@ -37,11 +37,6 @@ export default function AddressBar({
         return;
       }
 
-      console.log(`autocomplete.getplace().place_id: ${place.place_id}`);
-      console.log(
-        `autocomplete.getplace().address: ${place.formatted_address}`
-      );
-
       //TODO: block users from posting form without valid place geometry
 
       // if (!place.geometry) {
