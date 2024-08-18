@@ -3,6 +3,7 @@ import axios from 'axios';
 import Navbar from '../navigation/Navbar';
 import { useParams } from 'react-router-dom';
 import { fetchSubmissions } from '../../service/SubmissionService';
+import Minimap from '../Map/Minimap';
 
 export default function Submission() {
 
@@ -25,6 +26,7 @@ export default function Submission() {
 
   const submissionByName = submissionList.find(({locationName}) => locationName === submissionName);
 
+  console.log(submissionByName);
 
   //  renders page when data loads  //
 
@@ -38,6 +40,7 @@ export default function Submission() {
           <div className='review-card'>
               <h8><u>Address: </u></h8>
               <p>{submissionByName.locationAddress}</p>
+              <Minimap placeId={submissionByName.placeId}/>
           </div>
           <div className='review-card'>
               <h8><u>Description: </u></h8>
