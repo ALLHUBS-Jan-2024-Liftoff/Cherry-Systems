@@ -3,6 +3,7 @@ import axios from 'axios';
 import Navbar from '../navigation/Navbar';
 import { useParams } from 'react-router-dom';
 import { fetchSubmissions } from '../../service/SubmissionService';
+import CategoryBadges from '../submission/CategoryBadges';
 import Minimap from '../Map/Minimap';
 
 export default function Submission() {
@@ -36,7 +37,7 @@ export default function Submission() {
           <Navbar/>
 
           <h1><u>{submissionName}</u></h1>
-        
+          <CategoryBadges props={submissionByName}/>
           <div className='review-card'>
               <h8><u>Address: </u></h8>
               <p>{submissionByName.locationAddress}</p>
