@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 export default function CategoryBadges(props) {
     let data = props;
 
-    let categoriesArr = data.props;
+    let categoriesArr = data.props.categories;
 
     return (
         <>
