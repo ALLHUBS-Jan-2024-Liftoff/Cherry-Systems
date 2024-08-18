@@ -35,14 +35,14 @@ export const fetchSubmissions = async () => {
 
 //  Add new submission  //
 
-export const addSubmission = async (locationName, locationAddress, description) => {
+export const addSubmission = async (locationName, locationAddress, description, categories) => {
    const submissonData = {
     locationName, 
     locationAddress, 
     description,
     rating: 4,
     submissionReview: 'This place has awesome coffee!',
-    categories: []
+    categories
    };
    
     try {
