@@ -37,6 +37,7 @@ const onPlaceChanged = useCallback((place) => {
   console.log(`autocomplete: ${place}`);
   // console.log(`autocomplete.getplace(): ${autocomplete.getPlace()}`);
   console.log(`autocomplete.getplace().place_id: ${place.place_id}`)
+  console.log(`autocomplete.getplace().address: ${place.formatted_address}`)
 
   // const place = autocomplete.getPlace();
   // console.log(`autocomplete.getplace().place_id: ${place.place_id}`)
