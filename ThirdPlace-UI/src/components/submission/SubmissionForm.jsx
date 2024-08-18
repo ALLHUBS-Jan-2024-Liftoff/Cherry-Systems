@@ -21,17 +21,6 @@ const SubmissionForm = () => {
     const navigate = useNavigate();
     
     const [submissionList, setSubmissionList] = useState([]);
-
-    // Previous data state
-    // const [submissionData, setSubmissionData] = useState({
-    //     locationName: '',
-    //     locationAddress: '',
-    //     description: '',
-    //     rating: 4, 
-    //     submissionReview: 'This place has awesome coffee!', 
-    //     categories: []
-    // });
-
    
     // fetches an array of submission objects from database each time the form is initialized//
     useEffect(() => {
@@ -80,7 +69,7 @@ const SubmissionForm = () => {
 
         // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
-            addSubmission(submissionName, address, description, categories);
+            addSubmission(submissionName, address, placeId, description, categories);
             alert("Submission successfully created!");
             navigate('../'+submissionName, {replace: true});
         } 
