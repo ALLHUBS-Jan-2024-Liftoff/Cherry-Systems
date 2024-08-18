@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { fetchSubmissions } from '../../service/SubmissionService';
 import CategoryBadges from '../submission/CategoryBadges';
 import Minimap from '../Map/Minimap';
+import Address from '../condensed-submission/Address';
 
 export default function Submission() {
 
@@ -38,15 +39,17 @@ export default function Submission() {
 
           <h1><u>{submissionName}</u></h1>
           <CategoryBadges props={submissionByName}/>
-          <div className='review-card'>
-              <h8><u>Address: </u></h8>
-              <p>{submissionByName.locationAddress}</p>
+          <div className='submission-details-container'>
+            <div>
               <Minimap placeId={submissionByName.placeId}/>
+            </div>
+            <div className='submission-details'>
+              <div><Address props={submissionByName.locationAddress} /></div>
+              <div className='submission-average-rating'><h4>Average Rating: </h4> ⭐⭐⭐⭐⭐ (4.8)</div>
+              <div className='submission-description'>Description: {submissionByName.description}</div>
+            </div>
           </div>
-          <div className='review-card'>
-              <h8><u>Description: </u></h8>
-              <p>{submissionByName.description}</p>
-          </div>
+
           <div className='review-card'>
               <h3>First Review here</h3>
               <p>Review and Rating</p>
