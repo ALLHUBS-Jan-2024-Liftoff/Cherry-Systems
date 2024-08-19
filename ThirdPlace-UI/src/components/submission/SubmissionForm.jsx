@@ -65,6 +65,13 @@ const SubmissionForm = () => {
             return true;
         };
 
+        // Checks if there is a place ID
+
+        if (!placeId) {
+            alert("Please select a valid address from the drop down menu.");
+            //TODO block form submission
+        }
+
 
         // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
