@@ -107,6 +107,10 @@ small {
   max-height: 400px;
 }
 
+.review-card-for-reviews {
+  
+}
+
 .review-header-container {
   display: flex;
   justify-content: space-between;

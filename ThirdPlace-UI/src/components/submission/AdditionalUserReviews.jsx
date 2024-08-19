@@ -61,7 +61,7 @@ export default function AdditionalUserReviews({ submissionId }) {
           <table className="table table-striped border shadow">
             <tbody>
             {reviews.map(review => (
-              <tr key={review.id} className="review-card">
+              <tr key={review.id} className="review-card-for-reviews">
                 <h4 className='user-review-username-title'>{review.user.username}</h4>
                 <p className='user-review-rating'>Rating: {renderStars(review.rating)}</p>
                 <p className='user-reviewText'>{review.reviewText}</p>
