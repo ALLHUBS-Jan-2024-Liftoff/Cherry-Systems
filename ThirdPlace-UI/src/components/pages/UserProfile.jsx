@@ -12,14 +12,6 @@ export default function UserProfile() {
   const navigate = useNavigate();
   const [favorites, setFavorites] = useState([]);
   const [submissionList, setSubmissionList] = useState([]);
-  const [currentUserSubmissions, setCurrentUserSubmissions] = useState([]);
-
-  // useEffect(() => {
-  //   if (user === null) {
-  //     navigate('/login', { user, isAuthenticated });
-  //     console.log("Must be logged in to view profile.");
-  //   }
-  // }, [])
 
   useEffect(() => {
     if (user) {
@@ -39,20 +31,16 @@ export default function UserProfile() {
       });
   }, []);
 
-  useEffect(() => {
-      if(let i = 0; i < submission.length; i++){
-          submissionList[i].user.id === {user.id}
-        ))
+  let submissionArr = [];
 
-      }
+  for (let i = 0; i <submissionList.length; i++) {
+    if (submissionList[i].user.id === user.id) {
+      submissionArr.push(submissionList[i]);
     }
-  }, [submissionList]);
+  };
 
-  console.log(submissionList);
-  console.log(submissionList[0].user.id);
-  console.log(currentUserSubmissions);
-
-  return (
+  if (submissionList.length !== 0) {
+    return (
     <div>
         <Navbar/>
           {user === null ? (
@@ -75,8 +63,8 @@ export default function UserProfile() {
                 </div>
                 <div className='review-card-content'>
                   {/* Renders the list of submitted locations in condensed condition */}
-                  {currentUserSubmissions.length > 0 ? (
-                    <SubmissionsByUser currentUserSubmissions={currentUserSubmissions} />
+                  {submissionArr.length > 0 ? (
+                    <SubmissionsByUser submissionArr={submissionArr} />
                   ) : (
                     <p>No locations yet.</p>
                   )}
@@ -109,5 +97,5 @@ export default function UserProfile() {
           <center>🍒 Powered by Cherry Systems</center>
         </p>
     </div>
-  )
+  )};
 }
