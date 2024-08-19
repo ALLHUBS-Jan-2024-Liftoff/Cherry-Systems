@@ -95,6 +95,10 @@ small {
   background-color: white;
 }
 
+.text-input-field {
+  width: 447px;
+}
+
 .gray-text {
   color: #6B737D;
 }
