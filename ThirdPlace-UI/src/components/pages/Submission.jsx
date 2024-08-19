@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { fetchSubmissions } from '../../service/SubmissionService';
 import CategoryBadges from '../submission/CategoryBadges';
 import AdditionalUserReviews from '../submission/AdditionalUserReviews';
+import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
 
 
 export default function Submission() {
@@ -27,6 +28,8 @@ export default function Submission() {
   //  pulls the submission by submission name  //
 
   const submissionByName = submissionList.find(({locationName}) => locationName === submissionName);
+
+
 
   const renderStars = (rating) => {
     // const fullStars = Math.floor(rating);
@@ -57,7 +60,7 @@ export default function Submission() {
             <div className='review-card'>
               <h4><u>First Review: </u></h4>
               <h6>Submitted by: {submissionByName.user.username}</h6>
-              <font size="2">on: {new Date {submissionByName.submissionDate} }</font><br></br><br></br>
+              <font size="2">{RenderDateAndTime(submissionByName)}</font><br></br><br></br>
 
               <p>{renderStars(submissionByName.rating)} <br></br>
                 {submissionByName.submissionReview}</p>
