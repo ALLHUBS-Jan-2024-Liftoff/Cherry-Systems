@@ -30,6 +30,33 @@ small {
   margin: 0px 7px 0px 48px;
 }
 
+/* For submission page */
+.user-reviewText {
+  margin: 5px 5px;
+  border: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #d8d8d8;
+  overflow-y: auto;
+}
+
+/* For submission page */
+.user-review-rating {
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: -5px;
+}
+
+.user-review-username-title {
+  text-align:center;
+  margin: 1rem 2rem 0rem 2rem;
+  border: dashed;
+  border-width: .05px;
+  border-radius: 25px;
+  border-color: #aaaaaa;
+
+}
+
 .gray-text {
   color: #6B737D;
 }
