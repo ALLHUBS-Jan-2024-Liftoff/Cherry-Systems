@@ -9,6 +9,7 @@ import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
 
 import Minimap from '../Map/Minimap';
 import Address from '../condensed-submission/Address';
+import ThumbsUpDown from '../submission/ThumbsUpDown';
 
 
 export default function Submission() {
@@ -83,6 +84,9 @@ export default function Submission() {
               </div>
 
                 <p>{submissionByName.submissionReview}</p>
+                <div> 
+<ThumbsUpDown/>
+</div>
 
           </div>
           <div className='review-card'>
