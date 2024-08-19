@@ -60,6 +60,7 @@ small {
 .submission-description {
   margin-top: 28px;
 }
+
 .review-card {
   background-color: #F2F5F5;
   padding: 42px 42px;
@@ -75,6 +76,11 @@ small {
   display: flex;
   flex-direction: column; 
   max-height: 400px;
+}
+
+.review-header-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .review-card-header {
