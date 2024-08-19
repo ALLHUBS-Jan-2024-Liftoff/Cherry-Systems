@@ -95,15 +95,6 @@ const SubmissionForm = () => {
                     </label>
                 </div>
                 <div className="form-group">
-                    {/* <label>Address: <br></br>
-                        <input 
-                        type="text" 
-                        name="locationAddress"
-                        value={submissionData.locationAddress} 
-                        onChange={handleChange} 
-                        required
-                        />
-                    </label> */}
                     <AddressBar address={address} setAddress={setAddress} placeId={placeId} setPlaceId={setPlaceId} />
                 </div>
                 <div className="form-group">
