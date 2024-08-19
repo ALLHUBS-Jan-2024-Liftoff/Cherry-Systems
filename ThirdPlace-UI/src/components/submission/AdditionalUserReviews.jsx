@@ -53,8 +53,7 @@ export default function AdditionalUserReviews({ submissionId }) {
       {error && <p>{error}</p>}
       {averageRating !== null && (
         <div>
-          <h4>Average Rating:</h4>
-          <p>{renderStars(averageRating)}</p>
+          <h4>Average Rating: {renderStars(averageRating) + " " + averageRating}</h4>
         </div>
       )}
       {reviews.length > 0 ? (
