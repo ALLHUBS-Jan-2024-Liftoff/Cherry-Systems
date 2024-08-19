@@ -70,7 +70,7 @@ export default function Submission() {
           
 
             </div>
-            <div className='review-card'>
+            <div className='review-card-submission-page'>
 
 
               {/* <h4>First Review: </h4> */}
@@ -85,7 +85,7 @@ export default function Submission() {
                 <p>{submissionByName.submissionReview}</p>
 
           </div>
-          <div className='review-card'>
+          <div className='review-card-submission-page'>
               <AdditionalUserReviews submissionId={submissionByName.id} />
           </div>
           <p className="gray-text">

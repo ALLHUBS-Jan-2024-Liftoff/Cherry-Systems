@@ -37,6 +37,7 @@ small {
   border-width: 1px;
   border-radius: 5px;
   border-color: #d8d8d8;
+  background-color: white;
   overflow-y: auto;
 }
 
@@ -47,14 +48,15 @@ small {
   margin-bottom: -5px;
 }
 
+/* For submission page */
 .user-review-username-title {
   text-align:center;
-  margin: 1rem 2rem 0rem 2rem;
+  margin: 1rem 10rem .25rem 10rem;
   border: dashed;
   border-width: .05px;
   border-radius: 25px;
   border-color: #aaaaaa;
-
+  background-color: white;
 }
 
 .gray-text {
@@ -95,6 +97,15 @@ small {
   border-radius: 32px;
 }
 
+/* For submission page */
+.review-card-submission-page {
+  background-color: #F2F5F5;
+  padding: 42px 42px;
+  margin: 1.6rem 0rem;
+  min-width: 755px;
+  border-radius: 32px;
+}
+
 .review-card-favorites {
   background-color: #F2F5F5;
   padding: 42px 42px;
@@ -107,8 +118,20 @@ small {
   max-height: 400px;
 }
 
+/* For submission page */
 .review-card-for-reviews {
-  
+  background-color: #F2F5F5;
+  border-left: dotted;
+  border-right: dotted;
+  border-top-style: double;
+  border-top-style: double;
+  border-width: 2px;
+  border-color: #cacaca;
+}
+
+/* For submission page */
+.submitted-date-in-reviews {
+  margin: 0rem 12rem;
 }
 
 .review-header-container {
@@ -123,6 +146,12 @@ small {
 
 .review-card-content {
   flex: 1;
+  overflow-y: auto;
+}
+
+/* For submission page */
+.review-card-content-for-reviews {
+  height: 400px;
   overflow-y: auto;
 }
 
