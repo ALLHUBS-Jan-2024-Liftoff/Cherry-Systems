@@ -8,7 +8,7 @@ export default function AdditionalUserReviews({ submissionId }) {
 
   useEffect(() => {
     // Fetch reviews
-    axios.get(`http://localhost:8080/api/review/submission/${submissionId}`)
+    axios.get(`http://localhost:8080/api/reviews?submissionId=${submissionId}`)
       .then(response => {
         setReviews(response.data);
         setError('');
