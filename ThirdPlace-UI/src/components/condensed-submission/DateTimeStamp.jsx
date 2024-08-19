@@ -19,5 +19,5 @@ export default function RenderDateAndTime(submission) {
         // second: '2-digit'
     });
 
-    return ("Submitted on: " + formattedDate + " at " + formattedTime);
+    return ("on: " + formattedDate + " at " + formattedTime);
 }

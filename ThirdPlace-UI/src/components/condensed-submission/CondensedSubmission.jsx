@@ -35,7 +35,8 @@ export default function CondensedSubmission(props) {
         <>
             <td>
                 <h6> <Link to={`../${data.props.locationName}`}> {data.props.locationName} </Link> </h6>
-                <Address props={data.props}/>
+                <Address props={data.props.locationAddress}/>
+
                 <br/>
                 <CategoryBadges props={singleSubmission}/>
             </td>

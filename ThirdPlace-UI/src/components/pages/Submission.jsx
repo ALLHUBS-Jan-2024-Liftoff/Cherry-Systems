@@ -7,6 +7,9 @@ import CategoryBadges from '../submission/CategoryBadges';
 import AdditionalUserReviews from '../submission/AdditionalUserReviews';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
 
+import Minimap from '../Map/Minimap';
+import Address from '../condensed-submission/Address';
+
 
 export default function Submission() {
 
@@ -48,22 +51,39 @@ export default function Submission() {
       <div>
           <Navbar/>
 
-          <h1><u>{submissionName}</u></h1>
+          <h1>{submissionName}</h1>
           <CategoryBadges props={submissionByName}/>
-          <div className='review-card'>
-              <h8><u>Address: </u></h8>
-              <p>{submissionByName.locationAddress}</p>
+          <div className='submission-details-container'>
+            <div>
+              <Minimap placeId={submissionByName.placeId}/>
+            </div>
 
-              <h8><u>Description: </u></h8>
-              <p>{submissionByName.description}</p>
+            <div className='submission-details'>
+              <div><Address props={submissionByName.locationAddress} /></div>
+              {/* This is a placeholder for the Average Submission Rating. */}
+              {/* Stars in below div are hardcoded, need replacing with Austin's component */}
+              {/* <div className='submission-average-rating'><h4>Average Rating: </h4> 
+                <div>⭐⭐⭐⭐⭐ (4.8)</div>
+              </div> */}
+              <div className='submission-description'>Description: {submissionByName.description}</div>
+            </div>
+          
+
             </div>
             <div className='review-card'>
-              <h4><u>First Review: </u></h4>
-              <h6>Submitted by: {submissionByName.user.username}</h6>
-              <font size="2">{RenderDateAndTime(submissionByName)}</font><br></br><br></br>
 
-              <p>{renderStars(submissionByName.rating)} <br></br>
-                {submissionByName.submissionReview}</p>
+
+              {/* <h4>First Review: </h4> */}
+              <div className='review-header-container'>
+                <div className='review-header-user-location'>
+                  <h6>{submissionByName.user.username}</h6>
+                  <p className='gray-text'>Submitted this location {RenderDateAndTime(submissionByName)}</p>
+                </div>
+                <div>{renderStars(submissionByName.rating)}</div>
+              </div>
+
+                <p>{submissionByName.submissionReview}</p>
+
           </div>
           <div className='review-card'>
               <AdditionalUserReviews submissionId={submissionByName.id} />

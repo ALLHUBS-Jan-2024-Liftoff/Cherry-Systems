@@ -61,7 +61,7 @@ export default function AdditionalUserReviews({ submissionId }) {
         reviews.map(review => (
           <div key={review.id} className="review-card">
             <h4>{review.user.username}</h4>
-            <font size="2">{RenderDateAndTime(review.submission)}</font><br></br>
+            <font size="2">Submitted {RenderDateAndTime(review.submission)}</font><br></br>
             <p>Rating: {renderStars(review.rating)}</p>
             <p>{review.reviewText}</p>
           </div>
