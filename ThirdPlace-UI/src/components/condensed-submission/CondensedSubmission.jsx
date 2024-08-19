@@ -32,7 +32,7 @@ export default function CondensedSubmission(props) {
         <>
             <td>
                 <h6>{data.props.locationName}</h6>
-                <Address props={data.props}/>
+                <Address props={data.props.locationAddress}/>
                 <br/>
                 <CategoryBadges props={singleSubmission}/>
             </td>
