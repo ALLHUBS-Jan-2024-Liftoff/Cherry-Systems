@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 10rem 17rem;
+  padding: 10rem 13rem;
 }
 
 body {
@@ -30,9 +30,15 @@ small {
   margin: 0px 7px 0px 48px;
 }
 
-/* For submission page */
+/* For Submit Location page */
+.submit-location-title{
+  text-align: center;
+}
+
+/* For Submission page */
 .user-reviewText {
   margin: 5px 5px;
+  padding: 10px;
   border: solid;
   border-width: 1px;
   border-radius: 5px;
@@ -97,25 +103,38 @@ small {
   border-radius: 32px;
 }
 
+.review-card-new-submission {
+  background-color: #F2F5F5;
+  padding: 42px 42px;
+  /* margin: 1.6rem; */
+  margin-top: 1.6rem;
+  margin-bottom: 1.6rem;
+  max-width: 527px;
+  min-width: 527px;
+  border-radius: 32px;
+}
+
 /* For submission page */
 .review-card-submission-page {
   background-color: #F2F5F5;
   padding: 42px 42px;
   margin: 1.6rem 0rem;
-  min-width: 755px;
+  min-width: 725px;
+  max-width: 725px;
   border-radius: 32px;
 }
 
+/* For Profile page */
 .review-card-favorites {
   background-color: #F2F5F5;
-  padding: 42px 42px;
+  padding: 45px 45px;
   margin-top: 1.6rem;
   margin-bottom: 1.6rem;
   min-width: 575px;
   border-radius: 32px;
   display: flex;
   flex-direction: column; 
-  max-height: 400px;
+  max-height: 450px;
 }
 
 /* For submission page */

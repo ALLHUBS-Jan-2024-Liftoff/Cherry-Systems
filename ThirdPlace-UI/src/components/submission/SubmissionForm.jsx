@@ -107,6 +107,7 @@ const SubmissionForm = () => {
                         <textarea 
                         type="text" 
                         rows="4"
+                        cols="50"
                         name="description" 
                         placeholder='Write a description...'
                         value={description}

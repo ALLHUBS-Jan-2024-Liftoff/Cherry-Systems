@@ -51,9 +51,9 @@ export default function SubmitLocation() {
             </section>
             ) : (
             <section>
-                <h1>Submit A New Location</h1>
+                <h1 className="submit-location-title">Submit A New Location</h1>
 
-                <div className="container review-card">
+                <div className="container review-card-new-submission">
                     <SubmissionForm />
                 </div>
             </section>

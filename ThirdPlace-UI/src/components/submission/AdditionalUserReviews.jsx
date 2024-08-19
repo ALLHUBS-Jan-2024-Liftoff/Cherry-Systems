@@ -59,7 +59,7 @@ export default function AdditionalUserReviews({ submissionId }) {
       )}
       {reviews.length > 0 ? (
         <div className='review-card-content-for-reviews'>
-          <table className="">
+          <table>
             <tbody>
             {reviews.map(review => (
               <tr key={review.id} className="review-card-for-reviews">
