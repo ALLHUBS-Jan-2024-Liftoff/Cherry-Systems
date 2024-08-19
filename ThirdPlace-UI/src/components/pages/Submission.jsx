@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Navbar from '../navigation/Navbar';
 import { useParams } from 'react-router-dom';
 import { fetchSubmissions } from '../../service/SubmissionService';
 import CategoryBadges from '../submission/CategoryBadges';
+import AdditionalUserReviews from '../submission/AdditionalUserReviews';
+
 
 export default function Submission() {
 
   const { submissionName } = useParams();
-  
+
   const [submissionList, setSubmissionList] = useState([]);
-    
+
 
   // fetches an array of submission objects from database each time the form is initialized//
 
@@ -33,7 +36,7 @@ export default function Submission() {
         stars.push("⭐");
       }
       return stars;
-  }; 
+  };
 
   //  renders page when data loads  //
 
@@ -47,7 +50,7 @@ export default function Submission() {
           <div className='review-card'>
               <h8><u>Address: </u></h8>
               <p>{submissionByName.locationAddress}</p>
-          
+
               <h8><u>Description: </u></h8>
               <p>{submissionByName.description}</p>
             </div>
@@ -60,8 +63,7 @@ export default function Submission() {
                 {submissionByName.submissionReview}</p>
           </div>
           <div className='review-card'>
-              <h3>Additional User Reviews</h3>
-              <p>The deets</p>
+              <AdditionalUserReviews submissionId={submissionByName.id} />
           </div>
           <p className="gray-text">
           <center>🍒 Powered by Cherry Systems </center>
