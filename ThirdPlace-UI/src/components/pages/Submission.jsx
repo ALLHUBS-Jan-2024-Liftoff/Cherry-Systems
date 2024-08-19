@@ -3,11 +3,13 @@ import axios from 'axios';
 import Navbar from '../navigation/Navbar';
 import { useParams } from 'react-router-dom';
 import { fetchSubmissions } from '../../service/SubmissionService';
+import AdditionalUserReviews from '../submission/AdditionalUserReviews';
+
 
 export default function Submission() {
 
   const { submissionName } = useParams();
-  
+
   const [submissionList, setSubmissionList] = useState([]);
   
 
@@ -48,8 +50,7 @@ export default function Submission() {
               <p>Review and Rating</p>
           </div>
           <div className='review-card'>
-              <h3>Additional User Reviews</h3>
-              <p>The deets</p>
+              <AdditionalUserReviews submissionId={submissionByName.id} />
           </div>
           <p className="gray-text">
           <center>🍒 Powered by Cherry Systems </center>
