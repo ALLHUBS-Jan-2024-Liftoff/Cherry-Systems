@@ -3,7 +3,7 @@ import.meta.env.GOOGLE_MAPS_API_KEY;
 export default function Minimap(props) {
   
   let map;
-  let placeId = props.placeId.placeId;
+  let placeId = props.placeId;
 
   async function initMap() {
     const { Map } = await google.maps.importLibrary("maps");
