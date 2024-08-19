@@ -56,9 +56,9 @@ export default function Submission() {
             </div>
 
             <div className='submission-details'>
-              {/* This is a placeholder for the Average Submission Rating. */}
               <div><Address props={submissionByName.locationAddress} /></div>
-                              {/* Stars in below div are hardcoded, need replacing with Austin's component */}
+              {/* This is a placeholder for the Average Submission Rating. */}
+              {/* Stars in below div are hardcoded, need replacing with Austin's component */}
               {/* <div className='submission-average-rating'><h4>Average Rating: </h4> 
                 <div>⭐⭐⭐⭐⭐ (4.8)</div>
               </div> */}
