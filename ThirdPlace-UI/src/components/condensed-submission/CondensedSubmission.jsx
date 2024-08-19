@@ -1,14 +1,17 @@
 import CategoryBadges from "../submission/CategoryBadges";
 import Address from "./Address"
+import { Link } from "react-router-dom";
 
 
 export default function CondensedSubmission(props) {
 
     //TODO clicking submission routes to its submission listing page
+    
 
     let data = props;
 
     let singleSubmission = data.props;
+    
 
     const renderStars = (rating) => {
         if (rating === 0) {
@@ -31,8 +34,9 @@ export default function CondensedSubmission(props) {
     return (
         <>
             <td>
-                <h6>{data.props.locationName}</h6>
+                <h6> <Link to={`../${data.props.locationName}`}> {data.props.locationName} </Link> </h6>
                 <Address props={data.props.locationAddress}/>
+
                 <br/>
                 <CategoryBadges props={singleSubmission}/>
             </td>
