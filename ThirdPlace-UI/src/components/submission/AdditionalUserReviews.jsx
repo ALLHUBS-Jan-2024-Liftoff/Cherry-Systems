@@ -57,17 +57,19 @@ export default function AdditionalUserReviews({ submissionId }) {
         </div>
       )}
       {reviews.length > 0 ? (
-        <table className="table table-striped border shadow">
+        <div className='review-card-content'>
+          <table className="table table-striped border shadow">
             <tbody>
-        {reviews.map(review => (
-          <tr key={review.id} className="review-card">
-            <h4 className='user-review-username-title'>{review.user.username}</h4>
-            <p className='user-review-rating'>Rating: {renderStars(review.rating)}</p>
-            <p className='user-reviewText'>{review.reviewText}</p>
-          </tr>
-        ))}
-        </tbody>
+            {reviews.map(review => (
+              <tr key={review.id} className="review-card">
+                <h4 className='user-review-username-title'>{review.user.username}</h4>
+                <p className='user-review-rating'>Rating: {renderStars(review.rating)}</p>
+                <p className='user-reviewText'>{review.reviewText}</p>
+              </tr>
+            ))}
+            </tbody>
         </table>
+        </div>
       ) : (
         <p>No reviews yet!</p>
       )}
