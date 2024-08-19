@@ -18,7 +18,7 @@ export default function AdditionalUserReviews({ submissionId }) {
         console.error('Error fetching reviews:', error);
       });
 
-    // Fetch submission details including average rating
+    // Fetch submission details for average rating
     axios.get(`http://localhost:8080/api/submission/${submissionId}`)
       .then(response => {
         setAverageRating(response.data.averageRating);
@@ -32,9 +32,7 @@ export default function AdditionalUserReviews({ submissionId }) {
 
   // Function to render stars based on rating
   const renderStars = (rating) => {
-    if (rating === 0) {
-      return "No reviews yet!";
-    }
+
     const fullStars = Math.floor(rating);
     const halfStar = rating % 1 !== 0;
     const stars = [];
@@ -55,7 +53,7 @@ export default function AdditionalUserReviews({ submissionId }) {
       {error && <p>{error}</p>}
       {averageRating !== null && (
         <div>
-          <h4>Average Rating</h4>
+          <h4>Average Rating:</h4>
           <p>{renderStars(averageRating)}</p>
         </div>
       )}
@@ -68,7 +66,7 @@ export default function AdditionalUserReviews({ submissionId }) {
           </div>
         ))
       ) : (
-        <p>No reviews found</p>
+        <p>No reviews yet!</p>
       )}
     </div>
   );
