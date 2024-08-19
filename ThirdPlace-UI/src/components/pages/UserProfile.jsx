@@ -85,9 +85,18 @@ export default function UserProfile() {
                 </div>
               </div>
 
-              <div className='review-card'>
+              <div className='review-card-favorites'>
+                <div className='review-card-header'>
                   <h3>{user.username}'s Reviews</h3>
-                  <p>Comments here</p>
+                </div>
+                <div className='review-card-content'>
+                  {/* Renders a list of reviews made by current user */}
+                  {submissionArr.length > 0 ? (
+                    <SubmissionsByUser submissionArr={submissionArr} />
+                  ) : (
+                    <p>No reviews yet.</p>
+                  )}
+                </div>
               </div>
 
             </section>
