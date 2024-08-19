@@ -65,24 +65,22 @@ const SubmissionForm = () => {
             return true;
         };
 
-        // Checks if there is a place ID
-
+        // Checks if there is a place ID, blocks submission if not
         if (!placeId) {
             alert("Please select a valid address from the drop down menu.");
-            //TODO block form submission
-        }
-
-
+            e.preventDefault();
+        } else {
         // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
             addSubmission(submissionName, address, placeId, description, rating, submissionReview, categories);
             alert("Submission successfully created!");
             navigate('../'+submissionName, {replace: true});
         } 
+    }
 
     } 
 
-    // console.log(`Location Name: ${submissionName} Prop address: ${address} Prop placeId: ${placeId}`);
+    console.log(`Location Name: ${submissionName} Prop address: ${address} Prop placeId: ${placeId}`);
 
     return (
         <>
