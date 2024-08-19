@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
 
 export default function AdditionalUserReviews({ submissionId }) {
   const [reviews, setReviews] = useState([]);
@@ -63,6 +64,7 @@ export default function AdditionalUserReviews({ submissionId }) {
             {reviews.map(review => (
               <tr key={review.id} className="review-card-for-reviews">
                 <h4 className='user-review-username-title'>{review.user.username}</h4>
+                <font size="2">Submitted {RenderDateAndTime(review.submission)}</font><br></br>
                 <p className='user-review-rating'>Rating: {renderStars(review.rating)}</p>
                 <p className='user-reviewText'>{review.reviewText}</p>
               </tr>

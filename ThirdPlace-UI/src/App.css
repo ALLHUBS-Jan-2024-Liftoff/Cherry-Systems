@@ -279,3 +279,8 @@ button:active {
 .star:hover {
   transform: scale(1.1);
 }
+
+.column {
+  float: left;
+  width: 50%;
+}
