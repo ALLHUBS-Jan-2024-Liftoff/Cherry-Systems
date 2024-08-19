@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Navbar from '../navigation/Navbar';
 import { useParams } from 'react-router-dom';
 import { fetchSubmissions } from '../../service/SubmissionService';
 import CategoryBadges from '../submission/CategoryBadges';
+import AdditionalUserReviews from '../submission/AdditionalUserReviews';
+
 import Minimap from '../Map/Minimap';
 import Address from '../condensed-submission/Address';
 
@@ -10,9 +13,9 @@ import Address from '../condensed-submission/Address';
 export default function Submission() {
 
   const { submissionName } = useParams();
-  
+
   const [submissionList, setSubmissionList] = useState([]);
-    
+
 
   // fetches an array of submission objects from database each time the form is initialized//
 
@@ -36,7 +39,7 @@ export default function Submission() {
         stars.push("⭐");
       }
       return stars;
-  }; 
+  };
 
   //  renders page when data loads  //
 
@@ -51,12 +54,14 @@ export default function Submission() {
             <div>
               <Minimap placeId={submissionByName.placeId}/>
             </div>
+
             <div className='submission-details'>
+              {/* This is a placeholder for the Average Submission Rating. */}
               <div><Address props={submissionByName.locationAddress} /></div>
-              <div className='submission-average-rating'><h4>Average Rating: </h4> 
-                {/* Stars in below div are hardcoded, need replacing with Austin's component */}
+                              {/* Stars in below div are hardcoded, need replacing with Austin's component */}
+              {/* <div className='submission-average-rating'><h4>Average Rating: </h4> 
                 <div>⭐⭐⭐⭐⭐ (4.8)</div>
-              </div>
+              </div> */}
               <div className='submission-description'>Description: {submissionByName.description}</div>
             </div>
           
@@ -76,8 +81,7 @@ export default function Submission() {
 
           </div>
           <div className='review-card'>
-              <h3>Additional User Reviews</h3>
-              <p>The deets</p>
+              <AdditionalUserReviews submissionId={submissionByName.id} />
           </div>
           <p className="gray-text">
           <center>🍒 Powered by Cherry Systems </center>
