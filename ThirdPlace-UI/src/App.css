@@ -30,9 +30,39 @@ small {
   margin: 0px 7px 0px 48px;
 }
 
+/* For Home page */
+.home-page-submission {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* For Home page */
+.home-page-submission-left {
+  display: flex;
+}
+
+/* For Home page */
+.home-page-submission-right {
+  display: flex;
+}
+
 /* For Submit Location page */
 .submit-location-title{
   text-align: center;
+}
+
+/* For Submit Location page */
+.review-card-home-page {
+  background-color: #F2F5F5;
+  padding: 42px 42px;
+  margin: 1.6rem 0rem;
+  border-radius: 32px;
+}
+
+/* For Submit Location page */
+.review-card-home-page-scroll {
+  height: 700px;
+  overflow-y: auto;
 }
 
 /* For Submission page */
@@ -103,6 +133,7 @@ small {
   border-radius: 32px;
 }
 
+/* For Submit Location page */
 .review-card-new-submission {
   background-color: #F2F5F5;
   padding: 42px 42px;
@@ -137,7 +168,7 @@ small {
   max-height: 450px;
 }
 
-/* For submission page */
+/* For Submission page */
 .review-card-for-reviews {
   background-color: #F2F5F5;
   border-left: dotted;
@@ -148,7 +179,7 @@ small {
   border-color: #cacaca;
 }
 
-/* For submission page */
+/* For Submission page */
 .submitted-date-in-reviews {
   margin: 0rem 12rem;
 }
@@ -168,7 +199,7 @@ small {
   overflow-y: auto;
 }
 
-/* For submission page */
+/* For Submission page */
 .review-card-content-for-reviews {
   height: 400px;
   overflow-y: auto;
@@ -236,10 +267,12 @@ button:active {
   box-shadow: 0px 1px .25rem #6B737D;
 }
 
+/* For Login and Registration pages */
 .submit-button:hover {
   box-shadow: 1px 1px .25rem #6B737D;
 }
 
+/* For Login and Registration pages */
 .submit-button:active {
   background-color: #683287;
 }
