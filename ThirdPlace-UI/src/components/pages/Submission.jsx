@@ -9,12 +9,11 @@ import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
 import StarRating from '../submission/StarRating';
 import Minimap from '../Map/Minimap';
 import Address from '../condensed-submission/Address';
-
+import FavoriteButton from '../submission/FavoriteButton';
 
 export default function Submission() {
 
   const { submissionName } = useParams();
-
   const [submissionList, setSubmissionList] = useState([]);
 
 
@@ -59,6 +58,12 @@ export default function Submission() {
           
 
             </div>
+
+            <div className='favorite-button-container'>
+              <FavoriteButton submissionId={submissionByName.id} />
+          </div>
+
+
             <div className='review-card-submission-page'>
 
 
