@@ -5,9 +5,11 @@ import UpdateUserForm from "./UpdateUserForm";
 import ProfileImage from "./ProfileImage";
 import { CherryScoreBadge } from "./CherryScoreBadge";
 
-export default function ProfileInfoCard() {
+export default function ProfileInfoCard({otherUser}) {
   const { user } = useAuth();
   const [editMode, setEditMode] = useState(false);
+
+  const propOtherUser = otherUser;
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -63,11 +65,19 @@ export default function ProfileInfoCard() {
                   <tbody>
                     <tr>
                       <th scope="row">Username:</th>
-                      <td>{user.username}</td>
+                      {propOtherUser ? (
+                        <td>{propOtherUser.username}</td>
+                      ) : (
+                        <td>{user.username}</td>
+                      )}
                     </tr>
                     <tr>
                       <th scope="row">Email:</th>
-                      <td>{user.email}</td>
+                      {propOtherUser ? (
+                        <td>{propOtherUser.email}</td>
+                      ) : (
+                        <td>{user.email}</td>
+                      )}
                     </tr>
                     <tr>
                       <th scope="row">Password:</th>
@@ -79,20 +89,22 @@ export default function ProfileInfoCard() {
             </div>
           </section>
         </div>
-        <span className="profileInfoCard-buttons">
-            <button 
-              className="submit-button" 
-              onClick={handleUpdate}>
-              Edit
-            </button>
-            <button
-              className="delete-button"
-              value={user.id}
-              onClick={handleDelete}
-              >
-              Delete
-            </button>
-        </span>
+        {propOtherUser ? "" : (
+          <span className="profileInfoCard-buttons">
+              <button 
+                className="submit-button" 
+                onClick={handleUpdate}>
+                Edit
+              </button>
+              <button
+                className="delete-button"
+                value={user.id}
+                onClick={handleDelete}
+                >
+                Delete
+              </button>
+          </span>
+        )}
       </section>
       ) : (
         <UpdateUserForm/>

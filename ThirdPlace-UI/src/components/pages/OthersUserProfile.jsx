@@ -15,7 +15,7 @@ export default function OthersUserProfile() {
   const { isAuthenticated, user } = useAuth();
   // If there is a url param, then use param username/id to populate data
   const { username } = useParams();
-  const [otherUser, setOtherUser] = useState();
+  const [otherUser, setOtherUser] = useState({});
   const [favorites, setFavorites] = useState([]);
   const [submissionList, setSubmissionList] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -94,7 +94,7 @@ export default function OthersUserProfile() {
             <section>
               <h1>{username}'s Profile Page</h1>
 
-              <ProfileInfoCard/>
+              <ProfileInfoCard otherUser={otherUser}/>
 
               <div className='review-card-favorites'>
                 <div className='review-card-header'>
