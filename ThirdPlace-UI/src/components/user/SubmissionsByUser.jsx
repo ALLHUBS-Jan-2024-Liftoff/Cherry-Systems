@@ -1,11 +1,12 @@
 import CondensedSubmission from '../condensed-submission/CondensedSubmission';
 
-export default function FavoriteList({ favorites }) {
+export default function SubmissionsByUser({ submissionArrByUser }) {
+
     return (
         <table className="table table-striped border shadow">
             <tbody>
-                {favorites.map((submission, index) => (
-                    <tr key={index}>
+                {submissionArrByUser.map((submission) => (
+                    <tr key={submission.id}>
                         <CondensedSubmission props={submission} />
                     </tr>
                 ))}
