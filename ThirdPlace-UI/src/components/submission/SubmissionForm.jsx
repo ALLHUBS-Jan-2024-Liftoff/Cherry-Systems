@@ -95,6 +95,7 @@ const SubmissionForm = () => {
                         placeholder='Write location name...'
                         value={submissionName} 
                         onChange={(e) => setSubmissionName(e.target.value)} 
+                        className='text-input-field'
                         required
                         />
                     </label>
@@ -107,6 +108,7 @@ const SubmissionForm = () => {
                         <textarea 
                         type="text" 
                         rows="4"
+                        cols="50"
                         name="description" 
                         placeholder='Write a description...'
                         value={description}
