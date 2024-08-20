@@ -1,6 +1,11 @@
 import React from 'react';
 
 export default function StarRating({ rating }) {
+
+    if (rating === 0) {
+        return <div>No rating yet! 🍒 </div>;
+      }
+
   // Calculate full stars and half stars
   const fullStars = Math.floor(rating);
   const halfStar = rating % 1 !== 0;

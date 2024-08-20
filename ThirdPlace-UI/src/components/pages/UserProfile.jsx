@@ -10,6 +10,7 @@ import AdditionalUserReviews from '../submission/AdditionalUserReviews';
 import axios from 'axios';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
 import RenderDateAndTimeForReviews from '../condensed-submission/DateTimeStampForReviews';
+import StarRating from '../submission/StarRating';
 
 export default function UserProfile() {
   const { isAuthenticated, user } = useAuth();
@@ -60,25 +61,6 @@ export default function UserProfile() {
       });
 
       setReviews(result.data);
-  };
-
-  // Stars for rating from CondensedSubmission
-  const renderStars = (rating) => {
-    if (rating === 0) {
-        return "No reviews yet!";
-    }
-    const fullStars = Math.floor(rating);
-    const halfStar = rating % 1 !== 0;
-    const stars = [];
-
-    for (let i = 0; i < fullStars; i++) {
-        stars.push("⭐");
-    }
-    if (halfStar) {
-        stars.push("⭐");
-    }
-
-    return stars.join("") + (" " + rating);
   };
 
   if (submissionList.length !== 0) {
@@ -153,7 +135,7 @@ export default function UserProfile() {
                                     <td>
                                       <br/>
                                       <br/>
-                                      {renderStars(review.rating)}
+                                      <StarRating rating={review.rating} />
                                     </td>
                                   </tr>
                               ))}
