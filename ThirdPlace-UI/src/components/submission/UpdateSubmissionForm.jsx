@@ -10,19 +10,21 @@ const UpdateSubmissionForm = (props) => {
 
     let data = props;
 
-    console.log(data.props);
-    let catArr = data.props.categories;
-    let something = [];
-    for(let i = 0; i < catArr.length; i++) {
-        something.push(catArr[i].id);
-    }
+    // TODO: UPDATE CATEGORIES
+    // console.log(data.props);
+    // let catArr = data.props.categories;
+    // let something = [];
+    // for(let i = 0; i < catArr.length; i++) {
+    //     something.push(catArr[i].id);
+    // }
 
-    const keyValuePairCategories = catArr.reduce((obj, category) => (
-        {...obj, [ category.id ]: true}
-    ), {});
+    // const keyValuePairCategories = catArr.reduce((obj, category) => (
+    //     {...obj, [ category.id ]: true}
+    // ), {});
 
 
-    console.log(keyValuePairCategories);
+    // console.log(keyValuePairCategories);
+
     const [editMode, setEditMode] = useState(true);
 
     const [address, setAddress] = useState("");
@@ -31,7 +33,7 @@ const UpdateSubmissionForm = (props) => {
     const [description, setDescription] = useState(data.props.description);
     const [rating, setRating] = useState(data.props.rating);
     const [submissionReview, setSubmissionReview] = useState(data.props.submissionReview);
-    const [selectedCategories, setSelectedCategories] = useState(keyValuePairCategories);
+    const [selectedCategories, setSelectedCategories] = useState({});
     const [categories, setCategories] = useState([]);
 
     const navigate = useNavigate();

@@ -19,15 +19,15 @@ export const fetchSubmissions = async () => {
 
 //  Load submissions by Location Name  //
 
-export const fetchSubmissionByLocationName = async () => {
-    try {
-        const response = await axios
-        .get(`http://localhost:8080/api/submission/${submissionId}`)
-        return response.data;
-    } catch (error) {
-        console.error("Unable to fetch submission by that location.")
-    }
-}
+// export const fetchSubmissionByLocationName = async () => {
+//     try {
+//         const response = await axios
+//         .get(`http://localhost:8080/api/submission/${submissionId}`)
+//         return response.data;
+//     } catch (error) {
+//         console.error("Unable to fetch submission by that location.")
+//     }
+// }
 
 
 
