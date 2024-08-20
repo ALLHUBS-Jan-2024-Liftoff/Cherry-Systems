@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
+import StarRating from './StarRating';
 
 export default function AdditionalUserReviews({ submissionId }) {
   const [reviews, setReviews] = useState([]);
@@ -31,32 +32,9 @@ export default function AdditionalUserReviews({ submissionId }) {
       });
   }, [submissionId]);
 
-  // Function to render stars based on rating
-  const renderStars = (rating) => {
-
-    const fullStars = Math.floor(rating);
-    const halfStar = rating % 1 !== 0;
-    const stars = [];
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push("⭐");
-    }
-    if (halfStar) {
-      stars.push("⭐");
-    }
-
-    return stars.join("");
-  };
-
+  
   return (
     <div>
-      <h3>Additional User Reviews</h3>
-      {error && <p>{error}</p>}
-      {averageRating !== null && (
-        <div>
-          <h4>Average Rating: {renderStars(averageRating) + " " + averageRating}</h4>
-        </div>
-      )}
       {reviews.length > 0 ? (
         <div className='review-card-content-for-reviews'>
           <table>
@@ -65,7 +43,8 @@ export default function AdditionalUserReviews({ submissionId }) {
               <tr key={review.id} className="review-card-for-reviews">
                 <h4 className='user-review-username-title'>{review.user.username}</h4>
                 <font size="2" className='submitted-date-in-reviews'>Submitted {RenderDateAndTime(review.submission)}</font><br></br>
-                <p className='user-review-rating'>Rating: {renderStars(review.rating)}</p>
+                <p className='user-review-rating'>Rating: <StarRating rating={review.rating} /></p>
+
                 <p className='user-reviewText'>{review.reviewText}</p>
               </tr>
             ))}
