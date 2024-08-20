@@ -7,7 +7,7 @@ import FavoriteList from '../user/FavoriteList';
 import SubmissionsByUser from '../user/SubmissionsByUser';
 import { fetchSubmissions } from '../../service/SubmissionService';
 
-export default function UserProfile() {
+export default function OthersUserProfile() {
   // If there is a url param, then use param username/id to populate data
   let { otherUser } = useParams();
 

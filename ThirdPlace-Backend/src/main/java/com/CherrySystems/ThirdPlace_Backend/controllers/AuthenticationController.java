@@ -170,6 +170,19 @@ public class AuthenticationController {
         return ResponseEntity.ok(user);
     }
 
+//    Find user by username
+    @GetMapping("/{username}")
+    public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
+        User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
+        }
+
+        return ResponseEntity.ok(user);
+    }
+
+
 //    Logout
     @GetMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request){

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
+import { Link } from 'react-router-dom';
 
 export default function AdditionalUserReviews({ submissionId }) {
   const [reviews, setReviews] = useState([]);
@@ -60,7 +61,9 @@ export default function AdditionalUserReviews({ submissionId }) {
       {reviews.length > 0 ? (
         reviews.map(review => (
           <div key={review.id} className="review-card">
-            <h4>{review.user.username}</h4>
+            <h4>
+              <Link to={`../profile/:username`}> {review.user.username} </Link>
+            </h4>
             <font size="2">Submitted {RenderDateAndTime(review.submission)}</font><br></br>
             <p>Rating: {renderStars(review.rating)}</p>
             <p>{review.reviewText}</p>
