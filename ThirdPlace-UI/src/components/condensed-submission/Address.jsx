@@ -7,7 +7,7 @@ export default function Address(props) {
   return (
     <>
       <img src={pin}/>
-      <span className="gray-text"> {data.props.locationAddress}</span>
+      <span className="gray-text"> {data.props}</span>
     </>
   );
 }

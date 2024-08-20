@@ -1,28 +1,47 @@
 import React, { useEffect, useState } from 'react'
 import RateAndReview from './RateAndReview'
-import { fetchSubmissions, addSubmission } from '../../service/SubmissionService';
+import { fetchSubmissions, editSubmission } from '../../service/SubmissionService';
 import { CategoryMenu } from './CategoryMenu';
 import { useNavigate } from 'react-router-dom';
 import AddressBar from '../Map/AddressBar';
+import Submission from '../pages/Submission';
+
+const UpdateSubmissionForm = (props) => {
+
+    let data = props;
+
+    // TODO: UPDATE CATEGORIES
+    // console.log(data.props);
+    // let catArr = data.props.categories;
+    // let something = [];
+    // for(let i = 0; i < catArr.length; i++) {
+    //     something.push(catArr[i].id);
+    // }
+
+    // const keyValuePairCategories = catArr.reduce((obj, category) => (
+    //     {...obj, [ category.id ]: true}
+    // ), {});
 
 
-const SubmissionForm = () => {
+    // console.log(keyValuePairCategories);
+
+    const [editMode, setEditMode] = useState(true);
 
     const [address, setAddress] = useState("");
     const [placeId, setPlaceId] = useState("");
-    const [submissionName, setSubmissionName] = useState("");
-    const [description, setDescription] = useState("");
-    const [rating, setRating] = useState(0);
-    const [submissionReview, setSubmissionReview] = useState("");
+    const [submissionName, setSubmissionName] = useState(data.props.locationName);
+    const [description, setDescription] = useState(data.props.description);
+    const [rating, setRating] = useState(data.props.rating);
+    const [submissionReview, setSubmissionReview] = useState(data.props.submissionReview);
     const [selectedCategories, setSelectedCategories] = useState({});
     const [categories, setCategories] = useState([]);
 
     const navigate = useNavigate();
-    
+
     const [submissionList, setSubmissionList] = useState([]);
-   
-    // fetches an array of submission objects from database each time the form is initialized//
-    useEffect(() => {
+
+     // fetches an array of submission objects from database each time the form is initialized//
+     useEffect(() => {
         fetchSubmissions()
             .then(setSubmissionList)
             .catch((error) => {
@@ -42,11 +61,8 @@ const SubmissionForm = () => {
         setCategories(categoryIds);
     }, [selectedCategories]);
 
-    // assigns input values to submission form data components // 
-    // const handleChange = (e) => {
-        // setSubmissionData({...submissionData, [e.target.name]: e.target.value });
-    // };
-    
+
+
     // on form submission // 
     const handleSubmit = async (e) => {
         e.preventDefault(); 
@@ -56,8 +72,9 @@ const SubmissionForm = () => {
 
         // validates the location name, alerting users if location is already in database; If location exists, prevent form from submitting; else return true validation // 
         const validLocation = () => {
-            if (locationNameExists !== undefined) {
-                alert("Location already exists in ThirdPlace.");
+            // old location does not match new location AND new location is in database
+            if ((data.props.locationName !== submissionName) && (locationNameExists.locationName === submissionName)) {
+                alert("Submission not updated, location already exists in ThirdPlace. ");
                 navigate('../'+submissionName, {replace: true});
                 window.location.reload();
                 return;
@@ -70,20 +87,19 @@ const SubmissionForm = () => {
             alert("Please select a valid address from the drop down menu.");
             e.preventDefault();
         } else {
-        // if form has no empty fields and location isn't in database, add new submission, alert user submission created, and reload SubmitLocation page
+        // if form has no empty fields and location isn't in database, edit submission, alert user submission updated, and reload SubmitLocation page
         if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
-            addSubmission(submissionName, address, placeId, description, rating, submissionReview, categories);
-            alert("Submission successfully created!");
+            await editSubmission(data.props.id, submissionName, address, placeId, description, rating, submissionReview, categories);
+            alert("Submission successfully updated!");
+            setEditMode(false);
             navigate('../'+submissionName, {replace: true});
         } 
     }
-
-    } 
-
-    console.log(`Location Name: ${submissionName} Prop address: ${address} Prop placeId: ${placeId}`);
+}
 
     return (
         <>
+        {editMode ? (
             <form
             onSubmit={handleSubmit}
             >
@@ -92,10 +108,9 @@ const SubmissionForm = () => {
                         <input 
                         type="text" 
                         name="submissionName" 
-                        placeholder='Write location name...'
+                        // placeholder='Write location name...'
                         value={submissionName} 
                         onChange={(e) => setSubmissionName(e.target.value)} 
-                        className='text-input-field'
                         required
                         />
                     </label>
@@ -108,9 +123,8 @@ const SubmissionForm = () => {
                         <textarea 
                         type="text" 
                         rows="4"
-                        cols="50"
                         name="description" 
-                        placeholder='Write a description...'
+                        // placeholder='Write a description...'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} 
                         required/>
@@ -125,8 +139,11 @@ const SubmissionForm = () => {
                 <button type="submit" className="submit-button">Submit Location</button>
 
             </form>
+            ) : (
+                <Submission />
+            )}
         </>
     );
 }
 
-export default SubmissionForm;
+export default UpdateSubmissionForm;

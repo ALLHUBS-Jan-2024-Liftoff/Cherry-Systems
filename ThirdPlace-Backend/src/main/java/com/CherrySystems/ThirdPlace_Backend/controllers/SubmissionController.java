@@ -50,15 +50,13 @@ public class SubmissionController {
 
         newSubmission.setLocationName(submissionFormDTO.getLocationName());
         newSubmission.setLocationAddress(submissionFormDTO.getLocationAddress());
+        newSubmission.setPlaceId(submissionFormDTO.getPlaceId());
         newSubmission.setRating(submissionFormDTO.getRating());
         newSubmission.setDescription(submissionFormDTO.getDescription());
         newSubmission.setSubmissionReview(submissionFormDTO.getSubmissionReview());
 
         List<Category> categoryList = (List<Category>) categoryRepository.findAllById(submissionFormDTO.getCategories());
         newSubmission.setCategories(categoryList);
-        
-        //TODO: get placeID from Maps API address, currently holding dummy data to appease constructor
-        newSubmission.setPlaceId("123abc");
 
         return submissionRepository.save(newSubmission);
     }
@@ -71,6 +69,13 @@ public class SubmissionController {
         return (List<Submission>) submissionRepository.findAll();
     }
 
+
+    //View each submission by locationName
+//    @GetMapping("/{locationName}")
+//    public Submission viewSubmissionByLocationName(@PathVariable String locationName) {
+//        Submission submissionByLocationName = submissionRepository.findByLocationName(locationName);
+//        return submissionByLocationName;
+//    }
 
     //View Each Submission by ID
     @GetMapping("/{id}")
@@ -87,14 +92,16 @@ public class SubmissionController {
 
    //Allows users to edit submission entity in DB
     @PatchMapping("/{id}")
+//    @PatchMapping("/editsubmission")
     public ResponseEntity<?> updateSubmission(@PathVariable Integer id, @RequestBody SubmissionFormDTO submissionFormDTO, HttpSession session) {
-
+//    public ResponseEntity<?> updateSubmission(@RequestBody SubmissionFormDTO submissionFormDTO, HttpSession session) {
         //Finds submission by ID in repository
         Submission findInRepo = submissionRepository.findById(id).get();
 
         //Updates submission data only for those that were changed
         findInRepo.setLocationName(submissionFormDTO.getLocationName());
         findInRepo.setLocationAddress(submissionFormDTO.getLocationAddress());
+        findInRepo.setPlaceId(submissionFormDTO.getPlaceId());
         findInRepo.setRating(submissionFormDTO.getRating());
         findInRepo.setDescription(submissionFormDTO.getDescription());
         findInRepo.setSubmissionReview(submissionFormDTO.getSubmissionReview());
@@ -107,9 +114,6 @@ public class SubmissionController {
 //        User user1 = userRepository.findByUsername("user1");
         findInRepo.setUser(user);
 
-        //TODO: get placeID from Maps API address, currently holding dummy data to appease constructor
-        findInRepo.setPlaceId("123abc");
-
         //saves updated information to DB
         submissionRepository.save(findInRepo);
         return ResponseEntity.ok("Submission updated.");
@@ -118,22 +122,8 @@ public class SubmissionController {
 
     //Deletes submissions in Submission Repository by finding the submission by its ID#
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteSubmission(@PathVariable Integer id, HttpSession session) {
-
-        User user = authenticationController.getUserFromSession(session);
-        if (user == null) {
-            return ResponseEntity.badRequest().body("User is not logged in.");
-        }
-
-        //Find submission by ID in repository
-        Submission submissionById = submissionRepository.findById(id).get();
-
-        if (!(submissionById.getUser()).equals(user)) {
-            return ResponseEntity.badRequest().body("Submission can only be deleted by posting user.");
-        } else {
-            submissionRepository.deleteById(id);
-        }
-        return  ResponseEntity.ok("Submission deleted.");
+    public void deleteSubmission(@PathVariable Integer id) {
+        submissionRepository.deleteById(id);
     }
 
 }
