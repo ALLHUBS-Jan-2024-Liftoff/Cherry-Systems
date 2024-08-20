@@ -7,29 +7,36 @@ import plant3 from '../../assets/plant3.png';
 import plant4 from '../../assets/plant4.png';
 import plant5 from '../../assets/plant5.png';
 
-const ProfileImage = () => {
+const ProfileImage = ({otherUser}) => {
     const { user } = useAuth();
     const [img, setImg] = useState(plant0);
 
+    const propOtherUser = otherUser;
+
+    const [selectedUserImg, setSelectedUser] = useState(user.profileImage);
+
+    useEffect(() => {
+        if (propOtherUser) {
+            setSelectedUser(propOtherUser.profileImage)
+        }
+        currentProfileImage();
+    }, [propOtherUser]);
+
     const currentProfileImage = () => {
-        if (user.profileImage === 0) {
+        if (selectedUserImg === 0) {
             setImg(plant0);
-        } else if (user.profileImage === 1) {
+        } else if (selectedUserImg === 1) {
             setImg(plant1)
-        } else if (user.profileImage === 2) {
+        } else if (selectedUserImg === 2) {
             setImg(plant2)
-        } else if (user.profileImage === 3) {
+        } else if (selectedUserImg === 3) {
             setImg(plant3)
-        } else if (user.profileImage === 4) {
+        } else if (selectedUserImg === 4) {
             setImg(plant4)
-        } else if (user.profileImage === 5) {
+        } else if (selectedUserImg === 5) {
             setImg(plant5)
         }
     }
-
-    useEffect(() => {
-        currentProfileImage();
-    }, [])
 
     return (
         <div className='profileImg-div'>
