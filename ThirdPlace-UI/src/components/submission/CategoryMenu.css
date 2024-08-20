@@ -6,14 +6,17 @@
 .category-dropdown-div {
     background-color: white;
     height: 30px;
-    width: 200px;
+    /* width: 200px; */
+    width: 447px;
+    padding: 0px 20px;
     border: solid;
     border-width: 1px;
     border-color: rgb(103, 103, 103);
     color: black;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    /* justify-content: space-around; */
+    justify-content:space-between;
 }
 
 .category-dropdown-div:hover {
@@ -46,7 +49,8 @@ input[type="checkbox"]:hover {
     position: absolute;
     z-index: 10;
     background: white;
-    padding: 10px;
+    width: 447px;
+    padding: 15px;
     border: solid;
     border-width: 1px;
     border-color: rgb(103, 103, 103);

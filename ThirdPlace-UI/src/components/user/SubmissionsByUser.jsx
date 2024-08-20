@@ -1,11 +1,11 @@
 import CondensedSubmission from '../condensed-submission/CondensedSubmission';
 
-export default function SubmissionsByUser({ submissionArr }) {
+export default function SubmissionsByUser({ submissionArrByUser }) {
 
     return (
         <table className="table table-striped border shadow">
             <tbody>
-                {submissionArr.map((submission) => (
+                {submissionArrByUser.map((submission) => (
                     <tr key={submission.id}>
                         <CondensedSubmission props={submission} />
                     </tr>
