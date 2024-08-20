@@ -15,11 +15,10 @@ export const fetchUsers = async () => {
 };
 
 // Fetch user by Username
-export const getUserByUsername = async ({username}) => {
+export const getUserByUsername = async (username) => {
   try {
       const response = await axios.get (`${BASEAPIURL}/${username}`, {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true
+        params: { username }
       });
       const user = response.data;
 

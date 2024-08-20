@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
 import StarRating from './StarRating';
+import { Link } from 'react-router-dom';
 
 export default function AdditionalUserReviews({ submissionId }) {
   const [reviews, setReviews] = useState([]);
