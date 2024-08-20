@@ -51,7 +51,7 @@ export default function ProfileInfoCard({otherUser}) {
         <div className="contains-all-but-buttons">
           <section className="img-cherry-score">
             <div>
-              <ProfileImage/>
+              <ProfileImage otherUser={otherUser}/>
               <p className="gray-text-edit">
                 <center>🍒 Powered by Cherry Systems</center>
               </p>
@@ -95,7 +95,7 @@ export default function ProfileInfoCard({otherUser}) {
             </div>
           </section>
         </div>
-        {( propOtherUser && propOtherUser.username !== user.username) ? "" : (
+        {(propOtherUser && propOtherUser.username !== user.username) ? "" : (
           <span className="profileInfoCard-buttons">
               <button 
                 className="submit-button" 

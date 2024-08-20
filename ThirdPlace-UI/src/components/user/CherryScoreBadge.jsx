@@ -14,7 +14,7 @@ export const CherryScoreBadge = ({otherUser}) => {
         if (propOtherUser) {
             setSelectedUser(propOtherUser.cherryPoints)
         }
-    }, []);
+    }, [propOtherUser]);
 
     return (
         <div className='for-padding'>
@@ -24,7 +24,7 @@ export const CherryScoreBadge = ({otherUser}) => {
                     Cherry Score:
                 </p>
                 <p className='cherryPoints-and-img'>
-                    {user.cherryPoints}
+                    {selectedUser}
                     <img src={cherryNoLeaf}></img>
                 </p>
                 </div>
