@@ -14,6 +14,7 @@ import SearchAndList from "./components/pages/SearchAndList.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 
 
+
 const router = createBrowserRouter([
   {
     path: '/',
