@@ -89,7 +89,7 @@ export default function ProfileInfoCard({otherUser}) {
             </div>
           </section>
         </div>
-        {propOtherUser ? "" : (
+        {( propOtherUser && propOtherUser.username !== user.username) ? "" : (
           <span className="profileInfoCard-buttons">
               <button 
                 className="submit-button" 
