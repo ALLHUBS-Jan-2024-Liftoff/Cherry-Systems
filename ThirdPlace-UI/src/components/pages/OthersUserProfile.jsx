@@ -2,17 +2,24 @@ import React, { useState, useEffect } from 'react';
 import ProfileInfoCard from '../user/ProfileInfoCard';
 import Navbar from '../navigation/Navbar';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useAuth } from "../../context/AuthContext";
 import FavoriteList from '../user/FavoriteList';
 import SubmissionsByUser from '../user/SubmissionsByUser';
 import { fetchSubmissions } from '../../service/SubmissionService';
+import { getUserByUsername } from '../../service/UserServices';
 
 export default function OthersUserProfile() {
   // If there is a url param, then use param username/id to populate data
   let { otherUser } = useParams();
+  const [user, setUser] = useState();
 
-  const { isAuthenticated, user } = useAuth();
-  const navigate = useNavigate();
+  useEffect(() => {
+    getUserByUsername({otherUser})
+    .then(setUser)
+    .catch((error) => {
+      console.error("Unable to fetch all submissions.", error);
+    });
+  }, [otherUser]);
+
   const [favorites, setFavorites] = useState([]);
   const [submissionList, setSubmissionList] = useState([]);
 
@@ -30,7 +37,7 @@ export default function OthersUserProfile() {
     fetchSubmissions()
       .then(setSubmissionList)
       .catch((error) => {
-          console.error("Unable to fetch all submissions.", error);
+        console.error("Unable to fetch all submissions.", error);
       });
   }, []);
 

@@ -14,6 +14,32 @@ export const fetchUsers = async () => {
   }
 };
 
+// Fetch user by Username
+export const getUserByUsername = async ({username}) => {
+  try {
+      const response = await axios.get (`${BASEAPIURL}/${username}`, {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true
+      });
+      const user = response.data;
+
+      return user;
+  } catch (error) {
+    const errorData = error.response.data;
+    let allDefaultMessages = [];
+
+    // Add all "defaultMessage" from error response to empty array to be logged in console
+    for (let i = 0; i < errorData.length; i++) {  
+      allDefaultMessages.push(errorData[i].defaultMessage);
+    }
+
+    console.error("Error fetching user!", allDefaultMessages);
+    throw error;
+      // return null;
+  };
+};
+
+
 export const registerUser = async (username, email, verifyEmail, password, verifyPassword) => {
   const userData = {
     username,
