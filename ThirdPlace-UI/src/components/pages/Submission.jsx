@@ -6,12 +6,9 @@ import { deleteSubmission, fetchSubmissions } from '../../service/SubmissionServ
 import CategoryBadges from '../submission/CategoryBadges';
 import AdditionalUserReviews from '../submission/AdditionalUserReviews';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
-<<<<<<< HEAD
 import UpdateSubmissionForm from '../submission/UpdateSubmissionForm';
 
-=======
 import StarRating from '../submission/StarRating';
->>>>>>> main
 import Minimap from '../Map/Minimap';
 import Address from '../condensed-submission/Address';
 
