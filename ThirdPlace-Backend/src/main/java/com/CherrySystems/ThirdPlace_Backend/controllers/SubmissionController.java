@@ -121,22 +121,8 @@ public class SubmissionController {
 
     //Deletes submissions in Submission Repository by finding the submission by its ID#
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteSubmission(@PathVariable Integer id, HttpSession session) {
-
-        User user = authenticationController.getUserFromSession(session);
-        if (user == null) {
-            return ResponseEntity.badRequest().body("User is not logged in.");
-        }
-
-        //Find submission by ID in repository
-        Submission submissionById = submissionRepository.findById(id).get();
-
-        if (!(submissionById.getUser()).equals(user)) {
-            return ResponseEntity.badRequest().body("Submission can only be deleted by posting user.");
-        } else {
-            submissionRepository.deleteById(id);
-        }
-        return  ResponseEntity.ok("Submission deleted.");
+    public void deleteSubmission(@PathVariable Integer id) {
+        submissionRepository.deleteById(id);
     }
 
 }
