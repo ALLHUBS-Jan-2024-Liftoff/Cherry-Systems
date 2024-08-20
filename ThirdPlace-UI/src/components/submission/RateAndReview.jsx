@@ -71,7 +71,9 @@ export default function RateAndReview({rating, setRating, submissionReview, setS
             <label>Review: <br></br>
               <textarea 
               name="submissionReview" 
+              placeholder='Write a review...'
               rows="4"
+              cols="50"
               type="text"
               value={submissionReview}
               onChange={(e) => setSubmissionReview(e.target.value)} />

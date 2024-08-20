@@ -1,35 +1,17 @@
 import CategoryBadges from "../submission/CategoryBadges";
 import Address from "./Address"
 import { Link } from "react-router-dom";
-
+import StarRating from "../submission/StarRating";
 
 export default function CondensedSubmission(props) {
 
     //TODO clicking submission routes to its submission listing page
     
-
+    
     let data = props;
 
     let singleSubmission = data.props;
     
-
-    const renderStars = (rating) => {
-        if (rating === 0) {
-            return "No reviews yet!";
-        }
-        const fullStars = Math.floor(rating);
-        const halfStar = rating % 1 !== 0;
-        const stars = [];
-
-        for (let i = 0; i < fullStars; i++) {
-            stars.push("⭐");
-        }
-        if (halfStar) {
-            stars.push("⭐");
-        }
-
-        return stars.join("") + (" " + rating);
-    };
 
     return (
         <>
@@ -40,7 +22,7 @@ export default function CondensedSubmission(props) {
                 <br/>
                 <CategoryBadges props={singleSubmission}/>
             </td>
-            <td>{renderStars(data.props.averageRating)}</td>
+            <td><StarRating rating={data.props.averageRating} /></td>
         </>
     
     )

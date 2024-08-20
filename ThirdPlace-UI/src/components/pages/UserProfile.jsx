@@ -6,13 +6,38 @@ import { useAuth } from "../../context/AuthContext";
 import FavoriteList from '../user/FavoriteList';
 import SubmissionsByUser from '../user/SubmissionsByUser';
 import { fetchSubmissions } from '../../service/SubmissionService';
+import AdditionalUserReviews from '../submission/AdditionalUserReviews';
+import axios from 'axios';
+import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
+import RenderDateAndTimeForReviews from '../condensed-submission/DateTimeStampForReviews';
+import StarRating from '../submission/StarRating';
 
 export default function UserProfile() {
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
-  const [favorites, setFavorites] = useState([]);
   const [submissionList, setSubmissionList] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  
+  // Load all Submissions, then add to submissionsList state
+  useEffect(() => {
+    fetchSubmissions()
+      .then(setSubmissionList)
+      .catch((error) => {
+          console.error("Unable to fetch all submissions.", error);
+      });
+  }, []);
 
+  // Loop through all Submissions, add Submissions with current User's ID to submissionArrByUser
+  let submissionArrByUser = [];
+
+  for (let i = 0; i <submissionList.length; i++) {
+    if (submissionList[i].user.id === user.id) {
+      submissionArrByUser.push(submissionList[i]);
+    }
+  };
+
+  // Load all Favorites by User ID
   useEffect(() => {
     if (user) {
       // Fetch the user's favorites
@@ -23,26 +48,25 @@ export default function UserProfile() {
     }
   }, [user]);
 
+  // Load all reviews by current User's Username, then add to Reviews state
   useEffect(() => {
-    fetchSubmissions()
-      .then(setSubmissionList)
-      .catch((error) => {
-          console.error("Unable to fetch all submissions.", error);
-      });
+    loadReviews();
   }, []);
 
-  let submissionArr = [];
+  const loadReviews = async () => {
+    const result = await axios
+      .get(`http://localhost:8080/api/${user.username}/reviews`)
+      .catch((error) => {
+        console.error("Error fetching data", error);
+      });
 
-  for (let i = 0; i <submissionList.length; i++) {
-    if (submissionList[i].user.id === user.id) {
-      submissionArr.push(submissionList[i]);
-    }
+      setReviews(result.data);
   };
 
   if (submissionList.length !== 0) {
     return (
-    <div>
-        <Navbar/>
+      <div>
+          <Navbar/>
           {user === null ? (
             <section className='review-card'>
                 <h1>Log in to see Profile page!</h1>
@@ -63,8 +87,8 @@ export default function UserProfile() {
                 </div>
                 <div className='review-card-content'>
                   {/* Renders the list of submitted locations in condensed condition */}
-                  {submissionArr.length > 0 ? (
-                    <SubmissionsByUser submissionArr={submissionArr} />
+                  {submissionArrByUser.length > 0 ? (
+                    <SubmissionsByUser submissionArrByUser={submissionArrByUser} />
                   ) : (
                     <p>No locations yet.</p>
                   )}
@@ -85,17 +109,51 @@ export default function UserProfile() {
                 </div>
               </div>
 
-              <div className='review-card'>
+              <div className='review-card-favorites'>
+                <div className='review-card-header'>
                   <h3>{user.username}'s Reviews</h3>
-                  <p>Comments here</p>
+                </div>
+                <div className='review-card-content'>
+                  {/* Renders a list of reviews made by current user */}
+                  {reviews.length > 0 ? (
+                    <div className=''>
+                      {<table className="table table-striped border shadow">
+                          <tbody>
+                              {reviews.map((review) => (
+                                  <tr key={review.id}>
+                                    <td>
+                                      <span>
+                                        <Link to={`../${review.submission.locationName}`}> {review.submission.locationName} </Link>
+                                      </span>
+                                      <br/>
+                                      <br/>
+                                      <span><b>Review:</b> {review.reviewText}</span>
+                                      <br/>
+                                      <br/>
+                                      <font size="2" className=''>Submitted {RenderDateAndTimeForReviews(review)}</font>
+                                    </td>
+                                    <td>
+                                      <br/>
+                                      <br/>
+                                      <StarRating rating={review.rating} />
+                                    </td>
+                                  </tr>
+                              ))}
+                          </tbody>
+                      </table>}
+                    </div>
+                  ) : (
+                    <p>No reviews yet.</p>
+                  )}
+                </div>
               </div>
-
             </section>
           )}
 
-        <p className="gray-text">
-          <center>🍒 Powered by Cherry Systems</center>
-        </p>
-    </div>
-  )};
+          <p className="gray-text">
+            <center>🍒 Powered by Cherry Systems</center>
+          </p>
+      </div>
+    )
+  };
 }

@@ -6,8 +6,12 @@ import { deleteSubmission, fetchSubmissions } from '../../service/SubmissionServ
 import CategoryBadges from '../submission/CategoryBadges';
 import AdditionalUserReviews from '../submission/AdditionalUserReviews';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
+<<<<<<< HEAD
 import UpdateSubmissionForm from '../submission/UpdateSubmissionForm';
 
+=======
+import StarRating from '../submission/StarRating';
+>>>>>>> main
 import Minimap from '../Map/Minimap';
 import Address from '../condensed-submission/Address';
 
@@ -111,7 +115,7 @@ export default function Submission() {
           
 
             </div>
-            <div className='review-card'>
+            <div className='review-card-submission-page'>
 
 
               {/* <h4>First Review: </h4> */}
@@ -120,13 +124,19 @@ export default function Submission() {
                   <h6>{submissionByName.user.username}</h6>
                   <p className='gray-text'>Submitted this location {RenderDateAndTime(submissionByName)}</p>
                 </div>
-                <div>{renderStars(submissionByName.rating)}</div>
+                <div><StarRating rating={submissionByName.rating} /></div>
               </div>
 
                 <p>{submissionByName.submissionReview}</p>
 
           </div>
-          <div className='review-card'>
+
+          <div className='review-card-submission-page'>
+                <h3>Additional User Reviews</h3>
+                <p>Average Rating: <StarRating rating={submissionByName.averageRating} /></p>
+          </div>
+
+          <div className='review-card-submission-page'>
               <AdditionalUserReviews submissionId={submissionByName.id} />
           </div>
 

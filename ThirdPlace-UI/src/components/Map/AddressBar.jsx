@@ -76,6 +76,7 @@ export default function AddressBar({
           ref={inputRef}
           onChange={onPlaceChanged}
           placeholder="Enter valid address..."
+          className='text-input-field'
           required
         />
       </label>
