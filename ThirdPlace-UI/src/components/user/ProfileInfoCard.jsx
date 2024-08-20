@@ -57,9 +57,15 @@ export default function ProfileInfoCard({otherUser}) {
               </p>
             </div>
             <div className="score-and-table">
-              <div className={user.cherryPoints > 0 ? 'cherry-score-component-div-green' : 'cherry-score-component-div-red'}>
-                <CherryScoreBadge/>
-              </div>
+              {propOtherUser ? (
+                <div className={propOtherUser.cherryPoints > 0 ? 'cherry-score-component-div-green' : 'cherry-score-component-div-red'}>
+                  <CherryScoreBadge otherUser={otherUser}/>
+                </div>
+              ) : (
+                <div className={user.cherryPoints > 0 ? 'cherry-score-component-div-green' : 'cherry-score-component-div-red'}>
+                  <CherryScoreBadge/>
+                </div>
+              )}
               <div className="profile-card-table"> 
                 <table className="table table-bordered">
                   <tbody>
