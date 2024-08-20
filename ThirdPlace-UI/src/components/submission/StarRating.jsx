@@ -1,0 +1,24 @@
+import React from 'react';
+
+export default function StarRating({ rating }) {
+  // Calculate full stars and half stars
+  const fullStars = Math.floor(rating);
+  const halfStar = rating % 1 !== 0;
+  const stars = [];
+
+  // Render full stars
+  for (let i = 0; i < fullStars; i++) {
+    stars.push('⭐');
+  }
+
+  // Render half star
+  if (halfStar) {
+    stars.push('⭐');
+  }
+
+  return (
+    <div>
+      {stars.join('')} {rating}
+    </div>
+  );
+}

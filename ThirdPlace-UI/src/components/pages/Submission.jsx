@@ -6,7 +6,7 @@ import { fetchSubmissions } from '../../service/SubmissionService';
 import CategoryBadges from '../submission/CategoryBadges';
 import AdditionalUserReviews from '../submission/AdditionalUserReviews';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
-
+import StarRating from '../submission/StarRating';
 import Minimap from '../Map/Minimap';
 import Address from '../condensed-submission/Address';
 
@@ -27,23 +27,13 @@ export default function Submission() {
             console.error("Unable to fetch all submissions.", error);
         });
   }, [submissionName]);
+
   
   //  pulls the submission by submission name  //
 
   const submissionByName = submissionList.find(({locationName}) => locationName === submissionName);
 
-
-
-  const renderStars = (rating) => {
-    // const fullStars = Math.floor(rating);
-    const stars = [];
-
-    for (let i = 0; i < rating; i++) {
-        stars.push("⭐");
-      }
-      return stars;
-  };
-
+  
   //  renders page when data loads  //
 
   if (submissionList.length !== 0) {
@@ -79,12 +69,18 @@ export default function Submission() {
                   <h6>{submissionByName.user.username}</h6>
                   <p className='gray-text'>Submitted this location {RenderDateAndTime(submissionByName)}</p>
                 </div>
-                <div>{renderStars(submissionByName.rating)}</div>
+                <div><StarRating rating={submissionByName.rating} /></div>
+
               </div>
 
                 <p>{submissionByName.submissionReview}</p>
 
           </div>
+          <div className='review-card'>
+                <h3>Additional User Reviews</h3>
+                <p>Average Rating: <StarRating rating={submissionByName.averageRating} /></p>
+          </div>
+
           <div className='review-card'>
               <AdditionalUserReviews submissionId={submissionByName.id} />
           </div>
