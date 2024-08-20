@@ -59,36 +59,42 @@ export default function Home() {
         
         </div>
 
-        
-        <div className="review-card">
-          <h1>Top Submissions</h1>
-          <table className="table table-striped border shadow">
-            <tbody>
-              {topSubmissions.map((submission) => (
-                <tr key={submission.id}>
-                  <CondensedSubmission props={submission} />
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className='home-page-submission'>
+          <div className='home-page-submission-left'>
+            <div className="review-card-home-page">
+              <h1>Recent Submissions</h1>
+              <div className="review-card-home-page-scroll">
+                <table className="table table-striped border shadow">
+                  <tbody>
+                    {recentSubmissions.map((submission) => (
+                      <tr key={submission.id}>
+                        <CondensedSubmission props={submission} />
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+          <div className='home-page-submission-right'>
+            <div className="review-card-home-page">
+              <h1>Top Submissions</h1>
+              <div className="review-card-home-page-scroll">
+                <table className="table table-striped border shadow">
+                  <tbody>
+                    {topSubmissions.map((submission) => (
+                      <tr key={submission.id}>
+                        <CondensedSubmission props={submission} />
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
-        
 
-        
-        <div className="review-card">
-          <h1>Recent Submissions</h1>
-          <table className="table table-striped border shadow">
-            <tbody>
-              {recentSubmissions.map((submission) => (
-                <tr key={submission.id}>
-                  <CondensedSubmission props={submission} />
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        
-      
         <p className="gray-text">
         <center>🍒 Powered by Cherry Systems </center>
         </p>
