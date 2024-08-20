@@ -92,8 +92,9 @@ public class SubmissionController {
 
    //Allows users to edit submission entity in DB
     @PatchMapping("/{id}")
+//    @PatchMapping("/editsubmission")
     public ResponseEntity<?> updateSubmission(@PathVariable Integer id, @RequestBody SubmissionFormDTO submissionFormDTO, HttpSession session) {
-
+//    public ResponseEntity<?> updateSubmission(@RequestBody SubmissionFormDTO submissionFormDTO, HttpSession session) {
         //Finds submission by ID in repository
         Submission findInRepo = submissionRepository.findById(id).get();
 

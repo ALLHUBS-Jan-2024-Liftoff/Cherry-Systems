@@ -19,15 +19,15 @@ export const fetchSubmissions = async () => {
 
 //  Load submissions by Location Name  //
 
-// export const fetchSubmissionByLocationName = async () => {
-//     try {
-//         const response = await axios
-//         .get('http://localhost:8080/api/submission/{id}')
-//         return response.data;
-//     } catch (error) {
-//         console.error("Unable to fetch submission by that location.")
-//     }
-// }
+export const fetchSubmissionByLocationName = async () => {
+    try {
+        const response = await axios
+        .get(`http://localhost:8080/api/submission/${submissionId}`)
+        return response.data;
+    } catch (error) {
+        console.error("Unable to fetch submission by that location.")
+    }
+}
 
 
 
@@ -48,7 +48,7 @@ export const addSubmission = async (locationName, locationAddress, placeId, desc
    
     try {
         const response = await axios
-        .post(`http://localhost:8080/api/submission/submitlocation`, submissonData, { 
+        .post('http://localhost:8080/api/submission/submitlocation', submissonData, { 
             headers: { 'Content-Type': 'application/json' },
             withCredentials: true
         }
@@ -60,8 +60,36 @@ export const addSubmission = async (locationName, locationAddress, placeId, desc
 };
 
 
+// Edit Submissions  //
+export const editSubmission = async (submissionId, locationName, locationAddress, placeId, description, rating, submissionReview, categories) => {
+    const submissonData = {
+     submissionId,
+     locationName, 
+     locationAddress, 
+     placeId,
+     description,
+     rating,
+     submissionReview,
+     categories
+    };
+    
+     try {
+         const response = await axios
+         .patch(`http://localhost:8080/api/submission/${submissionId}`, submissonData, { 
+             headers: { 'Content-Type': 'application/json' },
+             withCredentials: true
+         }
+     );
+         return response.data;
+     } catch(error) {
+         console.error("Unable to update submission.", error);
+     }
+ };
 
-// //  Delete user Submission  //
+
+
+
+//  Delete user Submission  //
 
 export const deleteSubmission = async (submissionId) => {
     try {

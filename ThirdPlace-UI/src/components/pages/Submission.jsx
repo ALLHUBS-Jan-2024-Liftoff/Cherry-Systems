@@ -6,11 +6,13 @@ import { deleteSubmission, fetchSubmissions } from '../../service/SubmissionServ
 import CategoryBadges from '../submission/CategoryBadges';
 import AdditionalUserReviews from '../submission/AdditionalUserReviews';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
+import UpdateSubmissionForm from '../submission/UpdateSubmissionForm';
 
 import Minimap from '../Map/Minimap';
 import Address from '../condensed-submission/Address';
 
 import { useAuth } from '../../context/AuthContext';
+// import { useNavigate } from 'react-router-dom';
 
 
 export default function Submission() {
@@ -19,10 +21,10 @@ export default function Submission() {
   const { user } = useAuth();
   const [submissionList, setSubmissionList] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  // const navigate = useNavigate();
 
 
   // fetches an array of submission objects from database each time the form is initialized//
-
   useEffect(() => {
       fetchSubmissions()
         .then(setSubmissionList)
@@ -30,9 +32,12 @@ export default function Submission() {
             console.error("Unable to fetch all submissions.", error);
         });
   }, [submissionName]);
-  
+
+   //  pulls the submission by submission name  //
+   const submissionByName = submissionList.find(({locationName}) => locationName === submissionName);
+
+  // star rating
   const renderStars = (rating) => {
-    // const fullStars = Math.floor(rating);
     const stars = [];
 
     for (let i = 0; i < rating; i++) {
@@ -41,6 +46,8 @@ export default function Submission() {
       return stars;
   };
 
+  
+  // users can edit their submissions by 'edit submission button'
   const handleUpdate = async (e) => {
     e.preventDefault();
 
@@ -54,6 +61,7 @@ export default function Submission() {
     }
   };
 
+  // users can delete their submissions by 'delete submission' button
   const handleDelete = async (e) => {
     e.preventDefault();
 
@@ -74,9 +82,7 @@ export default function Submission() {
     }
   };
 
-  //  pulls the submission by submission name  //
-  const submissionByName = submissionList.find(({locationName}) => locationName === submissionName);
-
+ 
   //  renders page when data loads  //
 
   if (submissionList.length !== 0) {
@@ -84,7 +90,8 @@ export default function Submission() {
     return (
       <div>
           <Navbar/>
-
+          {!editMode ? (
+          <section>
           <h1>{submissionName}</h1>
           <CategoryBadges props={submissionByName}/>
           <div className='submission-details-container'>
@@ -124,22 +131,29 @@ export default function Submission() {
           </div>
 
             
-          <section>
+          <div>
+            { (user !== null) && ((user.username) === (submissionByName.user.username)) ? (
             <center>
-              <button 
-              className="submit-button" 
+            
+            <button 
+              className="submit-button"
+              value={submissionByName.id}
               onClick={handleUpdate}>
-              Edit Submission
+            Edit Submission
             </button>
 
             <button
               className="delete-button"
               value={submissionByName.id}
               onClick={handleDelete}>
-              Delete Submission
+            Delete Submission
             </button>
             </center>
-          </section>
+            ) : (
+              <>
+              </>
+            )}
+          </div>
            
           
           <br></br>
@@ -147,6 +161,10 @@ export default function Submission() {
           <p className="gray-text">
             <center>🍒 Powered by Cherry Systems </center>
           </p>
+          </section>
+        ) : (
+          <UpdateSubmissionForm props={submissionByName}/>
+        )}
 
       </div>
     )
