@@ -8,6 +8,7 @@ import SubmissionsByUser from '../user/SubmissionsByUser';
 import { fetchSubmissions } from '../../service/SubmissionService';
 import axios from 'axios';
 import RenderDateAndTimeForReviews from '../condensed-submission/DateTimeStampForReviews';
+import StarRating from '../submission/StarRating';
 
 export default function UserProfile() {
   const { isAuthenticated, user } = useAuth();
@@ -60,25 +61,6 @@ export default function UserProfile() {
       setReviews(result.data);
   };
 
-  // Stars for rating from CondensedSubmission
-  const renderStars = (rating) => {
-    if (rating === 0) {
-        return "No reviews yet!";
-    }
-    const fullStars = Math.floor(rating);
-    const halfStar = rating % 1 !== 0;
-    const stars = [];
-
-    for (let i = 0; i < fullStars; i++) {
-        stars.push("⭐");
-    }
-    if (halfStar) {
-        stars.push("⭐");
-    }
-
-    return stars.join("") + (" " + rating);
-  };
-
   return (
     <div>
         <Navbar/>
@@ -124,46 +106,46 @@ export default function UserProfile() {
               </div>
             </div>
 
-            <div className='review-card-favorites'>
-              <div className='review-card-header'>
-                <h3>{user.username}'s Reviews</h3>
+              <div className='review-card-favorites'>
+                <div className='review-card-header'>
+                  <h3>{user.username}'s Reviews</h3>
+                </div>
+                <div className='review-card-content'>
+                  {/* Renders a list of reviews made by current user */}
+                  {reviews.length > 0 ? (
+                    <div className=''>
+                      {<table className="table table-striped border shadow">
+                          <tbody>
+                              {reviews.map((review) => (
+                                  <tr key={review.id}>
+                                    <td>
+                                      <span>
+                                        <Link to={`../${review.submission.locationName}`}> {review.submission.locationName} </Link>
+                                      </span>
+                                      <br/>
+                                      <br/>
+                                      <span><b>Review:</b> {review.reviewText}</span>
+                                      <br/>
+                                      <br/>
+                                      <font size="2" className=''>Submitted {RenderDateAndTimeForReviews(review)}</font>
+                                    </td>
+                                    <td>
+                                      <br/>
+                                      <br/>
+                                      <StarRating rating={review.rating} />
+                                    </td>
+                                  </tr>
+                              ))}
+                          </tbody>
+                      </table>}
+                    </div>
+                  ) : (
+                    <p>No reviews yet.</p>
+                  )}
+                </div>
               </div>
-              <div className='review-card-content'>
-                {/* Renders a list of reviews made by current user */}
-                {reviews.length > 0 ? (
-                  <div className=''>
-                    {<table className="table table-striped border shadow">
-                        <tbody>
-                            {reviews.map((review) => (
-                                <tr key={review.id}>
-                                  <td>
-                                    <span>
-                                      <Link to={`../${review.submission.locationName}`}> {review.submission.locationName} </Link>
-                                    </span>
-                                    <br/>
-                                    <br/>
-                                    <span><b>Review:</b> {review.reviewText}</span>
-                                    <br/>
-                                    <br/>
-                                    <font size="2" className=''>Submitted {RenderDateAndTimeForReviews(review)}</font>
-                                  </td>
-                                  <td>
-                                    <br/>
-                                    <br/>
-                                    {renderStars(review.rating)}
-                                  </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>}
-                  </div>
-                ) : (
-                  <p>No reviews yet.</p>
-                )}
-              </div>
-            </div>
-          </section>
-        )}
+            </section>
+          )}
 
         <p className="gray-text">
           <center>🍒 Powered by Cherry Systems</center>
