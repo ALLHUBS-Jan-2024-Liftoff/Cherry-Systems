@@ -3,8 +3,9 @@ import axios from 'axios';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
 import StarRating from './StarRating';
 import { Link } from 'react-router-dom';
+import ThumbsUpDownReviews from './ThumbsUpDownReviews';
 
-export default function AdditionalUserReviews({ submissionId }) {
+export default function AdditionalUserReviews({submissionId, votes}) {
   const [reviews, setReviews] = useState([]);
   const [averageRating, setAverageRating] = useState(null);
   const [error, setError] = useState('');
@@ -34,6 +35,8 @@ export default function AdditionalUserReviews({ submissionId }) {
   }, [submissionId]);
 
   
+  console.log(reviews);
+
   return (
     <div>
       {reviews.length > 0 ? (
@@ -47,6 +50,9 @@ export default function AdditionalUserReviews({ submissionId }) {
                 <p className='user-review-rating'>Rating: <StarRating rating={review.rating} /></p>
 
                 <p className='user-reviewText'>{review.reviewText}</p>
+                <div className='thumbs-vote-container' style={{margin: "1rem"}}> 
+                <ThumbsUpDownReviews votes={votes} data={review}/>
+                </div>
               </tr>
             ))}
             </tbody>
