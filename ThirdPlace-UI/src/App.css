@@ -229,11 +229,15 @@ small.register {
   padding-top: 10px;
 }
 
+/* For Submission page */
 .submission-details-container {
   margin: 1.6rem 0rem;
   display: flex;
+  min-width: 725px;
+  max-width: 725px;
 }
 
+/* For Submission page */
 .submission-details {
   margin-left: 24px;
   display: flex;
@@ -246,6 +250,7 @@ small.register {
   margin-top: 28px;
 }
 
+/* For Submission page */
 .submission-description {
   margin-top: 28px;
 }
@@ -306,6 +311,15 @@ small.register {
 /* For Submission page */
 .submitted-date-in-reviews {
   margin: 0rem 12rem;
+}
+
+/* For Submission page */
+.edit-delete-submission-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 725px;
+  max-width: 725px;
 }
 
 .review-header-container {

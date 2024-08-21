@@ -138,9 +138,9 @@ export default function Submission() {
           </div>
 
             
-          <div>
+          <div className='edit-delete-submission-buttons'>
             { (user !== null) && ((user.username) === (submissionByName.user.username)) ? (
-            <center>
+            <span>
             
             <button 
               className="submit-button"
@@ -155,19 +155,18 @@ export default function Submission() {
               onClick={handleDelete}>
             Delete Submission
             </button>
-            </center>
+            </span>
             ) : (
               <>
               </>
             )}
+          
+            <br></br>
+            
+            <p className="gray-text">
+              <span>🍒 Powered by Cherry Systems </span>
+            </p>
           </div>
-           
-          
-          <br></br>
-          
-          <p className="gray-text">
-            <center>🍒 Powered by Cherry Systems </center>
-          </p>
           </section>
         ) : (
           <UpdateSubmissionForm props={submissionByName}/>
