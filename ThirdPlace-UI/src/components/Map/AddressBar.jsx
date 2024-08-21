@@ -25,6 +25,7 @@ export default function AddressBar({
   setAddress,
   placeId,
   setPlaceId,
+  defaultAddressValue
 }) {
   const [autocomplete, setAutocomplete] = useState(),
   inputRef = useRef(null);
@@ -69,13 +70,15 @@ export default function AddressBar({
   return (
     <>
       <label>
-        Address: <br></br>
+        {defaultAddressValue ? "Click & Confirm or Edit Address:" : "Address: "}
+         <br></br>
         <input
           name="locationAddress"
           id="autocomplete"
           ref={inputRef}
           onChange={onPlaceChanged}
           placeholder="Enter valid address..."
+          defaultValue={defaultAddressValue ? defaultAddressValue : ""}
           className='text-input-field'
           required
         />

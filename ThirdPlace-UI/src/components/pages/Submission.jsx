@@ -179,7 +179,10 @@ export default function Submission() {
           </p>
           </section>
         ) : (
-          <UpdateSubmissionForm props={submissionByName}/>
+          <section>
+            <h1>Edit Location Info</h1>
+            <UpdateSubmissionForm props={submissionByName}/>
+          </section>
         )}
 
       </div>
