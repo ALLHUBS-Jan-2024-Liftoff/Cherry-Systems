@@ -53,7 +53,7 @@ export default function ProfileInfoCard({otherUser}) {
             <div>
               <ProfileImage otherUser={otherUser}/>
               <p className="gray-text-edit-profile-card">
-                <center>🍒 Powered by Cherry Systems</center>
+                <span>🍒 Powered by Cherry Systems</span>
               </p>
             </div>
             <div className="score-and-table">

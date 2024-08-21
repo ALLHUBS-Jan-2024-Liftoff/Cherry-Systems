@@ -97,9 +97,10 @@ small.register {
   display: flex;
 }
 
-/* For Submit Location page */
+/* For Submit New Location page */
 .submit-location-title{
-  text-align: center;
+  display: flex;
+  margin-bottom: -8px;
 }
 
 /* For Submit Location page */
@@ -223,10 +224,23 @@ small.register {
   color: #6B737D;
 }
 
-.gray-text-edit-profile-card {
-  font-size: 10px;
+/* For Profile page */
+.gray-text-profile-page {
+  display: flex;
+  justify-content: center;
   color: #6B737D;
-  padding-top: 10px;
+  /* margin: 0rem 16rem; */
+  /* min-width: 725px;
+  max-width: 725px; */
+}
+
+/* For Submit New Location page */
+.gray-text-new-submission {
+  display: flex;
+  justify-content: center;
+  color: #6B737D;
+  min-width: 527px;
+  max-width: 527px;
 }
 
 /* For Submission page */
@@ -266,7 +280,7 @@ small.register {
 .review-card-new-submission {
   background-color: #F2F5F5;
   padding: 42px 42px;
-  /* margin: 1.6rem; */
+  margin: 0rem;
   margin-top: 1.6rem;
   margin-bottom: 1.6rem;
   max-width: 527px;
@@ -291,6 +305,7 @@ small.register {
   margin-top: 1.6rem;
   margin-bottom: 1.6rem;
   min-width: 575px;
+  /* max-width: 725px; */
   border-radius: 32px;
   display: flex;
   flex-direction: column; 
