@@ -22,6 +22,7 @@ export default function Submission() {
   const { user } = useAuth();
   const [submissionList, setSubmissionList] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const [addReview, setAddReview] = useState(false)
   // const navigate = useNavigate();
 
 
@@ -83,6 +84,27 @@ export default function Submission() {
     }
   };
 
+  // users can add a rating and review to existing locations // 
+  const handleAddReview = async (e) => {
+    e.preventDefault();
+
+    // if (!confirm(`Are you sure you want to delete submission: ${submissionByName.locationName}?`)) {
+    //   // Cancel is clicked
+    //   e.preventDefault();
+    //   alert('Cancelled: Submission was NOT deleted!');
+    // } else {
+    //   // Ok is clicked
+    //   try {
+    //     deleteSubmission(submissionByName.id);
+    //     alert(`${submissionByName.locationName} has been deleted!`);
+    //     window.location.href = "/";
+    //   } catch (error) {
+    //     console.error('Failed to delete user!', error);
+    //     throw error;
+    //   }
+    // }
+  };
+
  
   //  renders page when data loads  //
 
@@ -128,6 +150,24 @@ export default function Submission() {
 
           </div>
 
+          <div>
+            {/* { (user !== null) && ((user.username) === (submissionByName.user.username)) ? ( */}
+            <center>
+            
+            <button 
+              className="submit-button"
+              value={submissionByName.id}
+              onClick={handleAddReview}>
+            Add A Review
+            </button>
+
+            </center>
+            {/* ) : ( */}
+              {/* <> */}
+              {/* </> */}
+            {/* )} */}
+          </div>
+
           <div className='review-card-submission-page'>
                 <h3>Additional User Reviews</h3>
                 <p>Average Rating: <StarRating rating={submissionByName.averageRating} /></p>
@@ -141,7 +181,6 @@ export default function Submission() {
           <div>
             { (user !== null) && ((user.username) === (submissionByName.user.username)) ? (
             <center>
-            
             <button 
               className="submit-button"
               value={submissionByName.id}
