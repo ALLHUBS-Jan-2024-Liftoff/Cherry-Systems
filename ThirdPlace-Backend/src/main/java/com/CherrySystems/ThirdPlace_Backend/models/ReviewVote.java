@@ -82,4 +82,14 @@ public class ReviewVote {
     public int hashCode() {
         return Objects.hash(id, review, user, voteType);
     }
+
+    @Override
+    public String toString() {
+        return "ReviewVote{" +
+                "id=" + id +
+                ", review=" + review +
+                ", user=" + user +
+                ", voteType='" + voteType + '\'' +
+                '}';
+    }
 }

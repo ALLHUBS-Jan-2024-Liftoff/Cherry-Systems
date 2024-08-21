@@ -84,4 +84,14 @@ public class SubmissionVote {
     public int hashCode() {
         return Objects.hash(id, submission, user, voteType);
     }
+
+    @Override
+    public String toString() {
+        return "SubmissionVote{" +
+                "id=" + id +
+                ", submission=" + submission +
+                ", user=" + user +
+                ", voteType='" + voteType + '\'' +
+                '}';
+    }
 }
