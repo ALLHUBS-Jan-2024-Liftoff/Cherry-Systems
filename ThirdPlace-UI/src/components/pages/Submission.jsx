@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../navigation/Navbar';
 import { useParams } from 'react-router-dom';
-import { fetchSubmissions } from '../../service/SubmissionService';
+// import { fetchSubmissions } from '../../service/SubmissionService';
+import { deleteSubmission, fetchSubmissions } from '../../service/SubmissionService';
+
 import CategoryBadges from '../submission/CategoryBadges';
 import AdditionalUserReviews from '../submission/AdditionalUserReviews';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
+import UpdateSubmissionForm from '../submission/UpdateSubmissionForm';
+
 import StarRating from '../submission/StarRating';
 import Minimap from '../Map/Minimap';
 import Address from '../condensed-submission/Address';
