@@ -95,8 +95,30 @@ small {
   background-color: white;
 }
 
+/* For update submission form */
+.current-categories-update-submission {
+  border: solid;
+  border-width: .5px;
+  border-color: rgb(194, 194, 194);
+  width: 447px;
+  margin: 0px 0px 5px 0px;
+  padding: 0px 10px 9px 10px;
+}
+
+/* For update submission form */
+.current-locationAddress-update-submission {
+  border: solid;
+  border-width: .5px;
+  border-color: rgb(194, 194, 194);
+  width: 447px;
+  margin: 0px 0px 5px 0px;
+  padding: 5px 10px;
+}
+
+/* For Location Name and Description text fields */
 .text-input-field {
   width: 447px;
+  margin: 0px 0px 5px 0px;
 }
 
 .gray-text {
@@ -369,4 +391,10 @@ button:active {
   float: left;
   width: 50%;
 }
+
+
+/* Favorite button */
+/* .favorite-button-container {
+
+} */
 
