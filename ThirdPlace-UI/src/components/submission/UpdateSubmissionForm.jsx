@@ -29,6 +29,7 @@ const UpdateSubmissionForm = (props) => {
 
     const [editMode, setEditMode] = useState(true);
 
+    const [defaultAddressValue, setDefaultAddressValue] = useState(data.props.locationAddress);
     const [address, setAddress] = useState("");
     const [placeId, setPlaceId] = useState("");
     const [submissionName, setSubmissionName] = useState(data.props.locationName);
@@ -122,7 +123,7 @@ const UpdateSubmissionForm = (props) => {
                         </div>
                     </label>
                     <div className="form-group">
-                        <AddressBar address={address} setAddress={setAddress} placeId={placeId} setPlaceId={setPlaceId} />
+                        <AddressBar address={address} setAddress={setAddress} placeId={placeId} setPlaceId={setPlaceId} defaultAddressValue={defaultAddressValue}/>
                     </div>
                     <div className="form-group">
                         <label>Description: <br></br>
@@ -142,7 +143,7 @@ const UpdateSubmissionForm = (props) => {
                             <CategoryBadges props={props.props}/>
                         </div>
                     </label>
-                    <label>Select New Categories: </label>
+                    <label>Select New Categories & Categories to Keep : </label>
                         <CategoryMenu selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
                     <br/>
                     <div>
