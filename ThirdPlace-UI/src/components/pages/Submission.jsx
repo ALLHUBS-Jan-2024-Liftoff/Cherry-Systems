@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../navigation/Navbar';
 import { useParams } from 'react-router-dom';
+// import { fetchSubmissions } from '../../service/SubmissionService';
 import { deleteSubmission, fetchSubmissions } from '../../service/SubmissionService';
 import {fetchSubmissionVotes} from '../../service/VoteService';
 import { fetchReviewVotes } from '../../service/VoteService';
+
 import CategoryBadges from '../submission/CategoryBadges';
 import AdditionalUserReviews from '../submission/AdditionalUserReviews';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
@@ -13,6 +15,7 @@ import UpdateSubmissionForm from '../submission/UpdateSubmissionForm';
 import StarRating from '../submission/StarRating';
 import Minimap from '../Map/Minimap';
 import Address from '../condensed-submission/Address';
+import FavoriteButton from '../submission/FavoriteButton';
 
 import { useAuth } from '../../context/AuthContext';
 // import { useNavigate } from 'react-router-dom';
@@ -70,7 +73,7 @@ export default function Submission() {
       return stars;
   };
 
-  
+
   // users can edit their submissions by 'edit submission button'
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -106,11 +109,11 @@ export default function Submission() {
     }
   };
 
- 
+
   //  renders page when data loads  //
 
   if (submissionList.length !== 0) {
-    
+
     return (
       <div>
           <Navbar/>
@@ -125,16 +128,22 @@ export default function Submission() {
 
             <div className='submission-details'>
               <div><Address props={submissionByName.locationAddress} /></div>
-              {/* This is a placeholder for the Average Submission Rating. */}
-              {/* Stars in below div are hardcoded, need replacing with Austin's component */}
-              {/* <div className='submission-average-rating'><h4>Average Rating: </h4> 
-                <div>⭐⭐⭐⭐⭐ (4.8)</div>
-              </div> */}
+
+              <div className='submission-average-rating'>
+                 <h4 style={{marginRight: '13px'}}>Average Rating: </h4>
+                  <StarRating rating={submissionByName.averageRating} />
+                </div>
+
               <div className='submission-description'>Description: {submissionByName.description}</div>
             </div>
-          
 
             </div>
+
+            <div className='favorite-button-container'>
+              <FavoriteButton submissionId={submissionByName.id} />
+          </div>
+
+
             <div className='review-card-submission-page'>
 
 
@@ -156,22 +165,17 @@ export default function Submission() {
           </div>
 
           <h4>Additional User Reviews</h4>
-          {/* TODO: move average rating to top */}
-
-          <div className='review-card-submission-page'>
-                <p>Average Rating: <StarRating rating={submissionByName.averageRating} /></p>
-          </div>
 
           <div className='review-card-submission-page'>
               <AdditionalUserReviews submissionId={submissionByName.id} votes={{reviewVotes}}/>
           </div>
 
-            
+
           <div>
             { (user !== null) && ((user.username) === (submissionByName.user.username)) ? (
             <center>
-            
-            <button 
+
+            <button
               className="submit-button"
               value={submissionByName.id}
               onClick={handleUpdate}>
@@ -196,7 +200,10 @@ export default function Submission() {
           </p>
           </section>
         ) : (
-          <UpdateSubmissionForm props={submissionByName}/>
+          <section>
+            <h1>Edit Location Info</h1>
+            <UpdateSubmissionForm props={submissionByName}/>
+          </section>
         )}
 
       </div>
