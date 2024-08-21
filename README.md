@@ -46,26 +46,6 @@ A Google Maps API key is required.
 3. Replace `value` with your API key from Google Maps API.
 4. Open your `.gitignore` file. Insert a line for `.env`
 
-## Register and Login a User
-
-#### 1. From the home page, click on the Sign Up Button to get to the Registration form and create a new user
-![ThirdPlace_Home_Index_Page 01](https://github.com/user-attachments/assets/ad29b9e2-b841-4624-adbf-b96b32d12ba2)
-
-| 2. Register a new user  | 3. After a new user is created, you will be directed to the Login page to login |
-| ------------- | ------------- |
-| <img src="https://github.com/user-attachments/assets/3edbced9-1e06-42ed-9055-41e0234e95bc"/> | <img src="https://github.com/user-attachments/assets/db637311-00f0-43ad-99af-2640ba8861ea"/> |
-
-#### 4. After login, you will be directed back to the Home page where you have access to the Submit Location and Profile pages along with Logout button
-![ThirdPlace_Home_Index_Logged In_Page 01](https://github.com/user-attachments/assets/b319fa5c-8f90-477d-b5d4-372c575b6723)
-
-## User Profile
-
-- See your Cherry Score on your Profile Info Card, when you engage with locations you receive points that accumulate here. Receive 10 points for submitting a new Location, 5 points for reviewing an existing location, and 1 point for giving a existing submission a thumbs up or down.
-
-| Without Points  | With Points |
-| ------------- | ------------- |
-| <img src="https://github.com/user-attachments/assets/216433c3-a586-4d9b-98c1-4a5d8347208c"/> | <img src="https://github.com/user-attachments/assets/ff3edaea-e1d5-4c80-a647-1085e9c3a0c2"/> |
-
  ### How to initialize SQL Database
  1. Create the database:  
 - Open MySQL and initialize the database with the following commands: 
@@ -87,3 +67,27 @@ A Google Maps API key is required.
  5. Execute Triggers
  - Navigate to ThirdPlace-Backend/src/main/resources/triggers.sql
  - Copy-and-paste the entire file into a new SQL tab in MySQL and execute it. This is necessary for back-end calculations of ratings and cherry points.
+
+## Register and Login a User
+
+| 1. From the home page, click on the Sign Up Button to get to the Registration form and create a new user |
+| ------------- |
+| <img src="https://github.com/user-attachments/assets/d2b01c08-e6e8-4967-9922-3ef2029e2542"/></div> |
+
+
+| 2. Register a new user  | 3. After a new user is created, you will be directed to the Login page to login |
+| ------------- | ------------- |
+| <img src="https://github.com/user-attachments/assets/3edbced9-1e06-42ed-9055-41e0234e95bc"/> | <img src="https://github.com/user-attachments/assets/db637311-00f0-43ad-99af-2640ba8861ea"/> |
+
+| 4. After login, you will be directed back to the Home page where you have access to the Submit Location and Profile pages along with Logout button |
+| ------------- |
+| <img src="https://github.com/user-attachments/assets/ed910278-4317-4b9b-9697-8ae6596919db"/> |
+
+
+## User Profile
+
+- See your Cherry Score on your Profile Info Card, when you engage with locations you receive points that accumulate here. Receive 10 points for submitting a new Location, 5 points for reviewing an existing location, and 1 point for giving a existing submission a thumbs up or down.
+
+| Without Points  | With Points |
+| ------------- | ------------- |
+| <img src="https://github.com/user-attachments/assets/216433c3-a586-4d9b-98c1-4a5d8347208c"/> | <img src="https://github.com/user-attachments/assets/ff3edaea-e1d5-4c80-a647-1085e9c3a0c2"/> |

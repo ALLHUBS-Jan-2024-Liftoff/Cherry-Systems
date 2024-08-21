@@ -85,6 +85,7 @@ small.register {
 .home-page-submission {
   display: flex;
   justify-content: space-around;
+  margin-top: -25px;
 }
 
 /* For Home page */
@@ -114,6 +115,7 @@ small.register {
 /* For Submit Location page */
 .review-card-home-page-scroll {
   height: 700px;
+  max-height: 555px;
   overflow-y: auto;
 }
 
