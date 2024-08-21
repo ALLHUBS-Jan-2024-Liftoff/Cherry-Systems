@@ -9,7 +9,6 @@ import java.util.List;
 @Repository
 public interface FavoriteRepository extends CrudRepository<Favorite, Integer> {
 
-
     List<Favorite> findByUserId(Integer userId);
 
     List<Favorite> findBySubmissionId(Integer submissionId);
