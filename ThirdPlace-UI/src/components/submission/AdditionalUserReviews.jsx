@@ -69,7 +69,9 @@ export default function AdditionalUserReviews({submissionId, votes}) {
                 <font size="2" className='submitted-date-in-reviews'>Submitted {RenderDateAndTime(review.submission)}</font><br></br>
                 <p className='user-review-rating'>Rating: {renderStars(review.rating)}</p>
                 <p className='user-reviewText'>{review.reviewText}</p>
+                <div className='thumbs-vote-container' style={{margin: "1rem"}}> 
                 <ThumbsUpDownReviews votes={votes} data={review}/>
+                </div>
               </tr>
             ))}
             </tbody>

@@ -29,6 +29,7 @@ export default function ThumbsUpDown({votes, data}) {
 
   console.log(`Upvotes: ${upVotes} Downvotes: ${downVotes}`)
 
+  //TODO clicking on thumb icon sends request to database to add vote
     return(
         <>
         <img src={thumbsup} className='thumb-icon'/>
