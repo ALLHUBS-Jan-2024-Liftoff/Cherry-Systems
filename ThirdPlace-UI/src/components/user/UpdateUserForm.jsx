@@ -31,7 +31,7 @@ const UpdateUserForm = () => {
             window.location.reload(); // Reload to update context
             setError('');
             alert(`${user.username} was successfully updated!`)
-            setEditMode(false);
+            // setEditMode(false);
         } catch (error) {
             setError("User was not updated. Please try again.");
         }

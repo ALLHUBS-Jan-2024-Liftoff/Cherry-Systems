@@ -11,14 +11,20 @@ import Minimap from '../Map/Minimap';
 import Address from '../condensed-submission/Address';
 import FavoriteButton from '../submission/FavoriteButton';
 
+import { useAuth } from '../../context/AuthContext';
+// import { useNavigate } from 'react-router-dom';
+
+
 export default function Submission() {
 
   const { submissionName } = useParams();
+  const { user } = useAuth();
   const [submissionList, setSubmissionList] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+  // const navigate = useNavigate();
 
 
   // fetches an array of submission objects from database each time the form is initialized//
-
   useEffect(() => {
       fetchSubmissions()
         .then(setSubmissionList)
@@ -26,19 +32,66 @@ export default function Submission() {
             console.error("Unable to fetch all submissions.", error);
         });
   }, [submissionName]);
-  
-  //  pulls the submission by submission name  //
 
-  const submissionByName = submissionList.find(({locationName}) => locationName === submissionName);
+   //  pulls the submission by submission name  //
+   const submissionByName = submissionList.find(({locationName}) => locationName === submissionName);
+
+  // star rating
+  const renderStars = (rating) => {
+    const stars = [];
+
+    for (let i = 0; i < rating; i++) {
+        stars.push("⭐");
+      }
+      return stars;
+  };
+
+
+  // users can edit their submissions by 'edit submission button'
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    if (!confirm(`Would you like to edit submission: ${submissionByName.locationName}?`)) {
+      // Cancel is clicked
+      e.preventDefault();
+      alert('Cancelled: Submission will NOT be edited!');
+    } else {
+      // Ok is clicked
+      setEditMode(true);
+    }
+  };
+
+  // users can delete their submissions by 'delete submission' button
+  const handleDelete = async (e) => {
+    e.preventDefault();
+
+    if (!confirm(`Are you sure you want to delete submission: ${submissionByName.locationName}?`)) {
+      // Cancel is clicked
+      e.preventDefault();
+      alert('Cancelled: Submission was NOT deleted!');
+    } else {
+      // Ok is clicked
+      try {
+        deleteSubmission(submissionByName.id);
+        alert(`${submissionByName.locationName} has been deleted!`);
+        window.location.href = "/";
+      } catch (error) {
+        console.error('Failed to delete user!', error);
+        throw error;
+      }
+    }
+  };
 
 
   //  renders page when data loads  //
 
   if (submissionList.length !== 0) {
+
     return (
       <div>
           <Navbar/>
-
+          {!editMode ? (
+          <section>
           <h1>{submissionName}</h1>
           <CategoryBadges props={submissionByName}/>
           <div className='submission-details-container'>
@@ -88,9 +141,42 @@ export default function Submission() {
           <div className='review-card-submission-page'>
               <AdditionalUserReviews submissionId={submissionByName.id} />
           </div>
+
+
+          <div>
+            { (user !== null) && ((user.username) === (submissionByName.user.username)) ? (
+            <center>
+
+            <button
+              className="submit-button"
+              value={submissionByName.id}
+              onClick={handleUpdate}>
+            Edit Submission
+            </button>
+
+            <button
+              className="delete-button"
+              value={submissionByName.id}
+              onClick={handleDelete}>
+            Delete Submission
+            </button>
+            </center>
+            ) : (
+              <>
+              </>
+            )}
+          </div>
+
+
+          <br></br>
+
           <p className="gray-text">
-          <center>🍒 Powered by Cherry Systems </center>
-        </p>
+            <center>🍒 Powered by Cherry Systems </center>
+          </p>
+          </section>
+        ) : (
+          <UpdateSubmissionForm props={submissionByName}/>
+        )}
 
       </div>
     )
