@@ -5,25 +5,27 @@ import { CategoryMenu } from './CategoryMenu';
 import { useNavigate } from 'react-router-dom';
 import AddressBar from '../Map/AddressBar';
 import Submission from '../pages/Submission';
+import CategoryBadges from './CategoryBadges';
 
 const UpdateSubmissionForm = (props) => {
 
     let data = props;
 
     // TODO: UPDATE CATEGORIES
-    // console.log(data.props);
+    console.log(data.props);
     // let catArr = data.props.categories;
-    // let something = [];
+    // let categoriesFromDatabase = [];
     // for(let i = 0; i < catArr.length; i++) {
-    //     something.push(catArr[i].id);
+    //     categoriesFromDatabase.push(catArr[i].id);
     // }
+    // console.log(categoriesFromDatabase);
 
     // const keyValuePairCategories = catArr.reduce((obj, category) => (
     //     {...obj, [ category.id ]: true}
     // ), {});
 
-
     // console.log(keyValuePairCategories);
+    // console.log(categoriesFromDatabase);
 
     const [editMode, setEditMode] = useState(true);
 
@@ -35,13 +37,12 @@ const UpdateSubmissionForm = (props) => {
     const [submissionReview, setSubmissionReview] = useState(data.props.submissionReview);
     const [selectedCategories, setSelectedCategories] = useState({});
     const [categories, setCategories] = useState([]);
-
     const navigate = useNavigate();
 
     const [submissionList, setSubmissionList] = useState([]);
 
-     // fetches an array of submission objects from database each time the form is initialized//
-     useEffect(() => {
+    // fetches an array of submission objects from database each time the form is initialized//
+    useEffect(() => {
         fetchSubmissions()
             .then(setSubmissionList)
             .catch((error) => {
@@ -60,8 +61,6 @@ const UpdateSubmissionForm = (props) => {
 
         setCategories(categoryIds);
     }, [selectedCategories]);
-
-
 
     // on form submission // 
     const handleSubmit = async (e) => {
@@ -87,58 +86,73 @@ const UpdateSubmissionForm = (props) => {
             alert("Please select a valid address from the drop down menu.");
             e.preventDefault();
         } else {
-        // if form has no empty fields and location isn't in database, edit submission, alert user submission updated, and reload SubmitLocation page
-        if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
-            await editSubmission(data.props.id, submissionName, address, placeId, description, rating, submissionReview, categories);
-            alert("Submission successfully updated!");
-            setEditMode(false);
-            navigate('../'+submissionName, {replace: true});
-        } 
+            // if form has no empty fields and location isn't in database, edit submission, alert user submission updated, and reload SubmitLocation page
+            if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
+                await editSubmission(data.props.id, submissionName, address, placeId, description, rating, submissionReview, categories);
+                alert("Submission successfully updated!");
+                setEditMode(false);
+                navigate('../'+submissionName, {replace: true});
+            } 
+        }
     }
-}
 
     return (
         <>
         {editMode ? (
-            <form
-            onSubmit={handleSubmit}
-            >
-                <div className="form-group">
-                    <label>Location Name: <br></br>
-                        <input 
-                        type="text" 
-                        name="submissionName" 
-                        // placeholder='Write location name...'
-                        value={submissionName} 
-                        onChange={(e) => setSubmissionName(e.target.value)} 
-                        required
-                        />
+            <section className='review-card-new-submission'>
+                <form
+                onSubmit={handleSubmit}
+                >
+                    <div className="form-group">
+                        <label>Location Name: <br></br>
+                            <input 
+                            type="text" 
+                            name="submissionName" 
+                            // placeholder='Write location name...'
+                            value={submissionName} 
+                            onChange={(e) => setSubmissionName(e.target.value)}
+                            className='text-input-field'
+                            required
+                            />
+                        </label>
+                    </div>
+                    <label>Current Address: <br/>
+                        <div className='current-locationAddress-update-submission'>
+                            {data.props.locationAddress}
+                        </div>
                     </label>
-                </div>
-                <div className="form-group">
-                    <AddressBar address={address} setAddress={setAddress} placeId={placeId} setPlaceId={setPlaceId} />
-                </div>
-                <div className="form-group">
-                    <label>Description: <br></br>
-                        <textarea 
-                        type="text" 
-                        rows="4"
-                        name="description" 
-                        // placeholder='Write a description...'
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)} 
-                        required/>
+                    <div className="form-group">
+                        <AddressBar address={address} setAddress={setAddress} placeId={placeId} setPlaceId={setPlaceId} />
+                    </div>
+                    <div className="form-group">
+                        <label>Description: <br></br>
+                            <textarea 
+                            type="text" 
+                            rows="4"
+                            cols="50"
+                            name="description" 
+                            // placeholder='Write a description...'
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)} 
+                            required/>
+                        </label>
+                    </div>
+                    <label>Current Categories: <br/>
+                        <div className='current-categories-update-submission'>
+                            <CategoryBadges props={props.props}/>
+                        </div>
                     </label>
-                </div>
-                    <CategoryMenu selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
-                <br></br>
-                <div>
-                    <RateAndReview rating={rating} setRating={setRating} submissionReview={submissionReview} setSubmissionReview={setSubmissionReview}/>
-                </div>
-                
-                <button type="submit" className="submit-button">Submit Location</button>
+                    <label>Select New Categories: </label>
+                        <CategoryMenu selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories}/>
+                    <br/>
+                    <div>
+                        <RateAndReview rating={rating} setRating={setRating} submissionReview={submissionReview} setSubmissionReview={setSubmissionReview}/>
+                    </div>
+                    
+                    <button type="submit" className="submit-button">Submit Location</button>
 
-            </form>
+                </form>
+            </section>
             ) : (
                 <Submission />
             )}
