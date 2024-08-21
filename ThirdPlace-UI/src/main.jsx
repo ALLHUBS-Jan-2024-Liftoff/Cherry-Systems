@@ -12,6 +12,8 @@ import SubmitLocation from "./components/pages/SubmitLocation.jsx";
 import Submission from "./components/pages/Submission.jsx";
 import SearchAndList from "./components/pages/SearchAndList.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
+import OthersUserProfile from "./components/pages/OthersUserProfile.jsx";
+
 
 
 const router = createBrowserRouter([
@@ -31,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: '/profile',
     element: <UserProfile/>
+  },
+  {
+    path: '/profile/:username',
+    element: <OthersUserProfile/>
   },
   {
     path: '/submitlocation',
