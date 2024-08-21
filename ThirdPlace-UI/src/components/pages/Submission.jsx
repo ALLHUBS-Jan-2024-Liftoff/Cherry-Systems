@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../navigation/Navbar';
 import { useParams } from 'react-router-dom';
+// import { fetchSubmissions } from '../../service/SubmissionService';
 import { deleteSubmission, fetchSubmissions } from '../../service/SubmissionService';
+
 import CategoryBadges from '../submission/CategoryBadges';
 import AdditionalUserReviews from '../submission/AdditionalUserReviews';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
@@ -11,6 +13,7 @@ import UpdateSubmissionForm from '../submission/UpdateSubmissionForm';
 import StarRating from '../submission/StarRating';
 import Minimap from '../Map/Minimap';
 import Address from '../condensed-submission/Address';
+import FavoriteButton from '../submission/FavoriteButton';
 
 import { useAuth } from '../../context/AuthContext';
 // import { useNavigate } from 'react-router-dom';
@@ -47,7 +50,7 @@ export default function Submission() {
       return stars;
   };
 
-  
+
   // users can edit their submissions by 'edit submission button'
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -83,11 +86,11 @@ export default function Submission() {
     }
   };
 
- 
+
   //  renders page when data loads  //
 
   if (submissionList.length !== 0) {
-    
+
     return (
       <div>
           <Navbar/>
@@ -112,6 +115,12 @@ export default function Submission() {
           
 
             </div>
+
+            <div className='favorite-button-container'>
+              <FavoriteButton submissionId={submissionByName.id} />
+          </div>
+
+
             <div className='review-card-submission-page'>
 
 

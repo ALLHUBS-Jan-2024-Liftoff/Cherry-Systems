@@ -3,6 +3,7 @@ package com.CherrySystems.ThirdPlace_Backend.controllers;
 import com.CherrySystems.ThirdPlace_Backend.models.Favorite;
 import com.CherrySystems.ThirdPlace_Backend.repositories.FavoriteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class FavoriteController {
 
     @Autowired
     private FavoriteRepository favoriteRepository;
+
     // View all favorites for a specific user
     @GetMapping("/user/{userId}")
     public List<Favorite> getFavoritesByUserId(@PathVariable Integer userId) {
@@ -26,10 +28,23 @@ public class FavoriteController {
         return favoriteRepository.save(favorite);
     }
 
-    // Delete a favorite by ID
-    @PostMapping("/delete")
-    public String deleteFavorite(@RequestParam Integer favoriteId) {
-        favoriteRepository.deleteById(favoriteId);
-        return "Deleted Favorite ID: " + favoriteId;
+//     Delete a favorite by ID
+//    @DeleteMapping("/delete")
+//    public String deleteFavorite(@RequestParam Integer favoriteId) {
+//        favoriteRepository.deleteById(favoriteId);
+//        return "Deleted Favorite ID: " + favoriteId;
+//    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteFavorite(@PathVariable Integer id) {
+        favoriteRepository.existsById(id);
+        favoriteRepository.deleteById(id);
+        return ResponseEntity.ok("Favorite removed.");
+
     }
+
+
+
+
+
 }

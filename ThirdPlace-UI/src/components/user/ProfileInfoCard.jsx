@@ -5,9 +5,11 @@ import UpdateUserForm from "./UpdateUserForm";
 import ProfileImage from "./ProfileImage";
 import { CherryScoreBadge } from "./CherryScoreBadge";
 
-export default function ProfileInfoCard() {
+export default function ProfileInfoCard({otherUser}) {
   const { user } = useAuth();
   const [editMode, setEditMode] = useState(false);
+
+  const propOtherUser = otherUser;
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -49,25 +51,39 @@ export default function ProfileInfoCard() {
         <div className="contains-all-but-buttons">
           <section className="img-cherry-score">
             <div>
-              <ProfileImage/>
+              <ProfileImage otherUser={otherUser}/>
               <p className="gray-text-edit-profile-card">
                 <center>🍒 Powered by Cherry Systems</center>
               </p>
             </div>
             <div className="score-and-table">
-              <div className={user.cherryPoints > 0 ? 'cherry-score-component-div-green' : 'cherry-score-component-div-red'}>
-                <CherryScoreBadge/>
-              </div>
+              {propOtherUser ? (
+                <div className={propOtherUser.cherryPoints > 0 ? 'cherry-score-component-div-green' : 'cherry-score-component-div-red'}>
+                  <CherryScoreBadge otherUser={otherUser}/>
+                </div>
+              ) : (
+                <div className={user.cherryPoints > 0 ? 'cherry-score-component-div-green' : 'cherry-score-component-div-red'}>
+                  <CherryScoreBadge/>
+                </div>
+              )}
               <div className="profile-card-table"> 
                 <table className="table table-bordered">
                   <tbody>
                     <tr>
                       <th scope="row">Username:</th>
-                      <td>{user.username}</td>
+                      {propOtherUser ? (
+                        <td>{propOtherUser.username}</td>
+                      ) : (
+                        <td>{user.username}</td>
+                      )}
                     </tr>
                     <tr>
                       <th scope="row">Email:</th>
-                      <td>{user.email}</td>
+                      {propOtherUser ? (
+                        <td>{propOtherUser.email}</td>
+                      ) : (
+                        <td>{user.email}</td>
+                      )}
                     </tr>
                     <tr>
                       <th scope="row">Password:</th>
@@ -79,20 +95,22 @@ export default function ProfileInfoCard() {
             </div>
           </section>
         </div>
-        <span className="profileInfoCard-buttons">
-            <button 
-              className="submit-button" 
-              onClick={handleUpdate}>
-              Edit
-            </button>
-            <button
-              className="delete-button"
-              value={user.id}
-              onClick={handleDelete}
-              >
-              Delete
-            </button>
-        </span>
+        {(propOtherUser && propOtherUser.username !== user.username) ? "" : (
+          <span className="profileInfoCard-buttons">
+              <button 
+                className="submit-button" 
+                onClick={handleUpdate}>
+                Edit
+              </button>
+              <button
+                className="delete-button"
+                value={user.id}
+                onClick={handleDelete}
+                >
+                Delete
+              </button>
+          </span>
+        )}
       </section>
       ) : (
         <UpdateUserForm/>

@@ -66,3 +66,24 @@ A Google Maps API key is required.
 | ------------- | ------------- |
 | <img src="https://github.com/user-attachments/assets/216433c3-a586-4d9b-98c1-4a5d8347208c"/> | <img src="https://github.com/user-attachments/assets/ff3edaea-e1d5-4c80-a647-1085e9c3a0c2"/> |
 
+ ### How to initialize SQL Database
+ 1. Create the database:  
+- Open MySQL and initialize the database with the following commands: 
+
+ CREATE DATABASE IF NOT EXISTS ThirdPlace_db;
+ USE ThirdPlace_db;
+
+ 2. Configure Application Properties:
+- Navigate to ThirdPlace-Backend/src/main/resources/application.properties
+
+ 3. Initialize the Schema and Seed Data:
+- Locate line 15, which reads spring.sql.init.mode=never.
+- Change it to spring.sql.init.mode=always to automatically initialize the schema and seed data when the backend application starts.
+
+ 4. Revert Initialization Setting:
+ - After first initialization, change (spring.sql.init.mode=always) back to (spring.sql.init.mode=never). 
+ - You will only need to do this upon the initial setup, or when you want a fresh reset of your database. 
+
+ 5. Execute Triggers
+ - Navigate to ThirdPlace-Backend/src/main/resources/triggers.sql
+ - Copy-and-paste the entire file into a new SQL tab in MySQL and execute it. This is necessary for back-end calculations of ratings and cherry points.
