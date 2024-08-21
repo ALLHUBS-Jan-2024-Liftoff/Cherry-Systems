@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
-
-export default function AdditionalUserReviews({ submissionId }) {
+import ThumbsUpDownReviews from './ThumbsUpDownReviews';
+export default function AdditionalUserReviews({submissionId, votes}) {
   const [reviews, setReviews] = useState([]);
   const [averageRating, setAverageRating] = useState(null);
   const [error, setError] = useState('');
@@ -48,6 +48,8 @@ export default function AdditionalUserReviews({ submissionId }) {
     return stars.join("");
   };
 
+  console.log(reviews);
+
   return (
     <div>
       <h3>Additional User Reviews</h3>
@@ -67,6 +69,7 @@ export default function AdditionalUserReviews({ submissionId }) {
                 <font size="2" className='submitted-date-in-reviews'>Submitted {RenderDateAndTime(review.submission)}</font><br></br>
                 <p className='user-review-rating'>Rating: {renderStars(review.rating)}</p>
                 <p className='user-reviewText'>{review.reviewText}</p>
+                <ThumbsUpDownReviews votes={votes} data={review}/>
               </tr>
             ))}
             </tbody>

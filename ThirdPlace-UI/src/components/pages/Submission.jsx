@@ -3,6 +3,8 @@ import axios from 'axios';
 import Navbar from '../navigation/Navbar';
 import { useParams } from 'react-router-dom';
 import { fetchSubmissions } from '../../service/SubmissionService';
+import {fetchSubmissionVotes} from '../../service/VoteService';
+import { fetchReviewVotes } from '../../service/VoteService';
 import CategoryBadges from '../submission/CategoryBadges';
 import AdditionalUserReviews from '../submission/AdditionalUserReviews';
 import RenderDateAndTime from '../condensed-submission/DateTimeStamp';
@@ -28,12 +30,34 @@ export default function Submission() {
             console.error("Unable to fetch all submissions.", error);
         });
   }, [submissionName]);
-  
+
   //  pulls the submission by submission name  //
 
   const submissionByName = submissionList.find(({locationName}) => locationName === submissionName);
 
+  //TODO when you need to tally all of them, push to an "up" and "down" array, loop through the vote types, submissionbyname.id
 
+   // fetches submission vote data
+   const [submissionVotes, setSubmissionVotes] = useState([]);
+
+   useEffect(() => {
+    fetchSubmissionVotes().then(setSubmissionVotes).catch((e) => { console.error("Error fetching vote data", e)});
+  }, []);
+
+   // fetches review vote data
+   const [reviewVotes, setReviewVotes] = useState([]);
+
+   useEffect(() => {
+    fetchReviewVotes().then(setReviewVotes).catch((e) => { console.error("Error fetching vote data", e)});
+  }, []);
+
+  console.log(reviewVotes);
+
+  // console.log(submissionVotes[0].submission.id);
+
+  
+
+// console.log(submissionByName)
 
   const renderStars = (rating) => {
     // const fullStars = Math.floor(rating);
@@ -84,13 +108,14 @@ export default function Submission() {
               </div>
 
                 <p>{submissionByName.submissionReview}</p>
-                <div> 
-<ThumbsUpDown/>
-</div>
+
+                <div className='thumbs-vote-container'> 
+                  <ThumbsUpDown votes={{submissionVotes}} data={{submissionByName}}/>
+                </div>
 
           </div>
           <div className='review-card-submission-page'>
-              <AdditionalUserReviews submissionId={submissionByName.id} />
+              <AdditionalUserReviews submissionId={submissionByName.id} votes={{reviewVotes}}/>
           </div>
           <p className="gray-text">
           <center>🍒 Powered by Cherry Systems </center>

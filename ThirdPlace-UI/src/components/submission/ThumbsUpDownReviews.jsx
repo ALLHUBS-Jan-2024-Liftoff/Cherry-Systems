@@ -4,13 +4,15 @@ import thumbsdown from "../../assets/thumbs-down.png";
 
 export default function ThumbsUpDown({votes, data}) {
 
-    let voteData = votes.submissionVotes;
-    let reviewData = data.submissionByName;
+    let voteData = votes.reviewVotes;
+    console.log(voteData);
+    let reviewData = data;
+    console.log(reviewData);
 
     let voteArrBySubmissionID = [];
 
   for (let i = 0; i < voteData.length; i++) {
-    if (voteData[i].submission.id === reviewData.id) {
+    if (voteData[i].review.id === reviewData.id) {
       voteArrBySubmissionID.push(voteData[i]);
     }
   };
