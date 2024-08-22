@@ -3,7 +3,7 @@ import thumbsdownicon from "../../assets/thumbs-down.png";
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import { useState, useEffect } from "react";
-import { setSubmissionVotes } from "../../service/VoteService";
+import { setReviewVotes, setSubmissionVotes } from "../../service/VoteService";
 
 export default function ThumbsUpDownReviews({votes, data}) {
 
@@ -80,7 +80,7 @@ export default function ThumbsUpDownReviews({votes, data}) {
 
   // UseEffect to handle setting vote type
 useEffect(() => {
-  setSubmissionVotes((reviewData.id), submittedVoteType);
+  setReviewVotes((reviewData.id), submittedVoteType);
 }, [submittedVoteType]);
 
 
