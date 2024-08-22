@@ -138,7 +138,7 @@ export default function OthersUserProfile() {
                                   <tr key={review.id}>
                                     <td>
                                       <span>
-                                        <Link to={`../${review.submission.locationName}`}> {review.submission.locationName} </Link>
+                                        <Link className="link-css-profile-review-title" to={`../${review.submission.locationName}`}> {review.submission.locationName} </Link>
                                       </span>
                                       <br/>
                                       <br/>
