@@ -166,7 +166,7 @@ public class AuthenticationController {
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in!");
         }
-        System.out.println("User not found");
+//        System.out.println("User not found");
         return ResponseEntity.ok(user);
     }
 
