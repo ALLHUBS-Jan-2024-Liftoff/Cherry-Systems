@@ -14,10 +14,6 @@ public class ReviewVoteDTO {
     private Integer reviewId;
 
     @NotNull
-    @ManyToOne
-    private Integer userId;
-
-    @NotNull
     private String voteType;
 
     public Integer getReviewId() {
@@ -26,14 +22,6 @@ public class ReviewVoteDTO {
 
     public void setReviewId(Integer reviewId) {
         this.reviewId = reviewId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public String getVoteType() {

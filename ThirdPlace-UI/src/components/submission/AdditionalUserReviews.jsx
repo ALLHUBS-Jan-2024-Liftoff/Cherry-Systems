@@ -35,7 +35,7 @@ export default function AdditionalUserReviews({submissionId, votes}) {
   }, [submissionId]);
 
   
-  console.log(reviews);
+  // console.log(reviews);
 
   return (
     <div>

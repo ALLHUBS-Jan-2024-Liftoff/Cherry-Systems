@@ -57,7 +57,7 @@ export default function Submission() {
     fetchReviewVotes().then(setReviewVotes).catch((e) => { console.error("Error fetching vote data", e)});
   }, []);
 
-  console.log(reviewVotes);
+  // console.log(reviewVotes);
 
   // console.log(submissionVotes[0].submission.id);
 

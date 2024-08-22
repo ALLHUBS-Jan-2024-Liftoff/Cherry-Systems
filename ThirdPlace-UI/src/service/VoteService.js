@@ -22,3 +22,19 @@ export const fetchReviewVotes = async () => {
         throw error;
     }
 };
+
+export const setSubmissionVotes = async (submissionId, voteType) => {
+    try {
+        await axios.post('http://localhost:8080/api/votes/submissionvotes/new', {
+            submissionId, 
+            voteType
+        },
+            {headers: { 'Content-Type': 'application/json' },
+             withCredentials: true}
+    ).then(function (response) {
+          console.log(response);
+        })
+      } catch (error) {
+        console.error("Error adding new vote", error);
+      }
+}
