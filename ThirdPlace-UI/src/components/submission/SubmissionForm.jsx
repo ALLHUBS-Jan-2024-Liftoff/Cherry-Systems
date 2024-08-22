@@ -124,8 +124,10 @@ const SubmissionForm = () => {
                     <RateAndReview rating={rating} setRating={setRating} submissionReview={submissionReview} setSubmissionReview={setSubmissionReview}/>
                 </div>
                 
+                <center>
                 <button type="submit" className="submit-button">Submit Location</button>
-
+                </center>
+                
             </form>
         </>
     );

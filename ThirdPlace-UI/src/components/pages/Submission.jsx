@@ -122,7 +122,11 @@ export default function Submission() {
 
    
   const handleAddAReviewButton = (e) => {
-    setToggle("visible");
+    if (toggle === "hidden") {
+      setToggle("visible");
+    } else {
+      setToggle("hidden");
+    }
   };
 
 
@@ -142,7 +146,7 @@ export default function Submission() {
       <div>
           <Navbar/>
           {!editMode ? (
-          <section>
+          <section className="search-and-list-padding">
           <h1>{submissionName}</h1>
           <CategoryBadges props={submissionByName}/>
           <div className='submission-details-container'>

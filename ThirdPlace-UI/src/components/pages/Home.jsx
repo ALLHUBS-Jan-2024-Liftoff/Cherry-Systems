@@ -24,7 +24,7 @@ export default function Home() {
   const submissionsByAverage = submissionList.sort((a, b) => b.averageRating - a.averageRating);
   
   //  pushes top 5 submissions to topSubmissions array  //
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 5; i++) {
     if(submissionsByAverage[i] === undefined) {
       break;
     } else {
@@ -36,7 +36,7 @@ export default function Home() {
   const submissionsByDate = submissionList.sort((a, b) => new Date(b.submissionDate) - new Date(a.submissionDate));
 
   // pushes most recent 5 submissions to recentSubmissions array  // 
-  for (let i = 0; i <6; i++) {
+  for (let i = 0; i < 5; i++) {
     if (submissionsByDate[i] === undefined) {
       break;
     } else {

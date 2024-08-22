@@ -16,9 +16,10 @@ export default function Login() {
 
   return (
     <>
+    <div >
       <Navbar />
       
-      <div>
+      <div >
         <h1 className='login-title'>Login</h1>
 
         <div className="container login-sign-up-card">
@@ -28,6 +29,7 @@ export default function Login() {
         <p className="gray-text">
           <center>🍒 Powered by Cherry Systems </center>
         </p>
+      </div>
       </div>
     </>
   )
