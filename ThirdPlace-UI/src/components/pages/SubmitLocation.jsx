@@ -42,6 +42,7 @@ export default function SubmitLocation() {
         <>
             <Navbar />
             {user === null ? (
+            <div className="update-submission-form-padding">
             <section className='review-card-no-user-profile-submit-location'>
                 <h1>Log in to submit a location!</h1>
                 <br />
@@ -49,6 +50,7 @@ export default function SubmitLocation() {
                     <Link className="link-css-login-register" to={{ pathname: '/login', state: { user, isAuthenticated }}}>Go to Login</Link>
                 </p>
             </section>
+            </div>
             ) : (
             <section  className="submit-location-div">
                 <div className="submit-location-title">

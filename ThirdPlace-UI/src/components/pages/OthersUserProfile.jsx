@@ -80,7 +80,7 @@ export default function OthersUserProfile() {
 
   if (username !== null) {
     return (
-    <div>
+    <div className="search-and-list-padding"> 
         <Navbar/>
           {user === null ? (
             <section className='review-card-no-user-profile-submit-location'>
