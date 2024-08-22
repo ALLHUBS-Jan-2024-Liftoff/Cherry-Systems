@@ -13,9 +13,9 @@ export default function ThumbsUpDownReviews({votes, data}) {
   const [submittedVoteType, setSubmittedVoteType] = useState(null);
 
     let voteData = votes.reviewVotes;
-    console.log(voteData);
     let reviewData = data;
-    console.log(reviewData);
+    // console.log(voteData);
+    // console.log(reviewData);
 
     let voteArrBySubmissionID = [];
 
@@ -66,22 +66,27 @@ export default function ThumbsUpDownReviews({votes, data}) {
             console.error("Error deleting previous vote", error);
           }
           setSubmittedVoteType("up");
-          window.location.reload();
         } 
 
         else if (!voted) {
           console.log("user has never voted");
           setSubmittedVoteType("up");
-          window.location.reload();
         }
+        window.location.reload();
 
     }
   }
 
   // UseEffect to handle setting vote type
 useEffect(() => {
-  setReviewVotes((reviewData.id), submittedVoteType);
-}, [submittedVoteType]);
+  if (submittedVoteType !== null) {
+    setReviewVotes((reviewData.id), submittedVoteType);
+console.log("submittedVoteType not null");
+console.log(submittedVoteType);
+  } else if (submittedVoteType == null) {
+    console.log("submittedVoteType is null!")
+  }
+  console.log("UseEffect fired!");}, [submittedVoteType]);
 
 
     // Handle Downvote click

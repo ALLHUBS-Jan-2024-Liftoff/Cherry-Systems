@@ -9,9 +9,9 @@ import { setSubmissionVotes } from "../../service/VoteService";
 export default function ThumbsUpDown({votes, data}) {
 
   const { user } = useAuth();
-  const [hasVoted, setHasVoted] = useState(false);
-  const [existingVoteId, setExistingVoteId] = useState(null);
   const [submittedVoteType, setSubmittedVoteType] = useState(null);
+  // const [hasVoted, setHasVoted] = useState(false);
+  // const [existingVoteId, setExistingVoteId] = useState(null);
 
     let voteData = votes.submissionVotes;
     let reviewData = data.submissionByName;
@@ -90,7 +90,14 @@ export default function ThumbsUpDown({votes, data}) {
 
   // UseEffect to handle setting vote type
 useEffect(() => {
-  setSubmissionVotes((reviewData.id), submittedVoteType);
+  if (submittedVoteType !== null) {
+    setSubmissionVotes((reviewData.id), submittedVoteType);
+console.log("submittedVoteType not null");
+console.log(submittedVoteType);
+  } else if (submittedVoteType == null) {
+    console.log("submittedVoteType is null!")
+  }
+  console.log("UseEffect fired!");
 }, [submittedVoteType]);
 
 
@@ -105,7 +112,6 @@ useEffect(() => {
       alert("Please login to upvote or downvote!");
       return;
       } else {
-        console.log("Clicked downvote!");
         
       //checks if user has a vote recorded in the database
 
@@ -123,14 +129,13 @@ useEffect(() => {
             console.error("Error deleting previous vote", error);
           }
           setSubmittedVoteType("down");
-          window.location.reload();
         } 
 
         else if (!voted) {
           console.log("user has never voted");
           setSubmittedVoteType("down");
-          window.location.reload();
         }
+        window.location.reload();
       }
   }
 

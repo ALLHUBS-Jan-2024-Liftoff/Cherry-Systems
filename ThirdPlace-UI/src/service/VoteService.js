@@ -24,6 +24,7 @@ export const fetchReviewVotes = async () => {
 };
 
 export const setSubmissionVotes = async (submissionId, voteType) => {
+    console.log(`Value of ${voteType} in setSubmission`);
     try {
         await axios.post('http://localhost:8080/api/votes/submissionvotes/new', {
             submissionId, 
