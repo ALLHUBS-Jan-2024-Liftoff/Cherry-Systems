@@ -602,3 +602,8 @@ button:active {
   margin-top: -73px;
 }
 
+.favorite-button-container-empty {
+  height: 52px;
+  width: 725px;
+}
+

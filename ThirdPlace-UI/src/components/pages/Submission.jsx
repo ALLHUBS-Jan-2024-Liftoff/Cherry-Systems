@@ -167,7 +167,7 @@ export default function Submission() {
             { (user !== null) ? (
               <FavoriteButton submissionId={submissionByName.id} />
             ) : (
-              <></>
+              <div className='favorite-button-container-empty'></div>
             )}
           </div>
 
