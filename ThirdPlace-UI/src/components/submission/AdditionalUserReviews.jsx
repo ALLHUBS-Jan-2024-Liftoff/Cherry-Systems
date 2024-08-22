@@ -45,7 +45,7 @@ export default function AdditionalUserReviews({submissionId, votes}) {
             <tbody>
             {reviews.map(review => (
               <tr key={review.id} className="review-card-for-reviews">
-                <h4 className='user-review-username-title'><Link to={`../profile/${review.user.username}`}> {review.user.username} </Link></h4>
+                <h4 className='user-review-username-title'><Link className="link-css" to={`../profile/${review.user.username}`}> {review.user.username} </Link></h4>
                 <font size="2" className='submitted-date-in-reviews'>Submitted {RenderDateAndTime(review.submission)}</font><br></br>
                 <p className='user-review-rating'>Rating: <StarRating rating={review.rating} /></p>
 

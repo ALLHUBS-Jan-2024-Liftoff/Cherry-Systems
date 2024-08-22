@@ -100,7 +100,7 @@ const LoginForm = () => {
                 </button>
             </form>
 
-            <p>Don't have an account? <Link to="/Registration">Register</Link></p>
+            <p>Don't have an account? <Link className="link-css-login-register" to="/Registration">Register</Link></p>
         </>
     )
 }

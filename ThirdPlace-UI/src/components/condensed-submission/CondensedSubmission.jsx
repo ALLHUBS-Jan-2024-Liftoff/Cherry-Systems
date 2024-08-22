@@ -16,7 +16,7 @@ export default function CondensedSubmission(props) {
     return (
         <>
             <td>
-                <h6> <Link to={`../${data.props.locationName}`}> {data.props.locationName} </Link> </h6>
+                <h6> <Link className="link-css" to={`../${data.props.locationName}`}> {data.props.locationName} </Link> </h6>
                 <Address props={data.props.locationAddress}/>
 
                 <br/>
