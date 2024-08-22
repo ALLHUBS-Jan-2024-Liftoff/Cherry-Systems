@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../navigation/Navbar';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 // import { fetchSubmissions } from '../../service/SubmissionService';
 import { deleteSubmission, fetchSubmissions } from '../../service/SubmissionService';
+import { addNewReview } from '../../service/RateAndReviewService';
+import RateAndReview from '../submission/RateAndReview';
 
 import CategoryBadges from '../submission/CategoryBadges';
 import AdditionalUserReviews from '../submission/AdditionalUserReviews';
@@ -25,7 +27,10 @@ export default function Submission() {
   const { user } = useAuth();
   const [submissionList, setSubmissionList] = useState([]);
   const [editMode, setEditMode] = useState(false);
-  const [addReview, setAddReview] = useState(false)
+  const [rating, setRating] = useState(false)
+  const [submissionReview, setSubmissionReview] = useState("");
+  const [toggle, setToggle] = useState("hidden");
+ 
   // const navigate = useNavigate();
 
 
@@ -50,6 +55,8 @@ export default function Submission() {
       }
       return stars;
   };
+
+  
 
 
   // users can edit their submissions by 'edit submission button'
@@ -88,26 +95,20 @@ export default function Submission() {
   };
 
 
-  // users can add a rating and review to existing locations // 
-  const handleAddReview = async (e) => {
-    e.preventDefault();
 
-    // if (!confirm(`Are you sure you want to delete submission: ${submissionByName.locationName}?`)) {
-    //   // Cancel is clicked
-    //   e.preventDefault();
-    //   alert('Cancelled: Submission was NOT deleted!');
-    // } else {
-    //   // Ok is clicked
-    //   try {
-    //     deleteSubmission(submissionByName.id);
-    //     alert(`${submissionByName.locationName} has been deleted!`);
-    //     window.location.href = "/";
-    //   } catch (error) {
-    //     console.error('Failed to delete user!', error);
-    //     throw error;
-    //   }
-    // }
+
+   
+  const handleAddAReviewButton = (e) => {
+    setToggle("visible");
   };
+
+
+  // users can add a rating and review to existing locations //
+  const handleSubmitNewReview = async (e) => {
+    e.preventDefault(); 
+    addNewReview(submissionByName.id, rating, submissionReview);
+    window.location.reload();
+  }
 
  
   //  renders page when data loads  //
@@ -160,40 +161,59 @@ export default function Submission() {
 
           </div>
 
-          <div>
-            {/* { (user !== null) && ((user.username) === (submissionByName.user.username)) ? ( */}
-            <center>
-            
-            <button 
-              className="submit-button"
-              value={submissionByName.id}
-              onClick={handleAddReview}>
-            Add A Review
-            </button>
-
-            </center>
-            {/* ) : ( */}
-              {/* <> */}
-              {/* </> */}
-            {/* )} */}
-          </div>
-
           <div className='review-card-submission-page'>
                 <h3>Additional User Reviews</h3>
                 <p>Average Rating: <StarRating rating={submissionByName.averageRating} /></p>
-          </div>
+          </div>       
 
           <div className='review-card-submission-page'>
               <AdditionalUserReviews submissionId={submissionByName.id} />
           </div>
 
-
           <div>
-            { (user !== null) && ((user.username) === (submissionByName.user.username)) ? (
-            <center>
-            <button 
 
-            <button>
+            { (user !== null) ? (
+                        
+            <button 
+              className="submit-button"
+              value={submissionByName.id}
+              onClick={handleAddAReviewButton}>
+            Add A Review
+            </button>
+             ) : (
+              <div className="submission-page-buttons-container">
+              <center> 
+              <h6>Please <Link to='/login'>login</Link> or <Link to='/registration'>register</Link> to leave a review!</h6>   
+              </center>
+              </div>
+              )}
+
+              <section>
+              { (toggle === "hidden") ? (
+                <>
+                </>
+              ) : (
+              <section id='addNewReview' className='review-card-submission-page'>
+              <form   onSubmit={handleSubmitNewReview}>
+              <h3> Add A New Review </h3>
+              <br></br>
+              <RateAndReview submissionId={submissionByName.id} rating={rating} setRating={setRating} submissionReview={submissionReview} setSubmissionReview={setSubmissionReview}/>
+              <button type="submit" className="submit-button">Submit New Review</button>
+              </form>
+              </section>
+              )}
+              </section>
+              
+            
+           
+
+          </div>
+
+          <div >
+            { (user !== null) && ((user.username) === (submissionByName.user.username)) ? (
+            
+            <section className="submission-page-buttons-container">
+            <button
               className="submit-button"
               value={submissionByName.id}
               onClick={handleUpdate}>
@@ -206,7 +226,8 @@ export default function Submission() {
               onClick={handleDelete}>
             Delete Submission
             </button>
-            </center>
+            </section>
+            
             ) : (
               <>
               </>
