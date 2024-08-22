@@ -594,7 +594,11 @@ button:active {
 }
 
 /* Favorite button */
-/* .favorite-button-container {
-
-} */
+/* Temp button changes, will need to be moved if descriptions are every long */
+.favorite-button-container {
+  display: flex;
+  justify-content: right;
+  width: 725px;
+  margin-top: -73px;
+}
 
