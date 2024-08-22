@@ -3,7 +3,7 @@ import thumbsdownicon from "../../assets/thumbs-down.png";
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import { useState, useEffect } from "react";
-import { setSubmissionVotes } from "../../service/VoteService";
+import { setReviewVotes, setSubmissionVotes } from "../../service/VoteService";
 
 export default function ThumbsUpDownReviews({votes, data}) {
 
@@ -63,7 +63,7 @@ export default function ThumbsUpDownReviews({votes, data}) {
           try {
           await axios.delete(`http://localhost:8080/api/votes/reviewvotes/delete/${currentVoteId}`)
           } catch(error) {
-            console.error("Error deleting previous vote", error);
+            console.error("Error deleting previous Review vote", error);
           }
           setSubmittedVoteType("up");
           window.location.reload();
@@ -79,12 +79,12 @@ export default function ThumbsUpDownReviews({votes, data}) {
   }
 
   // UseEffect to handle setting vote type
-useEffect(() => {
-  setSubmissionVotes((reviewData.id), submittedVoteType);
-}, [submittedVoteType]);
+  useEffect(() => {
+    setReviewVotes((reviewData.id), submittedVoteType);
+  }, [submittedVoteType]);
 
 
-    // Handle Downvote click
+  // Handle Downvote click
 
   const downvote = async (e) => {
 
@@ -104,20 +104,20 @@ useEffect(() => {
 
         if (voted) {
           const currentVoteId = voted.id;
-          console.log("user has voted before!");
-          console.log(`existing vote ID: ${currentVoteId}`);
+          console.log("User has voted before!");
+          console.log(`Existing vote ID: ${currentVoteId}`);
 
           try {
           await axios.delete(`http://localhost:8080/api/votes/reviewvotes/delete/${currentVoteId}`)
           } catch(error) {
-            console.error("Error deleting previous vote", error);
+            console.error("Error deleting previous Review vote", error);
           }
           setSubmittedVoteType("down");
           window.location.reload();
         } 
 
         else if (!voted) {
-          console.log("user has never voted");
+          console.log("User has never voted!");
           setSubmittedVoteType("down");
           window.location.reload();
         }
