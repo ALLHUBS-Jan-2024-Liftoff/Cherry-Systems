@@ -122,14 +122,13 @@ console.log(submittedVoteType);
             console.error("Error deleting previous Review vote", error);
           }
           setSubmittedVoteType("down");
-          window.location.reload();
         } 
 
         else if (!voted) {
           console.log("User has never voted!");
           setSubmittedVoteType("down");
-          window.location.reload();
         }
+        window.location.reload();
       }
   }
   

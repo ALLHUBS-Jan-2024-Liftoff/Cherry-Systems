@@ -71,14 +71,13 @@ export default function ThumbsUpDown({votes, data}) {
             console.error("Error deleting previous vote", error);
           }
           setSubmittedVoteType("up");
-          window.location.reload();
         } 
 
         else if (!voted) {
           console.log("user has never voted");
           setSubmittedVoteType("up");
-          window.location.reload();
         }
+        window.location.reload();
 
 // console.log(user.id);
 // console.log("voted:");
