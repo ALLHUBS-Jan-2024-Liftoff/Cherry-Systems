@@ -83,11 +83,11 @@ export default function OthersUserProfile() {
     <div>
         <Navbar/>
           {user === null ? (
-            <section className='review-card'>
+            <section className='review-card-no-user-profile-submit-location'>
                 <h1>Log in to see Profile page!</h1>
                 <br />
                 <p>
-                    <Link to={{ pathname: '/login', state: { user, isAuthenticated }}}>Go to Login</Link>
+                    <Link className="link-css-login-register" to={{ pathname: '/login', state: { user, isAuthenticated }}}>Go to Login</Link>
                 </p>
             </section>
           ) : (
