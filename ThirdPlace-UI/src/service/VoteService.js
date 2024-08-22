@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const fetchSubmissionVotes = async () => {
+
     try {
         const response = await axios
         .get('http://localhost:8080/api/votes/submissionvotes')
@@ -9,7 +10,6 @@ export const fetchSubmissionVotes = async () => {
         console.error(`Unable to fetch submission votes.`, error);
         throw error;
     }
-
 };
 
 export const fetchReviewVotes = async () => {
@@ -21,5 +21,4 @@ export const fetchReviewVotes = async () => {
         console.error(`Unable to fetch review votes.`, error);
         throw error;
     }
-
 };

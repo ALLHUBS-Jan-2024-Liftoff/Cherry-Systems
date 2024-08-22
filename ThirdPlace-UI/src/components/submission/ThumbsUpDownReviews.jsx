@@ -1,13 +1,15 @@
-import thumbsup from "../../assets/thumbs-up.png";
-import thumbsdown from "../../assets/thumbs-down.png";
-
+import thumbsupicon from "../../assets/thumbs-up.png";
+import thumbsdownicon from "../../assets/thumbs-down.png";
+import axios from 'axios';
+import { useAuth } from '../../context/AuthContext';
+import { useState } from "react";
 
 export default function ThumbsUpDown({votes, data}) {
 
     let voteData = votes.reviewVotes;
-    console.log(voteData);
+    // console.log(voteData);
     let reviewData = data;
-    console.log(reviewData);
+    // console.log(reviewData);
 
     let voteArrBySubmissionID = [];
 
@@ -29,14 +31,14 @@ export default function ThumbsUpDown({votes, data}) {
     }
   }
 
-  console.log(`Upvotes: ${upVotes} Downvotes: ${downVotes}`)
+  // console.log(`Upvotes: ${upVotes} Downvotes: ${downVotes}`)
   
   //TODO clicking on thumb icon sends request to database to add vote
     return(
         <>
-        <img src={thumbsup} className='thumb-icon'/>
+        <img src={thumbsupicon} className='thumb-icon'/>
         {upVotes}
-        <img src={thumbsdown} className='thumb-icon'/>
+        <img src={thumbsdownicon} className='thumb-icon'/>
         {downVotes}
         </>
     );
