@@ -209,7 +209,7 @@ export default function Submission() {
              ) : (
               <div className="submission-page-buttons-container">
               <center> 
-              <h6>Please <Link to='/login'>login</Link> or <Link to='/registration'>register</Link> to leave a review!</h6>   
+              <h6>Please <Link className="link-css-login-register" to='/login'>login</Link> or <Link className="link-css-login-register" to='/registration'>register</Link> to leave a review!</h6>   
               </center>
               </div>
               )}
