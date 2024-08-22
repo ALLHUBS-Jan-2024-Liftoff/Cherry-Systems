@@ -42,10 +42,6 @@ public class ReviewVote {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Review getReview() {
         return review;
     }

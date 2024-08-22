@@ -85,13 +85,13 @@ public class VoteController {
 
         Optional<Review> reviewById = reviewRepository.findById(reviewVoteDTO.getReviewId());
 
-        SubmissionVote newSubmissionVote = new SubmissionVote();
+        ReviewVote newReviewVote = new ReviewVote();
 
-        newSubmissionVote.setReviewId(reviewById.get());
-        newSubmissionVote.setUser(user);
-        newSubmissionVote.setVoteType(reviewVoteDTO.getVoteType());
+        newReviewVote.setReview(reviewById.get());
+        newReviewVote.setUser(user);
+        newReviewVote.setVoteType(reviewVoteDTO.getVoteType());
 
-        return reviewVoteRepository.save(new ReviewVote());
+        return reviewVoteRepository.save(newReviewVote);
     }
 
     // View all submission votes for a specific user
