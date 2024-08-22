@@ -18,15 +18,17 @@ export default function Login() {
     <>
       <Navbar />
       
-      <h1>Login</h1>
+      <div>
+        <h1 className='login-title'>Login</h1>
 
-      <div className="container review-card">
-        <LoginForm />
+        <div className="container login-sign-up-card">
+          <LoginForm />
+        </div>
+
+        <p className="gray-text">
+          <center>🍒 Powered by Cherry Systems </center>
+        </p>
       </div>
-
-      <p className="gray-text">
-        <center>🍒 Powered by Cherry Systems </center>
-      </p>
     </>
   )
 }

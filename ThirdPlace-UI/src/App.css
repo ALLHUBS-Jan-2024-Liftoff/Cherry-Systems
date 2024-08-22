@@ -14,6 +14,7 @@ h1 {
   color: #1D0736;
 }
 
+
 h4 {
   font-size: 1.3em;
   font-weight: 400;
@@ -25,9 +26,131 @@ li {
 }
 
 /* For Login hide password text */
-small {
+small.login {
   color: rgb(98, 98, 98);
-  margin: 0px 7px 0px 48px;
+  margin: 0px .50rem 0px 5.2rem;
+}
+
+small.register {
+  color: rgb(98, 98, 98);
+  margin: 0px .50rem 0px 4.8rem;
+}
+
+.login-title {
+  display: flex;
+  justify-content: center;
+  min-width: 9.2em;
+  /* max-width: 18.5em; */
+  font-size: 32px;
+  font-weight: 700;
+  color: #1D0736;
+  /* margin-left: -12rem; */
+}
+
+.register-title {
+  display: flex;
+  justify-content: center;
+  min-width: 9.5em;
+  /* max-width: 18.5em; */
+  font-size: 32px;
+  font-weight: 700;
+  color: #1D0736;
+  /* margin-left: -12rem; */
+}
+
+
+.login-title {
+  display: flex;
+  justify-content: center;
+  min-width: 9.2em;
+  /* max-width: 18.5em; */
+  font-size: 32px;
+  font-weight: 700;
+  color: #1D0736;
+  /* margin-left: -12rem; */
+}
+
+.register-title {
+  display: flex;
+  justify-content: center;
+  min-width: 9.5em;
+  /* max-width: 18.5em; */
+  font-size: 32px;
+  font-weight: 700;
+  color: #1D0736;
+  /* margin-left: -12rem; */
+}
+
+/* For Home page */
+.home-page-submission {
+  display: flex;
+  justify-content: space-around;
+  margin-top: -25px;
+}
+
+/* For Home page */
+.home-page-submission-left {
+  display: flex;
+}
+
+/* For Home page */
+.home-page-submission-right {
+  display: flex;
+}
+
+/* For Submit New Location page */
+.submit-location-title{
+  display: flex;
+  margin-bottom: -8px;
+}
+
+/* For Submit Location page */
+.review-card-home-page {
+  background-color: #F2F5F5;
+  padding: 42px 42px;
+  margin: 1.6rem 0rem;
+  border-radius: 32px;
+}
+
+/* For Submit Location page */
+.review-card-home-page-scroll {
+  height: 700px;
+  max-height: 555px;
+  overflow-y: auto;
+}
+
+/* For Submission page */
+.user-reviewText {
+  margin: 5px 5px;
+  padding: 10px;
+  border: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #d8d8d8;
+  background-color: white;
+  overflow-y: auto;
+}
+
+/* For submission page */
+.user-review-rating {
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: -5px;
+}
+
+/* For submission page */
+.user-review-username-title {
+  text-align:center;
+  margin: 1rem 10rem .25rem 10rem;
+  border: dashed;
+  border-width: .05px;
+  border-radius: 25px;
+  border-color: #aaaaaa;
+  background-color: white;
+}
+
+.text-input-field {
+  width: 447px;
 }
 
 /* For Home page */
@@ -125,17 +248,34 @@ small {
   color: #6B737D;
 }
 
-.gray-text-edit {
-  font-size: 10px;
+/* For Profile page */
+.gray-text-profile-page {
+  display: flex;
+  justify-content: center;
   color: #6B737D;
-  padding-top: 10px;
+  /* margin: 0rem 16rem; */
+  /* min-width: 725px;
+  max-width: 725px; */
 }
 
+/* For Submit New Location page */
+.gray-text-new-submission {
+  display: flex;
+  justify-content: center;
+  color: #6B737D;
+  min-width: 527px;
+  max-width: 527px;
+}
+
+/* For Submission page */
 .submission-details-container {
   margin: 1.6rem 0rem;
   display: flex;
+  min-width: 725px;
+  max-width: 725px;
 }
 
+/* For Submission page */
 .submission-details {
   margin-left: 24px;
   display: flex;
@@ -148,6 +288,7 @@ small {
   margin-top: 28px;
 }
 
+/* For Submission page */
 .submission-description {
   margin-top: 28px;
 }
@@ -167,7 +308,7 @@ small {
 .review-card-new-submission {
   background-color: #F2F5F5;
   padding: 42px 42px;
-  /* margin: 1.6rem; */
+  margin: 0rem;
   margin-top: 1.6rem;
   margin-bottom: 1.6rem;
   max-width: 527px;
@@ -192,6 +333,7 @@ small {
   margin-top: 1.6rem;
   margin-bottom: 1.6rem;
   min-width: 575px;
+  /* max-width: 725px; */
   border-radius: 32px;
   display: flex;
   flex-direction: column; 
@@ -212,6 +354,15 @@ small {
 /* For Submission page */
 .submitted-date-in-reviews {
   margin: 0rem 12rem;
+}
+
+/* For Submission page */
+.edit-delete-submission-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 725px;
+  max-width: 725px;
 }
 
 .review-header-container {
@@ -241,6 +392,17 @@ small {
   overflow-y: auto;
 }
 
+
+.container.login-sign-up-card {
+  display: block;
+  min-width: 18.5em;
+  max-width: 18.5em;
+  background-color: #F2F5F5;
+  padding: 42px 42px;
+  margin-bottom: 1.6rem;
+  margin-top: 1.6rem;
+  border-radius: 32px;
+}
 
 #logoimg {
   padding: .6rem;
@@ -291,12 +453,32 @@ button:active {
   background-color: #683287;
 }
 
-/* For Login and Registration pages */
-.submit-button {
+/* For Login page */
+.submit-button-login {
   color: white;
   font-weight: 600;
   background-color: #8648A3;
-  margin: .25rem;
+  margin: 1rem 3.6rem;
+  padding: 10px 24px;
+  border-radius: 100px;
+  border: none;
+  box-shadow: 0px 1px .25rem #6B737D;
+}
+/* For Login page */
+.submit-button-login:hover {
+  box-shadow: 1px 1px .25rem #6B737D;
+}
+/* For Login page */
+.submit-button-login:active {
+  background-color: #683287;
+}
+
+/* For Registration page */
+.submit-button-register {
+  color: white;
+  font-weight: 600;
+  background-color: #8648A3;
+  margin: 1rem 3.4rem;
   padding: 10px 24px;
   border-radius: 100px;
   border: none;
@@ -304,12 +486,12 @@ button:active {
 }
 
 /* For Login and Registration pages */
-.submit-button:hover {
+.submit-button-register:hover {
   box-shadow: 1px 1px .25rem #6B737D;
 }
 
 /* For Login and Registration pages */
-.submit-button:active {
+.submit-button-register:active {
   background-color: #683287;
 }
 

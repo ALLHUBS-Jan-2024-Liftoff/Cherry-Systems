@@ -52,8 +52,8 @@ export default function ProfileInfoCard({otherUser}) {
           <section className="img-cherry-score">
             <div>
               <ProfileImage otherUser={otherUser}/>
-              <p className="gray-text-edit">
-                <center>🍒 Powered by Cherry Systems</center>
+              <p className="gray-text-edit-profile-card">
+                <span>🍒 Powered by Cherry Systems</span>
               </p>
             </div>
             <div className="score-and-table">

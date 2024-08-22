@@ -170,12 +170,12 @@ export default function Submission() {
               <AdditionalUserReviews submissionId={submissionByName.id} votes={{reviewVotes}}/>
           </div>
 
-
-          <div>
+            
+          <div className='edit-delete-submission-buttons'>
             { (user !== null) && ((user.username) === (submissionByName.user.username)) ? (
-            <center>
-
-            <button
+            <span>
+            
+            <button 
               className="submit-button"
               value={submissionByName.id}
               onClick={handleUpdate}>
@@ -188,16 +188,18 @@ export default function Submission() {
               onClick={handleDelete}>
             Delete Submission
             </button>
-            </center>
+            </span>
             ) : (
               <>
               </>
             )}
-          </div>
           
-          <p className="gray-text">
-            <center>🍒 Powered by Cherry Systems </center>
-          </p>
+            <br></br>
+            
+            <p className="gray-text">
+              <span>🍒 Powered by Cherry Systems </span>
+            </p>
+          </div>
           </section>
         ) : (
           <section>
