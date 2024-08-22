@@ -89,7 +89,7 @@ const UpdateSubmissionForm = (props) => {
         } else {
             // if form has no empty fields and location isn't in database, edit submission, alert user submission updated, and reload SubmitLocation page
             if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
-                await editSubmission(data.props.id, submissionName, address, placeId, description, rating, submissionReview, categories);
+                await editSubmission(data.props.id, data.props.locationName, address, placeId, description, rating, submissionReview, categories);
                 alert("Submission successfully updated!");
                 setEditMode(false);
                 navigate('../'+submissionName, {replace: true});
@@ -106,7 +106,8 @@ const UpdateSubmissionForm = (props) => {
                 >
                     <div className="form-group">
                         <label>Location Name: <br></br>
-                            <input 
+                            <div className='current-locationAddress-update-submission'>{data.props.locationName}</div>
+                            {/* <input 
                             type="text" 
                             name="submissionName" 
                             // placeholder='Write location name...'
@@ -114,7 +115,7 @@ const UpdateSubmissionForm = (props) => {
                             onChange={(e) => setSubmissionName(e.target.value)}
                             className='text-input-field'
                             required
-                            />
+                            /> */}
                         </label>
                     </div>
                     <label>Current Address: <br/>

@@ -141,7 +141,11 @@ export default function Submission() {
             </div>
 
             <div className='favorite-button-container'>
+            { (user !== null) ? (
               <FavoriteButton submissionId={submissionByName.id} />
+            ) : (
+              <></>
+            )}
           </div>
 
 
@@ -159,15 +163,6 @@ export default function Submission() {
 
                 <p>{submissionByName.submissionReview}</p>
 
-          </div>
-
-          <div className='review-card-submission-page'>
-                <h3>Additional User Reviews</h3>
-                <p>Average Rating: <StarRating rating={submissionByName.averageRating} /></p>
-          </div>       
-
-          <div className='review-card-submission-page'>
-              <AdditionalUserReviews submissionId={submissionByName.id} />
           </div>
 
           <div>
@@ -203,11 +198,20 @@ export default function Submission() {
               </section>
               )}
               </section>
-              
             
-           
 
           </div>
+
+          <div className='review-card-submission-page'>
+                <h3>Additional User Reviews</h3>
+                <p>Average Rating: <StarRating rating={submissionByName.averageRating} /></p>
+          </div>       
+
+          <div className='review-card-submission-page'>
+              <AdditionalUserReviews submissionId={submissionByName.id} />
+          </div>
+
+          
 
           <div >
             { (user !== null) && ((user.username) === (submissionByName.user.username)) ? (
