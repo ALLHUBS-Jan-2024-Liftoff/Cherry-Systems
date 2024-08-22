@@ -6,6 +6,8 @@ import { useParams, Link } from 'react-router-dom';
 import { deleteSubmission, fetchSubmissions } from '../../service/SubmissionService';
 import { addNewReview } from '../../service/RateAndReviewService';
 import RateAndReview from '../submission/RateAndReview';
+import {fetchSubmissionVotes} from '../../service/VoteService';
+import { fetchReviewVotes } from '../../service/VoteService';
 
 import CategoryBadges from '../submission/CategoryBadges';
 import AdditionalUserReviews from '../submission/AdditionalUserReviews';
@@ -19,6 +21,7 @@ import FavoriteButton from '../submission/FavoriteButton';
 
 import { useAuth } from '../../context/AuthContext';
 // import { useNavigate } from 'react-router-dom';
+import ThumbsUpDown from '../submission/ThumbsUpDown';
 
 
 export default function Submission() {
@@ -46,7 +49,27 @@ export default function Submission() {
    //  pulls the submission by submission name  //
    const submissionByName = submissionList.find(({locationName}) => locationName === submissionName);
 
-  // star rating
+   // fetches submission vote data
+   const [submissionVotes, setSubmissionVotes] = useState([]);
+
+   useEffect(() => {
+    fetchSubmissionVotes().then(setSubmissionVotes).catch((e) => { console.error("Error fetching vote data", e)});
+  }, []);
+
+   // fetches review vote data
+   const [reviewVotes, setReviewVotes] = useState([]);
+
+   useEffect(() => {
+    fetchReviewVotes().then(setReviewVotes).catch((e) => { console.error("Error fetching vote data", e)});
+  }, []);
+
+  console.log(reviewVotes);
+
+  // console.log(submissionVotes[0].submission.id);
+
+  
+
+// console.log(submissionByName)  // star rating
   const renderStars = (rating) => {
     const stars = [];
 
@@ -129,14 +152,14 @@ export default function Submission() {
 
             <div className='submission-details'>
               <div><Address props={submissionByName.locationAddress} /></div>
-              {/* This is a placeholder for the Average Submission Rating. */}
-              {/* Stars in below div are hardcoded, need replacing with Austin's component */}
-              {/* <div className='submission-average-rating'><h4>Average Rating: </h4> 
-                <div>⭐⭐⭐⭐⭐ (4.8)</div>
-              </div> */}
+
+              <div className='submission-average-rating'>
+                 <h4 style={{marginRight: '13px'}}>Average Rating: </h4>
+                  <StarRating rating={submissionByName.averageRating} />
+                </div>
+
               <div className='submission-description'>Description: {submissionByName.description}</div>
             </div>
-          
 
             </div>
 
@@ -151,7 +174,6 @@ export default function Submission() {
 
             <div className='review-card-submission-page'>
 
-
               {/* <h4>First Review: </h4> */}
               <div className='review-header-container'>
                 <div className='review-header-user-location'>
@@ -163,7 +185,12 @@ export default function Submission() {
 
                 <p>{submissionByName.submissionReview}</p>
 
+                <div className='thumbs-vote-container'> 
+                  <ThumbsUpDown votes={{submissionVotes}} data={{submissionByName}}/>
+                </div>
+
           </div>
+
 
           <div>
 
@@ -202,22 +229,21 @@ export default function Submission() {
 
           </div>
 
-          <div className='review-card-submission-page'>
-                <h3>Additional User Reviews</h3>
-                <p>Average Rating: <StarRating rating={submissionByName.averageRating} /></p>
-          </div>       
+          <br></br>     
+
+
+          <h4>Additional User Reviews</h4>
 
           <div className='review-card-submission-page'>
-              <AdditionalUserReviews submissionId={submissionByName.id} />
+              <AdditionalUserReviews submissionId={submissionByName.id} votes={{reviewVotes}}/>
           </div>
 
-          
-
-          <div >
-            { (user !== null) && ((user.username) === (submissionByName.user.username)) ? (
             
-            <section className="submission-page-buttons-container">
-            <button
+          <div className='edit-delete-submission-buttons'>
+            { (user !== null) && ((user.username) === (submissionByName.user.username)) ? (
+            <span>
+            
+            <button 
               className="submit-button"
               value={submissionByName.id}
               onClick={handleUpdate}>
@@ -230,24 +256,23 @@ export default function Submission() {
               onClick={handleDelete}>
             Delete Submission
             </button>
-            </section>
             
+            </span>
             ) : (
               <>
               </>
             )}
+          
+            <br></br>
+            
+            <p className="gray-text">
+              <span>🍒 Powered by Cherry Systems </span>
+            </p>
           </div>
-
-
-          <br></br>
-
-          <p className="gray-text">
-            <center>🍒 Powered by Cherry Systems </center>
-          </p>
           </section>
         ) : (
           <section>
-            <h1>Edit Location Info</h1>
+            
             <UpdateSubmissionForm props={submissionByName}/>
           </section>
         )}

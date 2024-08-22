@@ -51,17 +51,19 @@ export default function SubmitLocation() {
             </section>
             ) : (
             <section>
-                <h1 className="submit-location-title">Submit A New Location</h1>
+                <div className="submit-location-title">
+                    <h1>Submit A New Location</h1>
+                </div>
 
                 <div className="container review-card-new-submission">
                     <SubmissionForm />
                 </div>
+                <p className="gray-text-new-submission">
+                    <span>🍒 Powered by Cherry Systems</span>
+                </p>
             </section>
             )}
 
-            <p className="gray-text">
-                <center>🍒 Powered by Cherry Systems</center>
-            </p>
         </>
     )
 }

@@ -183,7 +183,7 @@ const AddUserForm = () => {
                     </label>
                     <br />
                     <label>
-                        <small>Show Passwords</small>
+                        <small className='register'>Show Passwords</small>
                         <input
                             name="check"
                             type="checkbox"
@@ -195,7 +195,7 @@ const AddUserForm = () => {
                     </label>
                 </div>
 
-                <button type="submit" className="submit-button">
+                <button type="submit" className="submit-button-register">
                     Register
                 </button>
             </form>

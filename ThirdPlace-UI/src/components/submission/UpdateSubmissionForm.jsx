@@ -38,6 +38,7 @@ const UpdateSubmissionForm = (props) => {
     const [submissionReview, setSubmissionReview] = useState(data.props.submissionReview);
     const [selectedCategories, setSelectedCategories] = useState({});
     const [categories, setCategories] = useState([]);
+    const [toggle, setToggle] = useState("hidden");
     const navigate = useNavigate();
 
     const [submissionList, setSubmissionList] = useState([]);
@@ -62,6 +63,11 @@ const UpdateSubmissionForm = (props) => {
 
         setCategories(categoryIds);
     }, [selectedCategories]);
+
+    const handleShowAddressButton = (e) => {
+        e.preventDefault();
+        setToggle("visible");
+      };
 
     // on form submission // 
     const handleSubmit = async (e) => {
@@ -104,27 +110,30 @@ const UpdateSubmissionForm = (props) => {
                 <form
                 onSubmit={handleSubmit}
                 >
+                    <h1>Edit Location Info</h1>
                     <div className="form-group">
                         <label>Location Name: <br></br>
                             <div className='current-locationAddress-update-submission'>{data.props.locationName}</div>
-                            {/* <input 
-                            type="text" 
-                            name="submissionName" 
-                            // placeholder='Write location name...'
-                            value={submissionName} 
-                            onChange={(e) => setSubmissionName(e.target.value)}
-                            className='text-input-field'
-                            required
-                            /> */}
                         </label>
                     </div>
-                    <label>Current Address: <br/>
-                        <div className='current-locationAddress-update-submission'>
-                            {data.props.locationAddress}
-                        </div>
-                    </label>
+                    
                     <div className="form-group">
                         <AddressBar address={address} setAddress={setAddress} placeId={placeId} setPlaceId={setPlaceId} defaultAddressValue={defaultAddressValue}/>
+                        <button 
+                            className="badge rounded-pill"
+                            onClick={handleShowAddressButton}>
+                        Show Current Address
+                        </button>
+                        { (toggle === "hidden") ? (
+                            <>
+                            </>
+                        ) : (
+                            <label>Current Address: <br/>
+                            <div className='current-locationAddress-update-submission'>
+                            {data.props.locationAddress}
+                            </div>
+                            </label>
+                        )}
                     </div>
                     <div className="form-group">
                         <label>Description: <br></br>
