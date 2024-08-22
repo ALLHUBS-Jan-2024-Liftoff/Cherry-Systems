@@ -144,12 +144,12 @@ export default function UserProfile() {
                   )}
                 </div>
               </div>
+              <p className="gray-text-profile-page">
+                <span>🍒 Powered by Cherry Systems</span>
+              </p>
             </section>
           )}
 
-        <p className="gray-text">
-          <center>🍒 Powered by Cherry Systems</center>
-        </p>
     </div>
   )
 };
