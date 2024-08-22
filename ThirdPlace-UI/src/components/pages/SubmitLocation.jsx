@@ -50,7 +50,7 @@ export default function SubmitLocation() {
                 </p>
             </section>
             ) : (
-            <section>
+            <section  className="submit-location-div">
                 <div className="submit-location-title">
                     <h1>Submit A New Location</h1>
                 </div>

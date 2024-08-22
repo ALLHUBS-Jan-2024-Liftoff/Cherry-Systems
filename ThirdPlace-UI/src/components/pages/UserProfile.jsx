@@ -73,7 +73,7 @@ export default function UserProfile() {
               </p>
           </section>
         ) : (
-          <section>
+          <section className="search-and-list-padding">
             <h1>{user.username}'s Profile Page</h1>
 
             <ProfileInfoCard/>

@@ -147,7 +147,7 @@ export default function SearchAndList() {
   }
 
   return (
-    <div>
+    <div className="search-and-list-padding">
       <Navbar />
 
       <h1>View Locations</h1>

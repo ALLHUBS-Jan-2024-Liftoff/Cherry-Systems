@@ -106,6 +106,7 @@ const UpdateSubmissionForm = (props) => {
     return (
         <>
         {editMode ? (
+            <section className="update-submission-form-padding">
             <section className='review-card-new-submission'>
                 <form
                 onSubmit={handleSubmit}
@@ -163,6 +164,7 @@ const UpdateSubmissionForm = (props) => {
                     <button type="submit" className="submit-button">Submit Location</button>
 
                 </form>
+            </section>
             </section>
             ) : (
                 <Submission />

@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 10rem 13rem;
+  padding: 10rem 0rem;
 }
 
 body {
@@ -172,6 +172,10 @@ small.register {
 /* For Submit Location page */
 .submit-location-title{
   text-align: center;
+  padding: 0rem 5rem;
+}
+.submit-location-div{
+  padding: 0rem 22rem;
 }
 
 /* For Submit Location page */
@@ -300,7 +304,7 @@ small.register {
 .review-card {
   background-color: #F2F5F5;
   padding: 42px 42px;
-  margin: 1.6rem 0rem;
+  margin: 1.6rem 1rem;
   border-radius: 32px;
 }
 
@@ -314,6 +318,7 @@ small.register {
   max-width: 527px;
   min-width: 527px;
   border-radius: 32px;
+  
 }
 
 /* For submission page */
@@ -607,3 +612,10 @@ button:active {
   width: 725px;
 }
 
+.search-and-list-padding {
+  padding: 0px 250px;
+}
+
+.update-submission-form-padding {
+  padding: 0px 350px;
+}
