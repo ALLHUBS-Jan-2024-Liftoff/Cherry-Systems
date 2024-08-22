@@ -584,9 +584,26 @@ button:active {
   width: 50%;
 }
 
+.submission-page-buttons-container {
+  /* background-color: #ffffff; */
+  padding: 42px 42px;
+  margin: 1.6rem 0rem;
+  min-width: 725px;
+  max-width: 725px;
+  border-radius: 32px;
+}
 
 /* Favorite button */
-/* .favorite-button-container {
+/* Temp button changes, will need to be moved if descriptions are every long */
+.favorite-button-container {
+  display: flex;
+  justify-content: right;
+  width: 725px;
+  margin-top: -73px;
+}
 
-} */
+.favorite-button-container-empty {
+  height: 52px;
+  width: 725px;
+}
 
