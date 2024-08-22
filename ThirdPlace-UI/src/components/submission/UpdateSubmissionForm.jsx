@@ -38,6 +38,7 @@ const UpdateSubmissionForm = (props) => {
     const [submissionReview, setSubmissionReview] = useState(data.props.submissionReview);
     const [selectedCategories, setSelectedCategories] = useState({});
     const [categories, setCategories] = useState([]);
+    const [toggle, setToggle] = useState("hidden");
     const navigate = useNavigate();
 
     const [submissionList, setSubmissionList] = useState([]);
@@ -62,6 +63,11 @@ const UpdateSubmissionForm = (props) => {
 
         setCategories(categoryIds);
     }, [selectedCategories]);
+
+    const handleShowAddressButton = (e) => {
+        e.preventDefault();
+        setToggle("visible");
+      };
 
     // on form submission // 
     const handleSubmit = async (e) => {
@@ -89,7 +95,7 @@ const UpdateSubmissionForm = (props) => {
         } else {
             // if form has no empty fields and location isn't in database, edit submission, alert user submission updated, and reload SubmitLocation page
             if (submissionName !== "" && address !== "" && description !== "" && validLocation(submissionName)) {
-                await editSubmission(data.props.id, submissionName, address, placeId, description, rating, submissionReview, categories);
+                await editSubmission(data.props.id, data.props.locationName, address, placeId, description, rating, submissionReview, categories);
                 alert("Submission successfully updated!");
                 setEditMode(false);
                 navigate('../'+submissionName, {replace: true});
@@ -104,26 +110,30 @@ const UpdateSubmissionForm = (props) => {
                 <form
                 onSubmit={handleSubmit}
                 >
+                    <h1>Edit Location Info</h1>
                     <div className="form-group">
                         <label>Location Name: <br></br>
-                            <input 
-                            type="text" 
-                            name="submissionName" 
-                            // placeholder='Write location name...'
-                            value={submissionName} 
-                            onChange={(e) => setSubmissionName(e.target.value)}
-                            className='text-input-field'
-                            required
-                            />
+                            <div className='current-locationAddress-update-submission'>{data.props.locationName}</div>
                         </label>
                     </div>
-                    <label>Current Address: <br/>
-                        <div className='current-locationAddress-update-submission'>
-                            {data.props.locationAddress}
-                        </div>
-                    </label>
+                    
                     <div className="form-group">
                         <AddressBar address={address} setAddress={setAddress} placeId={placeId} setPlaceId={setPlaceId} defaultAddressValue={defaultAddressValue}/>
+                        <button 
+                            className="badge rounded-pill"
+                            onClick={handleShowAddressButton}>
+                        Show Current Address
+                        </button>
+                        { (toggle === "hidden") ? (
+                            <>
+                            </>
+                        ) : (
+                            <label>Current Address: <br/>
+                            <div className='current-locationAddress-update-submission'>
+                            {data.props.locationAddress}
+                            </div>
+                            </label>
+                        )}
                     </div>
                     <div className="form-group">
                         <label>Description: <br></br>

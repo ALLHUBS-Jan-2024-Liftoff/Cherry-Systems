@@ -83,7 +83,7 @@ const LoginForm = () => {
                     </label>
                     <br />
                     <label>
-                        <small>Show Password</small>
+                        <small className='login'>Show Password</small>
                         <input
                             name="check"
                             type="checkbox"
@@ -95,9 +95,7 @@ const LoginForm = () => {
                     </label>
                 </div>
 
-                <br />
-
-                <button type="submit"  className="submit-button">
+                <button type="submit"  className="submit-button-login">
                     Log in
                 </button>
             </form>

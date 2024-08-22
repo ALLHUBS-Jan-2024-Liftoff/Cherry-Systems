@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../navigation/Navbar';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 // import { fetchSubmissions } from '../../service/SubmissionService';
 import { deleteSubmission, fetchSubmissions } from '../../service/SubmissionService';
+import { addNewReview } from '../../service/RateAndReviewService';
+import RateAndReview from '../submission/RateAndReview';
 import {fetchSubmissionVotes} from '../../service/VoteService';
 import { fetchReviewVotes } from '../../service/VoteService';
 
@@ -28,6 +30,10 @@ export default function Submission() {
   const { user } = useAuth();
   const [submissionList, setSubmissionList] = useState([]);
   const [editMode, setEditMode] = useState(false);
+  const [rating, setRating] = useState(false)
+  const [submissionReview, setSubmissionReview] = useState("");
+  const [toggle, setToggle] = useState("hidden");
+ 
   // const navigate = useNavigate();
 
 
@@ -73,6 +79,8 @@ export default function Submission() {
       return stars;
   };
 
+  
+
 
   // users can edit their submissions by 'edit submission button'
   const handleUpdate = async (e) => {
@@ -110,6 +118,22 @@ export default function Submission() {
   };
 
 
+
+
+   
+  const handleAddAReviewButton = (e) => {
+    setToggle("visible");
+  };
+
+
+  // users can add a rating and review to existing locations //
+  const handleSubmitNewReview = async (e) => {
+    e.preventDefault(); 
+    addNewReview(submissionByName.id, rating, submissionReview);
+    window.location.reload();
+  }
+
+ 
   //  renders page when data loads  //
 
   if (submissionList.length !== 0) {
@@ -140,12 +164,15 @@ export default function Submission() {
             </div>
 
             <div className='favorite-button-container'>
+            { (user !== null) ? (
               <FavoriteButton submissionId={submissionByName.id} />
+            ) : (
+              <div className='favorite-button-container-empty'></div>
+            )}
           </div>
 
 
             <div className='review-card-submission-page'>
-
 
               {/* <h4>First Review: </h4> */}
               <div className='review-header-container'>
@@ -164,18 +191,59 @@ export default function Submission() {
 
           </div>
 
+
+          <div>
+
+            { (user !== null) ? (
+                        
+            <button 
+              className="submit-button"
+              value={submissionByName.id}
+              onClick={handleAddAReviewButton}>
+            Add A Review
+            </button>
+             ) : (
+              <div className="submission-page-buttons-container">
+              <center> 
+              <h6>Please <Link to='/login'>login</Link> or <Link to='/registration'>register</Link> to leave a review!</h6>   
+              </center>
+              </div>
+              )}
+
+              <section>
+              { (toggle === "hidden") ? (
+                <>
+                </>
+              ) : (
+              <section id='addNewReview' className='review-card-submission-page'>
+              <form   onSubmit={handleSubmitNewReview}>
+              <h3> Add A New Review </h3>
+              <br></br>
+              <RateAndReview submissionId={submissionByName.id} rating={rating} setRating={setRating} submissionReview={submissionReview} setSubmissionReview={setSubmissionReview}/>
+              <button type="submit" className="submit-button">Submit New Review</button>
+              </form>
+              </section>
+              )}
+              </section>
+            
+
+          </div>
+
+          <br></br>     
+
+
           <h4>Additional User Reviews</h4>
 
           <div className='review-card-submission-page'>
               <AdditionalUserReviews submissionId={submissionByName.id} votes={{reviewVotes}}/>
           </div>
 
-
-          <div>
+            
+          <div className='edit-delete-submission-buttons'>
             { (user !== null) && ((user.username) === (submissionByName.user.username)) ? (
-            <center>
-
-            <button
+            <span>
+            
+            <button 
               className="submit-button"
               value={submissionByName.id}
               onClick={handleUpdate}>
@@ -188,20 +256,23 @@ export default function Submission() {
               onClick={handleDelete}>
             Delete Submission
             </button>
-            </center>
+            
+            </span>
             ) : (
               <>
               </>
             )}
-          </div>
           
-          <p className="gray-text">
-            <center>🍒 Powered by Cherry Systems </center>
-          </p>
+            <br></br>
+            
+            <p className="gray-text">
+              <span>🍒 Powered by Cherry Systems </span>
+            </p>
+          </div>
           </section>
         ) : (
           <section>
-            <h1>Edit Location Info</h1>
+            
             <UpdateSubmissionForm props={submissionByName}/>
           </section>
         )}
